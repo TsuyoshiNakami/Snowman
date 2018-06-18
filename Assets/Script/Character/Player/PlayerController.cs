@@ -24,7 +24,6 @@ public class PlayerController : BaseCharacterController
 
     public float slidePower = 1;
     public GameObject snowParticle;
-    public PLYSTS state;
     public THROWTYPE throwType = THROWTYPE.Parabola2Way;
     public bool canbeSnowBall = false;
     public bool canThrowSnowBall = true;
@@ -53,12 +52,10 @@ public class PlayerController : BaseCharacterController
     ThrowOrbitController orbits;
     //鼻照準
     Vector3 oldThrowEuler = Vector3.zero;
-    bool readyToThrow = false;
     GameObject spriteObj;
     Vector2 throwDirection = Vector2.zero;
 
     //内部パラメータ
-    bool isCharging = false;
     public float throwPower = 0;
     bool breakEnabled = true;
     float groundFriction = 0.0f;
@@ -67,7 +64,14 @@ public class PlayerController : BaseCharacterController
     float invincibleStartTime;
     float invincibleTime;
     bool throwReservation = false;
-    bool preThrowStart = false;
+    bool IsPreThrow {
+        get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
+    }
+
+    bool IsThrow
+    {
+        get { return IsCurrentAnimation("Base Layer.Player_Throw"); }
+    }
     public GameObject throwObj;
     [SerializeField] float throwObjSpeed = 1;
     //効果音
@@ -127,7 +131,6 @@ public class PlayerController : BaseCharacterController
         //パラメータ初期化
         speed = initSpeed;
         setHP(initHpMax, initHpMax);
-        state = PLYSTS.NORMAL;
         anime.SetTrigger("EndInvincible");
 
         targetTalkTo = transform.Find("TargetTalkTo");
@@ -135,14 +138,6 @@ public class PlayerController : BaseCharacterController
         throwPoint = transform.Find("PlayerSprite/ThrowPoint");
     }
 
-
-    public void ReadyToThrow()
-    {
-        readyToThrow = true;
-    }
-
-
-    
     private int GetCurrentAnimation()
     {
         AnimatorStateInfo asi = anime.GetCurrentAnimatorStateInfo(0);
@@ -159,17 +154,26 @@ public class PlayerController : BaseCharacterController
 
     protected override void FixedUpdateCharacter()
     {
-        // #Progress
-        //defaultThrowObj.GetComponent<Rigidbody2D>().gravityScale = throwObjSpeed;
-        throwPower = maxThrowPower * throwObjSpeed;// *throwObjSpeed;
+        throwPower = maxThrowPower;
 
-        ChargeManage();
-        if(preThrowStart)
+
+        if (IsPreThrow)
         {
+            soundManager.PlaySEIfNotPlaying("ThrowChargeMax");
+            orbits.SetOrbitsAppearance(Color.blue, 1.3f);
+            orbits.SetOrbitsActive(true);
             ShowOrbit();
             ThrowRotate();
-        }
 
+            if (!Input.GetButton(KeyConfig.Fire1))
+            {
+                Throw();
+            }
+        }
+        else
+        {
+            orbits.SetOrbitsActive(false);
+        }
         //無敵時間かくにん 
         if (IsInvincible)
         {
@@ -180,10 +184,9 @@ public class PlayerController : BaseCharacterController
             }
         }
 
-
-        switch (state)
+        
+        switch (GetCurrentAnimation())
         {   //接地判定ラインの設定
-            case PLYSTS.NORMAL:
             default:
                 centerY = 0.8f;
                 break;
@@ -196,12 +199,6 @@ public class PlayerController : BaseCharacterController
             {
 
 
-                switch (state)
-                {
-                    case PLYSTS.NORMAL:
-
-                        break;
-                }
                 if(!IsCurrentAnimation("Base Layer.Player_Idle") &&
                     !IsCurrentAnimation("Base Layer.Player_PreThrow") &&
                     !IsCurrentAnimation("Base Layer.Player_Throw"))
@@ -222,7 +219,7 @@ public class PlayerController : BaseCharacterController
                 canJumpUp = true;
             }
         }
-        //	Debug.Log ("　設置：" + grounded + "ジャンプ："+ jumped + "　摩擦：" + breakEnabled + "　アーマー：" + IsInvincible);
+
         //　ジャンプ中の横移動減速
         if (jumped && !grounded)
         {
@@ -241,42 +238,9 @@ public class PlayerController : BaseCharacterController
         transform.localScale = new Vector3(
             basScaleX * dir, transform.localScale.y, transform.localScale.z);
 
-
-        //	CameraTranslate ();
-
     }
 
 
-    private void ChargeManage()
-    {
-        //チャージ
-        if (isCharging)
-        {
-            // #Progress
-            throwPower = maxThrowPower;
-        //    throwPower += maxThrowPower * (1 / chargeTime) * Time.fixedDeltaTime * throwObjSpeed;
-        //    throwPower = Mathf.Clamp(throwPower, 0, maxThrowPower * throwObjSpeed);
-            if (throwPower == maxThrowPower)
-            {
-                soundManager.StopSE("ThrowCharge");
-                soundManager.PlaySEIfNotPlaying("ThrowChargeMax");
-                orbits.SetOrbitsAppearance(Color.blue, 1.3f);
-            }
-            orbits.SetOrbitsActive(true);
-
-            if (readyToThrow)
-            {
-
-            }
-        }
-        else
-        {
-            orbits.SetOrbitsAppearance(Color.white, 1f);
-            orbits.SetOrbitsActive(false);
-            orbits.ResetAnime();
-            // throwPower = 0;
-        }
-    }
     // 投げる方向に鼻が向く
     private void ThrowRotate()
     {
@@ -407,17 +371,14 @@ public class PlayerController : BaseCharacterController
     public override void Move(float n)
     {
 
-        if (state == PLYSTS.THROW)
+        if (IsPreThrow || IsThrow)
         {
             if (canWalkWhileThrowing && !pushedRightB)
             {
                 n /= 2;
             }
         }
-        if (IsCurrentAnimation("Base Layer.Player_Throw"))
-        {
-        //    n /= 5;
-        }
+
             if (pushedRightB)
         {
             if (n != 0)
@@ -559,17 +520,20 @@ public class PlayerController : BaseCharacterController
 
     public void PreThrow()
     {
-        anime.SetTrigger("PreThrow");
-        if (state == PLYSTS.THROW)
+
+        if(IsThrow)
+        {
+            Debug.Log("Reservation");
+            throwReservation = true;
+        }
+        if (IsPreThrow || IsThrow)
         {
             return;
         }
-
-        state = PLYSTS.THROW;
+        anime.SetTrigger("PreThrow");
         anime.ResetTrigger("Throw");
 
         ShowOrbit();
-        preThrowStart = true;
     }
 
     public void SetThrowObj()
@@ -584,24 +548,17 @@ public class PlayerController : BaseCharacterController
 
     public void ThrowChargeSE()
     {
-        soundManager.PlaySE("ThrowCharge");
+     //   soundManager.PlaySE("ThrowCharge");
     }
     public void Throw()
     {
         anime.ResetTrigger("PreThrow");
-        if (IsCurrentAnimation("Base Layer.Player_PreThrow"))
+        if (IsPreThrow)
         {
             anime.SetTrigger("Throw");
         }
     }
-    public void StartCharge()
-    {
-        isCharging = true;
-    }
-    public void EndCharge()
-    {
-        isCharging = false;
-    }
+
     public void ThrowEnd()
     {
         Transform point = transform.Find("PlayerSprite/ThrowPoint");
@@ -615,28 +572,11 @@ public class PlayerController : BaseCharacterController
         soundManager.PlaySEOneShot("ThrowSnowBall");
         soundManager.StopSE("ThrowCharge");
         soundManager.StopSE("ThrowChargeMax");
-        readyToThrow = false;
-        preThrowStart = false;
-        //Vector2 targetPos = SearchTarget();
-        //   tempDirection = orbits.ShowOrbit(ThrowPoint, SearchTarget(), throwPower, dir);
 
-        //if (targetPos == Vector2.zero)
-        //{
-        //    tempDirection = StickDirection * throwPower;
-        //}
-
-        //if (tempDirection == Vector2.zero)
-        //{
-        //    tempDirection = DefaultThrowDirection * throwPower;
-        //}
 
         ShowOrbit();
-        // #Progress
-        //if (chargeTime == 0)
-        //{
-        //    throwPower = maxThrowPower;
-        //}
-        throwPower = maxThrowPower * throwObjSpeed;
+
+            throwPower = maxThrowPower;
         if (throwObj == null)
         {
             throwObj = Instantiate(defaultThrowObj, ThrowPoint, transform.rotation);
@@ -720,11 +660,10 @@ public class PlayerController : BaseCharacterController
     public void ThrowAnimeEnd()
     {
         spriteObj.transform.eulerAngles = Vector3.zero;
-        state = PLYSTS.NORMAL;
         if(throwReservation)
         {
+            PreThrow();
             throwReservation = false;
-            isCharging = true;
         }
     }
 
@@ -770,7 +709,6 @@ public class PlayerController : BaseCharacterController
     public void CoinGet()
     {
         coin++;
-        ;
     }
     public void CoinGet(int num)
     {
