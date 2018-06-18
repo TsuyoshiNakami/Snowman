@@ -19,7 +19,7 @@ public class ThrowOrbitController : MonoBehaviour {
     [SerializeField] SnowBallNormal snowBall;
     GameObject target, point;
     //軌道を描くためのサンプル
-    GameObject throwSample;
+
 
     bool hitsEarlier = false;
     //ターゲットチェック
@@ -60,8 +60,7 @@ public class ThrowOrbitController : MonoBehaviour {
             targetOrbits[i] = Instantiate(orbitObj);
             targetOrbits[i].transform.parent = throwOrbits.transform;
         }
-
-        throwSample = Instantiate(new GameObject(), transform.position, transform.rotation);
+        
     }
 
     public void SetOrbitsAppearance(Color color, float size)
