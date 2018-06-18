@@ -1326,7 +1326,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 247986494}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.721043, y: -5.7462807, z: 0.22862764}
+  m_LocalPosition: {x: -1.49, y: -13.22, z: 0.22862764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1379553723}
@@ -4745,7 +4745,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1158373211}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.251042, y: -11.376281, z: 0.22862764}
+  m_LocalPosition: {x: 14.251042, y: -13.56, z: 0.22862764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1720417543}
@@ -5553,7 +5553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closeTime: 3
   openTime: 6
-  speed: 3
+  speed: 0
   checkPoints:
   - {fileID: 225265560}
   - {fileID: 743640631}
@@ -7109,7 +7109,6 @@ MonoBehaviour:
   isStarted: 1
   slidePower: 1
   snowParticle: {fileID: 0}
-  state: 0
   throwType: 1
   canbeSnowBall: 0
   canThrowSnowBall: 1
@@ -7477,7 +7476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closeTime: 3
   openTime: 6
-  speed: 3
+  speed: 0
   checkPoints:
   - {fileID: 1931350964}
   - {fileID: 1911563577}
@@ -8393,7 +8392,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2007994653}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.611042, y: -11.376281, z: 0.22862764}
+  m_LocalPosition: {x: 26.611042, y: -14.11, z: 0.22862764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1125293386}
