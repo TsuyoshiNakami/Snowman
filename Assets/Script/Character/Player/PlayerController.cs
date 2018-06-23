@@ -42,6 +42,7 @@ public class PlayerController : BaseCharacterController
     public GameObject defaultThrowObj;   //投げた雪玉
     [System.NonSerialized] public float groundY = 0.0f;
     [System.NonSerialized] public static int coin = 5000;
+    [SerializeField] Vector2 cameraOffset = Vector2.zero;
     public MessageWindowController msgWindow;
     public static int CheckPointNumber = 0;
     public static bool enterDoor = false;
@@ -188,7 +189,7 @@ public class PlayerController : BaseCharacterController
         switch (GetCurrentAnimation())
         {   //接地判定ラインの設定
             default:
-                centerY = 0.8f;
+                centerY = cameraOffset.y;
                 break;
         }
         //　着地チェック
