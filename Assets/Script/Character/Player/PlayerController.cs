@@ -157,7 +157,6 @@ public class PlayerController : BaseCharacterController
     {
         throwPower = maxThrowPower;
 
-
         if (IsPreThrow)
         {
             soundManager.PlaySEIfNotPlaying("ThrowChargeMax");
@@ -418,10 +417,12 @@ public class PlayerController : BaseCharacterController
     //ジャンプ
     public void JumpButtonDown()
     {
-        if (rbody2D.velocity.y > 0) return;
+        //if (rbody2D.velocity.y > 0) return;
 
         if (grounded)
         {
+
+            rbody2D.velocity = new Vector2(rbody2D.velocity.x, 0);
                 rbody2D.velocity += Vector2.up * jumpPower;
                 jumpStartTime = Time.fixedTime;
                 jumped = true;
@@ -448,7 +449,7 @@ public class PlayerController : BaseCharacterController
         {
             if (canJumpUp)
             {
-                Debug.Log("JumpUp");
+
                 if (jumpTime > 0.2f / 5 * (jumpCount + 1 ))
                 {
                     rbody2D.velocity += Vector2.up * jumpPowers[jumpCount];
