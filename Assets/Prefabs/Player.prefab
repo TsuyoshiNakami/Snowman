@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4481089257798376}
   m_Layer: 11
-  m_Name: TargetTalkTo
+  m_Name: FrontPoint
   m_TagString: Untagged
   m_Icon: {fileID: 4660412927644837186, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -518,16 +518,18 @@ MonoBehaviour:
   chargeTime: 0
   NumberOfCheckPoint: 10
   maxThrowPower: 21
-  jumpPower: 12.29
-  initHpMax: 4
+  jumpPower: 22
+  initHpMax: 4.31
   initSpeed: 5.6
-  jumpTimeMax: 7.69
+  jumpTimeMax: 0.2
   defaultThrowObj: {fileID: 1788969347490714, guid: 0fd3d6fed763c1b42bd1c25137c8b5d6,
     type: 2}
+  cameraOffset: {x: 0, y: 0}
   msgWindow: {fileID: 0}
   damageEffect: {fileID: 0}
   throwPoint: {fileID: 0}
-  throwPower: 0
+  throwPower: 184.4
+  jumpUpPower: 105
   throwObj: {fileID: 0}
   throwObjSpeed: 2
 --- !u!114 &114873731930886694

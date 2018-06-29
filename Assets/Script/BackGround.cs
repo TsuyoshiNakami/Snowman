@@ -15,7 +15,7 @@ public class BackGround : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		sprite = GetComponent < SpriteRenderer> ();
-		trans = PlayerController.GetTransform ();
+
 	}
 	
 	// Update is called once per frame

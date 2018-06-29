@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
-	PlayerController plyCtrl;
+    PlayerController plyCtrl;
 	// Use this for initialization
 	void Awake () {
 		plyCtrl = GetComponent<PlayerController> ();
@@ -42,11 +42,11 @@ public class Player : MonoBehaviour {
 		plyCtrl.Move (joyMv);
 
 		if (Input.GetButtonDown (KeyConfig.Jump)) {
-			plyCtrl.Jump ();
+			plyCtrl.JumpButtonDown ();
 		} else if(Input.GetButton (KeyConfig.Jump)) {
-			plyCtrl.JumpUp ();
+			plyCtrl.JumpButton ();
 		}else if(Input.GetButtonUp (KeyConfig.Jump)){
-			plyCtrl.endJumpUp ();
+			plyCtrl.EndJumpUp ();
 		}
         if(Input.GetButtonDown("RB"))
         {

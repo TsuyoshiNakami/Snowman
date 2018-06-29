@@ -12,6 +12,7 @@ TagManager:
   - OtherCharacter
   - MsgCollider
   - BackCharacters
+  - Throwable
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - CameraTrigger
   - PhysicsETC
   - BackCharacters
-  - ThrowItem
+  - Throwable
   - 
   - 
   - 

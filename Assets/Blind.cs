@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Blind : MonoBehaviour {
 	Image image;
 	bool isRemoving = false;
-	PlayerController pc;
+    PlayerController pc;
 	float removeSpeed = 0.005f;
 	// Use this for initialization
 	void Start () {

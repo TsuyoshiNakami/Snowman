@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BombEnemyDrop: MonoBehaviour {
 
-	PlayerController pc;
+    PlayerController pc;
 	void Awake() {
 
 	}

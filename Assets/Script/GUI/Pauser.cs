@@ -23,11 +23,9 @@ public class Pauser : MonoBehaviour{// SingletonMonoBehaviourFast<Pauser> { //  
 
 	string prevSceneName = "Stage1";
 
-	int flag = 0;
 	// 初期化
 	void Start() {
-
-		flag = GameManager.PauserFlag;
+       
 		// ポーズ対象に追加する
 		targets.Add(this);
 		//DontDestroyOnLoad (gameObject);
@@ -41,12 +39,6 @@ public class Pauser : MonoBehaviour{// SingletonMonoBehaviourFast<Pauser> { //  
 	}
 
 	void Update() {
-		if(flag != GameManager.PauserFlag) {
-
-			flag = GameManager.PauserFlag;
-			targets.Remove(this);
-			//GameManager.LoadScene (prevSceneName);
-		}
 
 	}
 	// ポーズされたとき

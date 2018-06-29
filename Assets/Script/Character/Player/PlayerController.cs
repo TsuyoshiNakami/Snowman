@@ -38,7 +38,7 @@ public class PlayerController : BaseCharacterController
     public float jumpPower = 10f;
     public float initHpMax = 4.0f;
     [Range(0.1f, 100.0f)] public float initSpeed = 12.0f;
-    public float jumpTimeMax = 30f;
+    public float jumpTimeMax = 0.4f;
     public GameObject defaultThrowObj;   //投げた雪玉
     [System.NonSerialized] public float groundY = 0.0f;
     [System.NonSerialized] public static int coin = 5000;
@@ -57,10 +57,11 @@ public class PlayerController : BaseCharacterController
     Vector2 throwDirection = Vector2.zero;
 
     //内部パラメータ
+    Transform frontPoint;
     public float throwPower = 0;
     bool breakEnabled = true;
     float groundFriction = 0.0f;
-    float jumpTime = 0;
+    [SerializeField]float jumpUpPower = 0;
     bool canJumpUp = true;
     float invincibleStartTime;
     float invincibleTime;
@@ -75,6 +76,7 @@ public class PlayerController : BaseCharacterController
     }
     public GameObject throwObj;
     [SerializeField] float throwObjSpeed = 1;
+
     //効果音
     SoundManager soundManager;
     [System.NonSerialized] public Transform targetTalkTo;
@@ -102,10 +104,7 @@ public class PlayerController : BaseCharacterController
     {
         return GameObject.FindGameObjectWithTag("Player");
     }
-    public static Transform GetTransform()
-    {
-        return GameObject.FindGameObjectWithTag("Player").transform;
-    }
+
     public static PlayerController GetController()
     {
         return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -137,6 +136,7 @@ public class PlayerController : BaseCharacterController
         targetTalkTo = transform.Find("TargetTalkTo");
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         throwPoint = transform.Find("PlayerSprite/ThrowPoint");
+        frontPoint = transform.Find("FrontPoint");
     }
 
     private int GetCurrentAnimation()
@@ -163,6 +163,7 @@ public class PlayerController : BaseCharacterController
             soundManager.PlaySEIfNotPlaying("ThrowChargeMax");
             orbits.SetOrbitsAppearance(Color.blue, 1.3f);
             orbits.SetOrbitsActive(true);
+
             ShowOrbit();
             ThrowRotate();
 
@@ -208,16 +209,6 @@ public class PlayerController : BaseCharacterController
                 }
                 jumped = false;
 
-            }
-        }
-        if (grounded)
-        {
-            //前のジャンプからジャンプボタン押しっぱなしならジャンプ発動しない
-            if (!Input.GetButton("Jump"))
-            {
-                jumpTime = 0;
-
-                canJumpUp = true;
             }
         }
 
@@ -425,60 +416,55 @@ public class PlayerController : BaseCharacterController
     }
 
     //ジャンプ
-    public void Jump()
+    public void JumpButtonDown()
     {
+        oldVelo = false;
+        if (rbody2D.velocity.y > 0) return;
 
-
-        if (canJumpUp)
+        if (grounded)
         {
-            if (jumpTime == 0)
-            {
                 rbody2D.velocity += Vector2.up * jumpPower;
                 jumpStartTime = Time.fixedTime;
                 jumped = true;
-                if (!IsCurrentAnimation("Base Layer.Player_PreThrow") &&
-                    !IsCurrentAnimation("Base Layer.Player_Throw"))
+                 canJumpUp = true;
+                if (!IsThrow && !IsPreThrow)
                 {
                     anime.SetTrigger("Jump");
                 }
-            }
-            rbody2D.velocity += Vector2.up * (jumpTime * jumpTime / 10);
+            
+            //rbody2D.velocity += Vector2.up * (jumpUpPower * (Time.fixedTime - jumpStartTime) / jumpTimeMax);
         }
-        jumpTime++;
-        if (jumpTime >= jumpTimeMax)
-        {
-            endJumpUp();
 
-        }
 
 
     }
-    public void JumpUp()
+    bool oldVelo = false;
+    public void JumpButton()
     {
+        float jumpTime = Time.fixedTime - jumpStartTime;
+
         if (jumped)
         {
             if (canJumpUp)
             {
-                if (jumpTime == 0)
-                {
-                    rbody2D.velocity += Vector2.up * jumpPower;
-                    jumpStartTime = Time.fixedTime;
-                    jumped = true;
-                   // anime.SetTrigger("Jump");
-                }
-                rbody2D.velocity += Vector2.up * (jumpTime * jumpTime / 10);
+                Debug.Log("JumpUp");
+                rbody2D.velocity += Vector2.up * (jumpUpPower * Time.deltaTime - jumpTime * jumpTime);
             }
-            jumpTime++;
+
             if (jumpTime >= jumpTimeMax)
             {
-                endJumpUp();
-
+                if (!oldVelo)
+                {
+                    oldVelo = true;
+                    Debug.Log("Max Velocity y : " + rbody2D.velocity.y);
+                }
+                EndJumpUp();
             }
 
 
         }
     }
-    public void endJumpUp()
+    public void EndJumpUp()
     {
         canJumpUp = false;
     }
@@ -513,7 +499,6 @@ public class PlayerController : BaseCharacterController
 
     public void GameOver()
     {
-
         anime.SetTrigger("EndInvincible");
         anime.SetTrigger("Dead");
         Invoke("Resurrection", resurrectionTime);
@@ -521,30 +506,61 @@ public class PlayerController : BaseCharacterController
 
     public void PreThrow()
     {
-
         if(IsThrow)
         {
             Debug.Log("Reservation");
             throwReservation = true;
         }
+
         if (IsPreThrow || IsThrow)
         {
             return;
         }
+
         anime.SetTrigger("PreThrow");
         anime.ResetTrigger("Throw");
+        GameObject throwObj = FindThrowObj();
+
+        if (throwObj != null)
+        {
+            SetThrowObj(throwObj);
+            orbits.SetGravity(throwObj.GetComponent<Rigidbody2D>().gravityScale);
+        }
+        else
+        {
+            SetThrowObj();
+            orbits.SetGravity(defaultThrowObj.GetComponent<Rigidbody2D>().gravityScale);
+        }
 
         ShowOrbit();
     }
 
+    GameObject FindThrowObj()
+    {
+        RaycastHit2D[] hit2D = new RaycastHit2D[3];
+        int num = Physics2D.BoxCastNonAlloc(throwPoint.transform.position, new Vector2(2f, 2f), 0, Vector2.right * dir, hit2D, 0.1f);
+
+        foreach(RaycastHit2D hit in hit2D)
+        {
+            if (hit.collider == null) continue;
+
+            if(hit.collider.gameObject.CompareTag("Throwable")) {
+                return hit.collider.gameObject;
+            }
+        }
+        return null;
+    }
     public void SetThrowObj()
     {
         throwObj = defaultThrowObj;
     }
 
-    public void SetThrowObj(GameObject gameObject)
+    public void SetThrowObj(GameObject throwObj)
     {
-        throwObj = gameObject;
+        this.throwObj = throwObj;
+        Throwable throwable = this.throwObj.GetComponent<Throwable>();
+        throwable.IgnoreCollision(gameObject, true);
+        throwable.OnHeld(throwPoint.gameObject);
     }
 
     public void ThrowChargeSE()
@@ -575,20 +591,19 @@ public class PlayerController : BaseCharacterController
         soundManager.StopSE("ThrowChargeMax");
 
 
-        ShowOrbit();
+        throwPower = maxThrowPower;
 
-            throwPower = maxThrowPower;
-        if (throwObj == null)
+        if (throwObj == defaultThrowObj)
         {
             throwObj = Instantiate(defaultThrowObj, ThrowPoint, transform.rotation);
             throwObj.transform.position = throwPoint.position;
-            throwObj.GetComponent<Throwable>().SetMovement(transform.position, throwVec, throwPower, dir);
-
+            throwObj.GetComponent<Rigidbody2D>().gravityScale = defaultThrowObj.GetComponent<Rigidbody2D>().gravityScale;
+            throwObj.GetComponent<Throwable>().OnThrew(transform.position, throwVec, throwPower, dir);
         }
         else
         {
             throwObj.transform.position = throwPoint.position;
-            throwObj.GetComponent<Throwable>().SetMovement(transform.position, throwVec, throwPower, dir);
+            throwObj.GetComponent<Throwable>().OnThrew(transform.position, throwVec, throwPower, dir);
         }
         throwObj = null;
 

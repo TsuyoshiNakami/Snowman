@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallEnemyThrowCollider : MonoBehaviour {
 
 	Animator playerAnim;
-	PlayerController pc;
+    PlayerController pc;
 	void Awake() {
 		pc = GameObject.Find ("Player").GetComponent<PlayerController>();
 		playerAnim = PlayerController.GetAnimator ();

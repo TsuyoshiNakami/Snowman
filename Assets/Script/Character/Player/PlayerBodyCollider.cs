@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBodyCollider : MonoBehaviour {
-	PlayerController playerCtrl;
+    PlayerController playerCtrl;
 	[SerializeField] bool bottomCollider = false;
 
 	// Use this for initialization

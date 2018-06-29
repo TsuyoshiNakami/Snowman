@@ -42,7 +42,7 @@ public class CameraFollow : MonoBehaviour
 	// === キャッシュ ==========================================
 	GameObject 		 	player;
 	Transform 		 	playerTrfm;
-	PlayerController 	playerCtrl;
+    PlayerController playerCtrl;
 
 	float				screenOGSizeAdd = 0.0f;
 	float				screenPSSizeAdd = 0.0f;

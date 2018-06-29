@@ -31,7 +31,12 @@ public class ThrowOrbitController : MonoBehaviour {
     private void Update()
     {
         // #Progress
-        throwObjGravityScale = snowBall.GetComponent<Rigidbody2D>().gravityScale;
+
+    }
+
+    public void SetGravity(float gravity)
+    {
+        throwObjGravityScale = gravity;
     }
     public Vector2 CaptureObjPosition
     {
@@ -48,7 +53,7 @@ public class ThrowOrbitController : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         // 軌道点、初期化
         throwOrbits = GameObject.Find("ThrowOrbits");
         point = GameObject.Find("Player/PlayerSprite/ThrowPoint");

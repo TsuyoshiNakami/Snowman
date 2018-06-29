@@ -23,7 +23,7 @@ public static class SaveData {
 		try {
 		zFoxDataPackString playerData = new zFoxDataPackString ();
 		playerData.DecodeDataPackString (playerData.PlayerPrefsGetStringUTF8 ("playerData"));
-		PlayerController.CheckPointNumber =
+            PlayerController.CheckPointNumber =
 			(int)playerData.GetData ("CheckPointNumber");
 			return true;
 

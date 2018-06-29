@@ -22,8 +22,8 @@ public class EnemyController : BaseCharacterController {
 	Transform[] wallCheck;
 	public bool deadEvent = false;
 	[System.NonSerialized]public bool deadEventStarted = false;
-	//===== キャッシュ ==============================
-	PlayerController playerCtrl;
+    //===== キャッシュ ==============================
+    PlayerController playerCtrl;
 	Animator playerAnim;
 	public bool cameraOK = false;
 	protected override void Awake() {

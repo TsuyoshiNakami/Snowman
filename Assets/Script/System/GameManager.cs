@@ -14,10 +14,7 @@ public class PlayerData {
 }
 public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	public static string currentSceneName = "Stage1";
-	public static int PauserFlag = 0;
-	public static Vector2 WarpedPlayerPosition = new Vector2(-7, 1.5f);
-	static PlayerController pc;
-	 public static PlayerData playerData;
+	static PlayerController playerController;
 	static bool isLoad = false;
 	public static bool isFirstPlay = true;
 	public int maxCoin = 6;
@@ -26,6 +23,7 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	public bool enableAllWarpDebug = false;
 	public int animeCount = -2;
 	[SerializeField] string sceneNameSerial = "Stage1";
+    [SerializeField] GameObject playerObj;
 	public bool ReloadStage = false;
 	CameraFol cameraFol;
 	public static bool firstCheckPoint = false;
@@ -34,39 +32,33 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	static AsyncOperation ao;
 	public static bool isTitle = true;
     public static int score = 0;
-
-	// Use this for initialization
+    
 	void Start () {
+        AddPlayer();
+        SetCamera();
 
-
-        pc = GameObject.Find ("Player").GetComponent<PlayerController> ();
-		cameraFol = GameObject.FindWithTag ("MainCamera").GetComponent<CameraFol> ();
 		enableAllWarp = enableAllWarpDebug;
 		getCoins = new bool[maxCoin];
 		for (int i = 0; i < maxCoin; i++) {
 			getCoins [i] = false;
 		}
 		currentSceneName = sceneNameSerial;
-		playerData = new PlayerData();
 		DontDestroyOnLoad (gameObject);
 		soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager>();
 
-        if (pc == null)
+        if (playerController == null)
         {
-
-            pc = GameObject.Find("Player").GetComponent<PlayerController>();
+            playerController = GameObject.Find("Player").GetComponent<PlayerController>();
             cameraFol = GameObject.FindWithTag("MainCamera").GetComponent<CameraFol>();
         }
     }
-	public static void LoadScene(string name) {
 
+	public static void LoadScene(string name) {
 
 			isFirstPlay = false;
 
 		if (isLoad)
 			return;
-
-		PauserFlag++;
 
 		currentSceneName = name;
 		isLoad = true;
@@ -76,4 +68,22 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 		Timer.InitTimer ();
 	}
 
+    void AddPlayer()
+    {
+        GameObject tempPlayerObj = Instantiate(playerObj, GameObject.Find("PlayerSpawnPoint").transform);
+        tempPlayerObj.name = "Player";
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+    }
+
+    void SetCamera()
+    {
+        cameraFol = GameObject.FindWithTag("MainCamera").AddComponent<CameraFol>();
+        cameraFol.smoothingY = 0.2f;
+        cameraFol.offsetY = 0.3f;
+        cameraFol.followPlayer = true;
+    }
+    public static PlayerController GetPlayerController()
+    {
+        return playerController;
+    }
 }

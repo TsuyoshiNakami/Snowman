@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HPGauge : MonoBehaviour {
-	PlayerController pc;
+    PlayerController pc;
 
 	Image image;
 	public int gaugeNumber = 1;

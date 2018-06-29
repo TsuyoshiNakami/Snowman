@@ -6,7 +6,7 @@ public class EnemyBodyCollider : MonoBehaviour {
 	EnemyController enemyCtrl;
 	Animator playerAnim;
 	Animator animator;
-	PlayerController pc;
+    PlayerController pc;
 	int attackHash = 0;
 	public GameObject damageEffect;
 	public int damage = 1;
