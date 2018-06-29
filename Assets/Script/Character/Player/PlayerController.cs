@@ -418,7 +418,6 @@ public class PlayerController : BaseCharacterController
     //ジャンプ
     public void JumpButtonDown()
     {
-        oldVelo = false;
         if (rbody2D.velocity.y > 0) return;
 
         if (grounded)
@@ -427,7 +426,8 @@ public class PlayerController : BaseCharacterController
                 jumpStartTime = Time.fixedTime;
                 jumped = true;
                  canJumpUp = true;
-                if (!IsThrow && !IsPreThrow)
+            jumpCount = 0;
+            if (!IsThrow && !IsPreThrow)
                 {
                     anime.SetTrigger("Jump");
                 }
@@ -438,7 +438,8 @@ public class PlayerController : BaseCharacterController
 
 
     }
-    bool oldVelo = false;
+    [SerializeField] float[] jumpPowers = {100, 80, 60, 40, 20 };
+    int jumpCount = 0;
     public void JumpButton()
     {
         float jumpTime = Time.fixedTime - jumpStartTime;
@@ -448,16 +449,15 @@ public class PlayerController : BaseCharacterController
             if (canJumpUp)
             {
                 Debug.Log("JumpUp");
-                rbody2D.velocity += Vector2.up * (jumpUpPower * Time.deltaTime - jumpTime * jumpTime);
+                if (jumpTime > 0.2f / 5 * (jumpCount + 1 ))
+                {
+                    rbody2D.velocity += Vector2.up * jumpPowers[jumpCount];
+                    jumpCount++;
+                }
             }
 
             if (jumpTime >= jumpTimeMax)
             {
-                if (!oldVelo)
-                {
-                    oldVelo = true;
-                    Debug.Log("Max Velocity y : " + rbody2D.velocity.y);
-                }
                 EndJumpUp();
             }
 

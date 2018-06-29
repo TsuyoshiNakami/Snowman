@@ -532,6 +532,12 @@ MonoBehaviour:
   jumpUpPower: 105
   throwObj: {fileID: 0}
   throwObjSpeed: 2
+  jumpPowers:
+  - 3
+  - 5
+  - 6
+  - 3
+  - 3
 --- !u!114 &114873731930886694
 MonoBehaviour:
   m_ObjectHideFlags: 1
