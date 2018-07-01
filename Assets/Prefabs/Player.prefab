@@ -302,7 +302,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1674221623693864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5420423, y: 1.5158378, z: 0}
+  m_LocalPosition: {x: 49.13709, y: -4.68096, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4011520399456598}
@@ -519,8 +519,8 @@ MonoBehaviour:
   NumberOfCheckPoint: 10
   maxThrowPower: 21
   jumpPower: 22
-  initHpMax: 4.31
-  initSpeed: 5.6
+  initHpMax: 8
+  initSpeed: 8
   jumpTimeMax: 0.2
   defaultThrowObj: {fileID: 1788969347490714, guid: 0fd3d6fed763c1b42bd1c25137c8b5d6,
     type: 2}
@@ -533,11 +533,11 @@ MonoBehaviour:
   throwObj: {fileID: 0}
   throwObjSpeed: 2
   jumpPowers:
-  - 3
+  - 1
   - 5
-  - 6
-  - 3
-  - 3
+  - 5
+  - 0
+  - 0
 --- !u!114 &114873731930886694
 MonoBehaviour:
   m_ObjectHideFlags: 1
