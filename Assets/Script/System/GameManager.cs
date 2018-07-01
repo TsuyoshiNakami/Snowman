@@ -70,7 +70,8 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 
     void AddPlayer()
     {
-        GameObject tempPlayerObj = Instantiate(playerObj, GameObject.Find("PlayerSpawnPoint").transform);
+        GameObject spawnPoint = GameObject.Find("PlayerSpawnPoint");
+        GameObject tempPlayerObj = Instantiate(playerObj, spawnPoint.transform.position, spawnPoint.transform.rotation);
         tempPlayerObj.name = "Player";
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
