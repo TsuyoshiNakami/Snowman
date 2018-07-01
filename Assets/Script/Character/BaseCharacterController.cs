@@ -7,8 +7,8 @@ public class BaseCharacterController : MonoBehaviour {
 	//=======外部パラメータ（Inspector表示）==================
 	public  Vector2 velocityMin = new Vector2(-100.0f, -100.0f);
 	public  Vector2 velocityMax = new Vector2(100.0f, 50.0f);
-	public bool superArmor = false;
-	public bool superArmor_jumpAttackDmg = true;
+    [System.NonSerialized] public bool superArmor = false;
+    [System.NonSerialized] public bool superArmor_jumpAttackDmg = true;
 
 	//======= 外部パラメータ =================================
 

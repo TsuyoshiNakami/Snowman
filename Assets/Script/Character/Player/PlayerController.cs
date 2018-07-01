@@ -21,19 +21,18 @@ public class PlayerController : BaseCharacterController
     // TODO 後で処理をManagerに移す
     public bool isStarted = true;
 
-
+    [SerializeField] bool preparationToJump = true;
     public float slidePower = 1;
     public GameObject snowParticle;
     public THROWTYPE throwType = THROWTYPE.Parabola2Way;
-    public bool canbeSnowBall = false;
-    public bool canThrowSnowBall = true;
-    public float resurrectionTime = 2f;
-    public bool canWalkWhileThrowing = false;
-    public bool pushedRightB = false;
+    float resurrectionTime = 2f;
+    bool canWalkWhileThrowing = false;
+
 
     //外部パラメータ
-    public float chargeTime = 0.5f;
-    public int NumberOfCheckPoint = 10;
+    [System.NonSerialized] public bool pushedRightB = false;
+    [System.NonSerialized] public float chargeTime = 0.5f;
+    [System.NonSerialized] public int NumberOfCheckPoint = 10;
     public float maxThrowPower = 12f;
     public float jumpPower = 10f;
     public float initHpMax = 4.0f;
@@ -58,7 +57,7 @@ public class PlayerController : BaseCharacterController
 
     //内部パラメータ
     Transform frontPoint;
-    public float throwPower = 0;
+    [System.NonSerialized] public float throwPower = 0;
     bool breakEnabled = true;
     float groundFriction = 0.0f;
     [SerializeField]float jumpUpPower = 0;
@@ -90,7 +89,6 @@ public class PlayerController : BaseCharacterController
         get { return IsCurrentAnimation("Base Layer.Player_JumpLanding"); }
     }
     public GameObject throwObj;
-    [SerializeField] float throwObjSpeed = 1;
 
     //効果音
     SoundManager soundManager;
@@ -466,15 +464,39 @@ public class PlayerController : BaseCharacterController
 
         if (grounded)
         {
+
             if (!IsPreThrow)
+            {
+                spriteObj.transform.rotation = new Quaternion(0, 0, 0, 1);
+                if(preparationToJump)
                 {
                     anime.SetTrigger("Jump");
-                spriteObj.transform.rotation = new Quaternion(0, 0, 0, 1);
                 }
-            else
+                else
+                {
+                    anime.SetTrigger("JumpNoPreparation");
+                }
+
+
+
+            } else
             {
                 StartJump();
             }
+
+
+            //if (preparationToJump) {
+            //    spriteObj.transform.rotation = new Quaternion(0, 0, 0, 1);
+            //    if (!IsPreThrow)
+            //    {
+            //        anime.SetTrigger("Jump");
+
+            //    }
+            //}
+            //else
+            //{
+            //    StartJump();
+            //}
             //rbody2D.velocity += Vector2.up * (jumpUpPower * (Time.fixedTime - jumpStartTime) / jumpTimeMax);
         }
 
