@@ -13,6 +13,7 @@ TagManager:
   - MsgCollider
   - BackCharacters
   - Throwable
+  - Item
   layers:
   - Default
   - TransparentFX

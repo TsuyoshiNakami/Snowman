@@ -11,14 +11,32 @@ public class RollingWreath : MonoBehaviour {
 
     [SerializeField]float speed = 2;
     [SerializeField]  RollingDirection rollingDirection = RollingDirection.Left;
+    [SerializeField] int starCount = 0;
+    [SerializeField] GameObject arrangedItem;
     float actualSpeed;
 
     List<Transform> ridingCharacters;
 	// Use this for initialization
 	void Start () {
         ridingCharacters = new List<Transform>();
+        GenerateStarts();
 	}
 	
+    void GenerateStarts()
+    {
+        if (arrangedItem != null)
+        {
+            for (int i = 0; i < starCount; i++)
+            {
+                Vector3 pos = transform.position + Vector3.up * GetComponent<SpriteRenderer>().size.y + Vector3.up * 2f;
+                Quaternion rot = transform.rotation;
+                GameObject newObj = Instantiate(arrangedItem, pos, rot, transform);
+                newObj.transform.localScale = Vector3.one / transform.localScale.x;
+                newObj.transform.RotateAround(transform.position, Vector3.forward, 360 / starCount * i);
+            }
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
 		switch(rollingDirection)

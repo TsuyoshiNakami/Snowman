@@ -15,7 +15,15 @@ public class PlayerBodyCollider : MonoBehaviour {
 	void Update () {
 		
 	}
-	void OnCollisionStay2D(Collision2D col) {
+
+    private void OnCollisionEnter2D(Collision2D c)
+    {
+        if(c.gameObject.CompareTag("Item"))
+        {
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D col) {
 		//Debug.Log (col.transform.name);
 		if (!bottomCollider)
 			return;
