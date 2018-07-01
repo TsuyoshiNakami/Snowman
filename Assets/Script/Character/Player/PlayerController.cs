@@ -74,6 +74,21 @@ public class PlayerController : BaseCharacterController
     {
         get { return IsCurrentAnimation("Base Layer.Player_Throw"); }
     }
+
+    bool IsJump
+    {
+        get { return IsCurrentAnimation("Base Layer.Player_Jump"); }
+    }
+
+    bool IsJumpFall
+    {
+        get { return IsCurrentAnimation("Base Layer.Player_JumpFall"); }
+    }
+
+    bool IsJumpLanding
+    {
+        get { return IsCurrentAnimation("Base Layer.Player_JumpLanding"); }
+    }
     public GameObject throwObj;
     [SerializeField] float throwObjSpeed = 1;
 
@@ -153,9 +168,17 @@ public class PlayerController : BaseCharacterController
         return Animator.StringToHash(path) == GetCurrentAnimation();
     }
 
+    Vector2 oldVelocity = Vector2.zero;
     protected override void FixedUpdateCharacter()
     {
         throwPower = maxThrowPower;
+
+        //落下開始
+        if(rbody2D.velocity.y < 0 && oldVelocity.y >= 0 && !grounded)
+        {
+            anime.ResetTrigger("JumpLanding");
+            anime.SetTrigger("JumpFall");
+        }
 
         if (IsPreThrow)
         {
@@ -192,6 +215,18 @@ public class PlayerController : BaseCharacterController
                 centerY = cameraOffset.y;
                 break;
         }
+
+        if (grounded)
+        {
+            anime.ResetTrigger("JumpFall");
+            anime.ResetTrigger("JumpLanding");
+            if (IsJumpFall)
+            {
+                anime.SetTrigger("JumpLanding");
+
+            }
+        }
+
         //　着地チェック
         if (jumped)
         {
@@ -204,12 +239,20 @@ public class PlayerController : BaseCharacterController
                     !IsCurrentAnimation("Base Layer.Player_PreThrow") &&
                     !IsCurrentAnimation("Base Layer.Player_Throw"))
                 {
-                    anime.SetTrigger("Idle");
+
+                }
+
+                if(IsJump)
+                {
+                    Debug.Log("Desired");
+                    anime.SetTrigger("JumpLanding");
                 }
                 jumped = false;
 
             }
         }
+
+
 
         //　ジャンプ中の横移動減速
         if (jumped && !grounded)
@@ -229,6 +272,8 @@ public class PlayerController : BaseCharacterController
         transform.localScale = new Vector3(
             basScaleX * dir, transform.localScale.y, transform.localScale.z);
 
+
+        oldVelocity = rbody2D.velocity;
     }
 
 
@@ -421,23 +466,28 @@ public class PlayerController : BaseCharacterController
 
         if (grounded)
         {
-
-            rbody2D.velocity = new Vector2(rbody2D.velocity.x, 0);
-                rbody2D.velocity += Vector2.up * jumpPower;
-                jumpStartTime = Time.fixedTime;
-                jumped = true;
-                 canJumpUp = true;
-            jumpCount = 0;
-            if (!IsThrow && !IsPreThrow)
+            if (!IsPreThrow)
                 {
                     anime.SetTrigger("Jump");
+                spriteObj.transform.rotation = new Quaternion(0, 0, 0, 1);
                 }
-            
+            else
+            {
+                StartJump();
+            }
             //rbody2D.velocity += Vector2.up * (jumpUpPower * (Time.fixedTime - jumpStartTime) / jumpTimeMax);
         }
 
+    }
 
-
+    public void StartJump()
+    {
+        rbody2D.velocity = new Vector2(rbody2D.velocity.x, 0);
+        rbody2D.velocity += Vector2.up * jumpPower;
+        jumpStartTime = Time.fixedTime;
+        jumped = true;
+        canJumpUp = true;
+        jumpCount = 0;
     }
     [SerializeField] float[] jumpPowers = {100, 80, 60, 40, 20 };
     int jumpCount = 0;

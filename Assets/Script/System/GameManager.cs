@@ -34,7 +34,10 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
     public static int score = 0;
     
 	void Start () {
-        AddPlayer();
+        if (GameObject.Find("Player") == null)
+        {
+            AddPlayer();
+        }
         SetCamera();
 
 		enableAllWarp = enableAllWarpDebug;
