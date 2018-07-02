@@ -363,11 +363,11 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 			return;
 		}
 		samples = Aus.timeSamples;
-		if (GameManager.currentSceneName=="Stage1" && Aus.clip.name == "OpeningAndStage1") {
-			if (Aus.timeSamples > 8853569) {
-				Aus.timeSamples = 3411019;
-			}
-		}
+		//if (GameManager.currentSceneName=="Stage1" && Aus.clip.name == "OpeningAndStage1") {
+		//	if (Aus.timeSamples > 8853569) {
+		//		Aus.timeSamples = 3411019;
+		//	}
+		//}
 		if (fadeOut > 0) {
 			fadeOut -= Time.deltaTime;
 			if (bgmNumber == 1) {

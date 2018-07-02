@@ -49,7 +49,7 @@ public class ThrowOrbitController : MonoBehaviour {
 
     public void HideCaptureObj()
     {
-        captureObj.SetActive(false);
+      //  captureObj.SetActive(false);
     }
 
     // Use this for initialization
