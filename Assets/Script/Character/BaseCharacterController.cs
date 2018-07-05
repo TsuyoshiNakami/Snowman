@@ -118,7 +118,8 @@ public class BaseCharacterController : MonoBehaviour {
 				if (groundCheck != null) {
 					if (!groundCheck.isTrigger) {
 
-						if (groundCheck.CompareTag ("Road") || groundCheck.CompareTag ("OtherCharacter")) {
+                        //if (groundCheck.CompareTag ("Road") || groundCheck.CompareTag ("OtherCharacter")) {
+                        if(rbody2D.velocity.y <= 0){ 
 							grounded = true;
 							//grounded = true;
 						}
