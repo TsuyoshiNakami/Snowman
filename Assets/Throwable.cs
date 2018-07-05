@@ -85,9 +85,9 @@ public class Throwable : MonoBehaviour
 
         vec = throwDirection;
         Vector2 force = vec * rigid.mass;
-
         //StartCoroutine(CollisionControl());
         holdObj = null;
-        rigid.AddForce(force, ForceMode2D.Impulse);
+        rigid.velocity = vec;
+        //rigid.AddForce(force, ForceMode2D.Impulse);
     }
 }

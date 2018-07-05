@@ -74,7 +74,11 @@ public class BasketCollider : MonoBehaviour {
             if (c == null) continue;
             if (c.tag == "PlayerArmBullet")
             {
-
+                nowCollider[count] = c;
+                count++;
+            }
+            if(c.tag == "Throwable")
+            {
                 nowCollider[count] = c;
                 count++;
             }

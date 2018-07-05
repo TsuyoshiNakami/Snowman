@@ -346,7 +346,7 @@ public class PlayerController : BaseCharacterController
         //Vector2 targetPos = orbits.CalcOrbit(throwPower, dir);
         GameObject target = orbits.GetNearTargetByOrbit(throwPower, dir);
 
-
+        orbits.SetGravity(throwObj.GetComponent<Rigidbody2D>().gravityScale);
         if (target != null)
         {
             orbits.CaptureObjPosition = target.transform.position;
