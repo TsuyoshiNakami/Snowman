@@ -119,10 +119,15 @@ public class BaseCharacterController : MonoBehaviour {
 					if (!groundCheck.isTrigger) {
 
                         //if (groundCheck.CompareTag ("Road") || groundCheck.CompareTag ("OtherCharacter")) {
-                        if(rbody2D.velocity.y <= 0){ 
-							grounded = true;
-							//grounded = true;
-						}
+
+                        // rbody2D.velocity.y > 0 && !jumped
+
+                        // 下への力が働いている、または
+                        // ジャンプではない上への力が働いていたら　ex)リースの上とか
+                        if (rbody2D.velocity.y <= 0 || (rbody2D.velocity.y > 0 && !jumped)) {
+                            grounded = true;
+                            //grounded = true;
+                        }
 					}
 				}
 			}

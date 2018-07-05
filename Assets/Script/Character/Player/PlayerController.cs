@@ -65,6 +65,7 @@ public class PlayerController : BaseCharacterController
     float invincibleStartTime;
     float invincibleTime;
     bool throwReservation = false;
+    float touchGroundAndJumpingTime = 0;
     bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
     }
@@ -178,6 +179,14 @@ public class PlayerController : BaseCharacterController
             anime.SetTrigger("JumpFall");
         }
 
+        if (grounded && IsJump)
+        {
+            touchGroundAndJumpingTime += Time.fixedDeltaTime;
+        } else
+        {
+            touchGroundAndJumpingTime = 0;
+        }
+
         if (IsPreThrow)
         {
             soundManager.PlaySEIfNotPlaying("ThrowChargeMax");
@@ -225,6 +234,12 @@ public class PlayerController : BaseCharacterController
             }
         }
 
+        if (touchGroundAndJumpingTime >= 0.1f)
+        {
+            anime.SetTrigger("JumpLanding");
+            touchGroundAndJumpingTime = 0;
+        }
+
         //　着地チェック
         if (jumped)
         {
@@ -242,7 +257,6 @@ public class PlayerController : BaseCharacterController
 
                 if(IsJump)
                 {
-                    Debug.Log("Desired");
                     anime.SetTrigger("JumpLanding");
                 }
                 jumped = false;
@@ -467,7 +481,7 @@ public class PlayerController : BaseCharacterController
 
             if (!IsPreThrow)
             {
-                spriteObj.transform.rotation = new Quaternion(0, 0, 0, 1);
+                spriteObj.transform.rotation = transform.rotation;
                 if(preparationToJump)
                 {
                     anime.SetTrigger("Jump");
@@ -539,6 +553,7 @@ public class PlayerController : BaseCharacterController
     }
     public void EndJumpUp()
     {
+        jumped = false;
         canJumpUp = false;
     }
 
