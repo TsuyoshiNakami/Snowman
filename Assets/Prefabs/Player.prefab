@@ -53,7 +53,7 @@ GameObject:
   m_Layer: 11
   m_Name: GroundCheck_R
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -68,7 +68,7 @@ GameObject:
   m_Layer: 11
   m_Name: GroundCheck_L
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -83,7 +83,7 @@ GameObject:
   m_Layer: 11
   m_Name: GroundCheck_C
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 58886749502238370}
   - component: {fileID: 114605652101485746}
   - component: {fileID: 114489944866126894}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ColliderBody
   m_TagString: PlayerBody
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 58643004365560862}
   - component: {fileID: 114879742152711452}
   - component: {fileID: 114015192706981728}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ColliderBodyBottom
   m_TagString: PlayerBody
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1674221623693864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.42, y: -0.28, z: 0}
+  m_LocalPosition: {x: -10.22, y: -0.4219045, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4011520399456598}
@@ -505,10 +505,10 @@ MonoBehaviour:
   SpriteforCheck: {fileID: 21300000, guid: 124b9cbc86ff05a48ae6edc1237459ba, type: 3}
   moveVec: {x: 0, y: 0}
   isStarted: 1
-  preparationToJump: 1
+  preparationToJump: 0
   slidePower: 1
   snowParticle: {fileID: 0}
-  throwType: 1
+  throwType: 3
   maxThrowPower: 21
   jumpPower: 22
   initHpMax: 8
@@ -521,6 +521,7 @@ MonoBehaviour:
   damageEffect: {fileID: 0}
   throwPoint: {fileID: 0}
   jumpUpPower: 105
+  autoCursorTimeToVertical: 1
   throwObj: {fileID: 0}
   jumpPowers:
   - 1

@@ -13,7 +13,8 @@ public enum THROWTYPE
 {
     Parabola,
     Parabola2Way,
-    FreeVector
+    FreeVector,
+    AutoCursor
 }
 public class PlayerController : BaseCharacterController
 {
@@ -66,6 +67,8 @@ public class PlayerController : BaseCharacterController
     float invincibleTime;
     bool throwReservation = false;
     float touchGroundAndJumpingTime = 0;
+    float autoCursorTime = 0;
+    [SerializeField] float autoCursorTimeToVertical = 1;
     bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
     }
@@ -234,6 +237,7 @@ public class PlayerController : BaseCharacterController
             }
         }
 
+        //着地しているのに上への力が働いているとジャンプが解除されないため
         if (touchGroundAndJumpingTime >= 0.1f)
         {
             anime.SetTrigger("JumpLanding");
@@ -340,11 +344,30 @@ public class PlayerController : BaseCharacterController
             case THROWTYPE.FreeVector:
                 ShowOrbitFreeVector();
                 break;
+            case THROWTYPE.AutoCursor:
+                ShowOrbitAutoCursor();
+                break;
         }
 
     }
 
+    void ShowOrbitAutoCursor()
+    {
+        if(!Input.GetButton("RB"))
+        {
+            autoCursorTime += Time.deltaTime;
+        }
 
+        float radian = autoCursorTime / autoCursorTimeToVertical * 90 * Mathf.Deg2Rad;
+        Debug.Log(autoCursorTime + ":" + radian);
+        Vector2 throwDirection = new Vector2(Mathf.Cos(radian) * dir, Mathf.Sin(radian));
+        throwVec = orbits.ShowOrbitByVector(ThrowPoint, throwDirection, throwPower, dir);
+
+        if(autoCursorTime / autoCursorTimeToVertical > 1)
+        {
+            autoCursorTime = 0;
+        }
+    }
     void ShowOrbitFreeVector()
     {
         orbits.CaptureObjPosition += StickDirection * Time.deltaTime * 10f;
@@ -427,7 +450,7 @@ public class PlayerController : BaseCharacterController
             }
         }
 
-            if (pushedRightB)
+            if (pushedRightB && throwType != THROWTYPE.AutoCursor)
         {
             if (n != 0)
             {
@@ -695,7 +718,7 @@ public class PlayerController : BaseCharacterController
         }
         throwObj = null;
 
-
+        autoCursorTime = 0;
         //GameObject sbThrown = Instantiate(defaultThrowObj, ThrowPoint, transform.rotation);
         //sbThrown.GetComponent<SnowBallNormal>().SetMovement(transform.position, throwVec, throwPower, dir);
     }

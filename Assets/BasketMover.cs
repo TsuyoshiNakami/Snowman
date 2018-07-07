@@ -35,7 +35,7 @@ public class BasketMover : MonoBehaviour {
 
 
 
-        if (hinge != null)
+        if (hinge != null && hinge.isActiveAndEnabled)
         {
             ManageHinge();
             if (hinge.isClosed) return;
