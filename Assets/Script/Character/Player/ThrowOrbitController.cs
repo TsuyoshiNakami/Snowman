@@ -49,7 +49,7 @@ public class ThrowOrbitController : MonoBehaviour {
 
     public void HideCaptureObj()
     {
-      //  captureObj.SetActive(false);
+      captureObj.SetActive(false);
     }
 
     // Use this for initialization
@@ -57,7 +57,9 @@ public class ThrowOrbitController : MonoBehaviour {
         // 軌道点、初期化
         throwOrbits = GameObject.Find("ThrowOrbits");
         point = GameObject.Find("Player/PlayerSprite/ThrowPoint");
-        captureObj = GameObject.Find("Capture");
+        captureObj = Instantiate(captureObj, transform.position, transform.rotation);
+
+        HideCaptureObj();
         target = point;
         targetOrbits = new GameObject[orbitsNum];
         for (int i = 0; i < orbitsNum; i++)

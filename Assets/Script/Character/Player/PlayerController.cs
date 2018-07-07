@@ -69,6 +69,7 @@ public class PlayerController : BaseCharacterController
     float touchGroundAndJumpingTime = 0;
     float autoCursorTime = 0;
     [SerializeField] float autoCursorTimeToVertical = 1;
+    [SerializeField] float freeVectorCursorSpeed = 15;
     bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
     }
@@ -370,7 +371,7 @@ public class PlayerController : BaseCharacterController
     }
     void ShowOrbitFreeVector()
     {
-        orbits.CaptureObjPosition += StickDirection * Time.deltaTime * 10f;
+        orbits.CaptureObjPosition += StickDirection * Time.deltaTime * freeVectorCursorSpeed;
         Vector2 distVec = (orbits.CaptureObjPosition - ThrowPoint);
         float time = 0.1f * distVec.magnitude;
         throwVec.x = distVec.x / time;
@@ -719,6 +720,7 @@ public class PlayerController : BaseCharacterController
         throwObj = null;
 
         autoCursorTime = 0;
+        orbits.HideCaptureObj();
         //GameObject sbThrown = Instantiate(defaultThrowObj, ThrowPoint, transform.rotation);
         //sbThrown.GetComponent<SnowBallNormal>().SetMovement(transform.position, throwVec, throwPower, dir);
     }

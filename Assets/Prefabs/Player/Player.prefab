@@ -464,7 +464,7 @@ MonoBehaviour:
   snowBall: {fileID: 114439447875312726, guid: 0fd3d6fed763c1b42bd1c25137c8b5d6, type: 2}
   checkTimeInterval: 0.02
   checkNum: 250
-  captureObj: {fileID: 0}
+  captureObj: {fileID: 1898652494120590, guid: 6e5ce2a5b2a8e3a4783e9531444af85c, type: 2}
 --- !u!114 &114489944866126894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -508,8 +508,8 @@ MonoBehaviour:
   preparationToJump: 0
   slidePower: 1
   snowParticle: {fileID: 0}
-  throwType: 3
-  maxThrowPower: 21
+  throwType: 2
+  maxThrowPower: 21.8
   jumpPower: 22
   initHpMax: 8
   initSpeed: 8
@@ -522,6 +522,7 @@ MonoBehaviour:
   throwPoint: {fileID: 0}
   jumpUpPower: 105
   autoCursorTimeToVertical: 1
+  freeVectorCursorSpeed: 15
   throwObj: {fileID: 0}
   jumpPowers:
   - 1
