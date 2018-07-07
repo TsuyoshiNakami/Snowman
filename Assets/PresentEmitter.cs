@@ -7,6 +7,9 @@ public class PresentEmitter : MonoBehaviour {
     [SerializeField] List<GameObject> presents;
     float timer = 0;
     float interval = 3;
+
+    [SerializeField] Vector2 emitRangeMin;
+    [SerializeField] Vector2 emitRangeMax;
 	// Use this for initialization
 	void Start () {
 		
@@ -19,8 +22,10 @@ public class PresentEmitter : MonoBehaviour {
         if(timer > 3)
         {
             int index = Random.Range(0, presents.Count - 1);
-            Instantiate(presents[index], transform.position, transform.rotation);
+            GameObject newPresentObj = Instantiate(presents[index], transform.position, transform.rotation);
             timer = 0;
+
+            newPresentObj.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(emitRangeMin.x, emitRangeMax.x), Random.Range(emitRangeMin.y, emitRangeMax.y));
         }
 	}
 }

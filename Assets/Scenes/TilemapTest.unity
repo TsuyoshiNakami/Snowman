@@ -196,6 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presents:
   - {fileID: 1882362309303510, guid: df87eddc26b90564ab1fd9110f9b9bab, type: 2}
+  emitRangeMin: {x: 0, y: 0}
+  emitRangeMax: {x: 5, y: 20}
 --- !u!212 &200709704
 SpriteRenderer:
   m_ObjectHideFlags: 0

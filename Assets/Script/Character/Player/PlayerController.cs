@@ -22,10 +22,8 @@ public class PlayerController : BaseCharacterController
     // TODO 後で処理をManagerに移す
     public bool isStarted = true;
 
-    [SerializeField] bool preparationToJump = true;
     public float slidePower = 1;
     public GameObject snowParticle;
-    public THROWTYPE throwType = THROWTYPE.Parabola2Way;
     float resurrectionTime = 2f;
     bool canWalkWhileThrowing = false;
 
@@ -35,10 +33,8 @@ public class PlayerController : BaseCharacterController
     [System.NonSerialized] public float chargeTime = 0.5f;
     [System.NonSerialized] public int NumberOfCheckPoint = 10;
     public float maxThrowPower = 12f;
-    public float jumpPower = 10f;
     public float initHpMax = 4.0f;
     [Range(0.1f, 100.0f)] public float initSpeed = 12.0f;
-    public float jumpTimeMax = 0.4f;
     public GameObject defaultThrowObj;   //投げた雪玉
     [System.NonSerialized] public float groundY = 0.0f;
     [System.NonSerialized] public static int coin = 5000;
@@ -68,8 +64,23 @@ public class PlayerController : BaseCharacterController
     bool throwReservation = false;
     float touchGroundAndJumpingTime = 0;
     float autoCursorTime = 0;
-    [SerializeField] float autoCursorTimeToVertical = 1;
     [SerializeField] float freeVectorCursorSpeed = 15;
+    bool IsAutoCursorUp = true;
+    int jumpCount = 0;
+
+    [NonSerialized]public GameObject throwObj;
+
+    [SerializeField, Header("ジャンプ前の一瞬の踏ん張りを入れるかどうか")] bool preparationToJump = true;
+
+    [SerializeField, Header("最初のジャンプ力")] float jumpPower = 10f;
+    [SerializeField, Header("ジャンプ押し続けで上昇する時間")] float jumpTimeMax = 0.4f;
+    [SerializeField, Header("ジャンプ押し続け時の上昇力")] float[] jumpPowers = { 100, 80, 60, 40, 20 };
+
+
+    [SerializeField, Header("投げ操作の設定")] THROWTYPE throwType = THROWTYPE.Parabola2Way;
+    [SerializeField, Header("自動カーソルが90度動くまでの秒数")] float autoCursorTimeToVertical = 1;
+    [SerializeField, Header("自動カーソルを往復させるか")] bool autoCursorBothWays = false;
+
     bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
     }
@@ -93,7 +104,6 @@ public class PlayerController : BaseCharacterController
     {
         get { return IsCurrentAnimation("Base Layer.Player_JumpLanding"); }
     }
-    public GameObject throwObj;
 
     //効果音
     SoundManager soundManager;
@@ -356,17 +366,32 @@ public class PlayerController : BaseCharacterController
     {
         if(!Input.GetButton("RB"))
         {
-            autoCursorTime += Time.deltaTime;
+            if (IsAutoCursorUp)
+            {
+                autoCursorTime += Time.deltaTime;
+            } else
+            {
+                autoCursorTime -= Time.deltaTime;
+            }
         }
 
         float radian = autoCursorTime / autoCursorTimeToVertical * 90 * Mathf.Deg2Rad;
-        Debug.Log(autoCursorTime + ":" + radian);
+        
         Vector2 throwDirection = new Vector2(Mathf.Cos(radian) * dir, Mathf.Sin(radian));
         throwVec = orbits.ShowOrbitByVector(ThrowPoint, throwDirection, throwPower, dir);
 
         if(autoCursorTime / autoCursorTimeToVertical > 1)
         {
-            autoCursorTime = 0;
+            if (autoCursorBothWays)
+            {
+                IsAutoCursorUp = false;
+            } else
+            {
+                autoCursorTime = 0;
+            }
+        } else if(autoCursorTime / autoCursorTimeToVertical < 0)
+        {
+            IsAutoCursorUp = true;
         }
     }
     void ShowOrbitFreeVector()
@@ -549,8 +574,7 @@ public class PlayerController : BaseCharacterController
         canJumpUp = true;
         jumpCount = 0;
     }
-    [SerializeField] float[] jumpPowers = {100, 80, 60, 40, 20 };
-    int jumpCount = 0;
+
     public void JumpButton()
     {
         float jumpTime = Time.fixedTime - jumpStartTime;
