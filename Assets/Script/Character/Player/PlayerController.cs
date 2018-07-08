@@ -382,7 +382,6 @@ public class PlayerController : BaseCharacterController
 
         float radian = 0;
         if (autoCursorSpeedAdjust) {
-
             radian = -90 * ((autoCursorTime - autoCursorTimeToVertical) * (autoCursorTime - autoCursorTimeToVertical)) + 90;
             radian *= Mathf.Deg2Rad;
         }
@@ -542,7 +541,7 @@ public class PlayerController : BaseCharacterController
         if (grounded)
         {
 
-            if (!IsPreThrow)
+            if (!IsPreThrow && !Input.GetButtonDown(KeyConfig.Fire1))
             {
                 spriteObj.transform.rotation = transform.rotation;
                 if(preparationToJump)
