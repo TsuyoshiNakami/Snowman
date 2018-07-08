@@ -68,6 +68,8 @@ public class PlayerController : BaseCharacterController
     bool IsAutoCursorUp = true;
     int jumpCount = 0;
 
+
+
     [NonSerialized]public GameObject throwObj;
 
     [SerializeField, Header("ジャンプ前の一瞬の踏ん張りを入れるかどうか")] bool preparationToJump = true;
@@ -80,6 +82,9 @@ public class PlayerController : BaseCharacterController
     [SerializeField, Header("投げ操作の設定")] THROWTYPE throwType = THROWTYPE.Parabola2Way;
     [SerializeField, Header("自動カーソルが90度動くまでの秒数")] float autoCursorTimeToVertical = 1;
     [SerializeField, Header("自動カーソルを往復させるか")] bool autoCursorBothWays = false;
+
+
+    [SerializeField, Header("オートカーソルのスピードを自動調節するか")] bool autoCursorSpeedAdjust;
 
     bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
@@ -375,8 +380,17 @@ public class PlayerController : BaseCharacterController
             }
         }
 
-        float radian = autoCursorTime / autoCursorTimeToVertical * 90 * Mathf.Deg2Rad;
-        
+        float radian = 0;
+        if (autoCursorSpeedAdjust) {
+
+            radian = -90 * ((autoCursorTime - autoCursorTimeToVertical) * (autoCursorTime - autoCursorTimeToVertical)) + 90;
+            radian *= Mathf.Deg2Rad;
+        }
+        else
+        {
+            radian = autoCursorTime / autoCursorTimeToVertical * 90 * Mathf.Deg2Rad;
+        }
+
         Vector2 throwDirection = new Vector2(Mathf.Cos(radian) * dir, Mathf.Sin(radian));
         throwVec = orbits.ShowOrbitByVector(ThrowPoint, throwDirection, throwPower, dir);
 

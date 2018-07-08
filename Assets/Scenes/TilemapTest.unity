@@ -163,6 +163,16 @@ Prefab:
       value: 
       objectReference: {fileID: 1898652494120590, guid: 6e5ce2a5b2a8e3a4783e9531444af85c,
         type: 2}
+    - target: {fileID: 114667337627405252, guid: 52f7ace6197286b4da6dce7f784dc9bd,
+        type: 2}
+      propertyPath: autoCursorBothWays
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114667337627405252, guid: 52f7ace6197286b4da6dce7f784dc9bd,
+        type: 2}
+      propertyPath: autoCursorSpeedAdjust
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
   m_IsPrefabParent: 0
