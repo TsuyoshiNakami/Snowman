@@ -13,8 +13,10 @@ public class BasketMover : MonoBehaviour {
     bool useHinge = false;
 
     float timer = 0;
-    [SerializeField] float speed = 5;
-    [SerializeField] GameObject[] checkPoints;
+    [SerializeField] public float speed = 5;
+    [SerializeField] public GameObject[] checkPoints;
+    [SerializeField] bool oneWay = false;
+
     int pointNum = 0;
 
     // Use this for initialization
@@ -73,6 +75,7 @@ public class BasketMover : MonoBehaviour {
     void Move()
     {
         if (checkPoints.Length <= 0) return;
+
         Vector3 vec = checkPoints[(pointNum + 1) % checkPoints.Length].transform.position - checkPoints[pointNum % checkPoints.Length].transform.position;
 
         transform.position += vec.normalized * speed * Time.deltaTime;
@@ -84,5 +87,21 @@ public class BasketMover : MonoBehaviour {
             pointNum++;
         }
 
+        if (oneWay)
+        {
+            OneWay();
+            return;
+        }
+
+    }
+
+    void OneWay()
+    {
+        if(pointNum + 1 >= checkPoints.Length)
+        {
+            Destroy(gameObject);
+            pointNum = 0;
+            transform.position = checkPoints[0].transform.position;
+        }
     }
 }
