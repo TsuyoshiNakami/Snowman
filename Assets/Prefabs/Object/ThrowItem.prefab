@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IgnorePlayer: 0
-  gravity: 3
+  gravity: 6.15
   attributes: []
 --- !u!212 &212318156457080292
 SpriteRenderer:

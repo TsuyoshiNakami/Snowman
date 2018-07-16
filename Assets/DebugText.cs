@@ -7,7 +7,8 @@ public enum DebugTextType
 {
     ThrowPower,
     ChargeTime,
-    SnowBallGravity
+    SnowBallGravity,
+    ItemCount
 }
 
 public class DebugText : MonoBehaviour {
@@ -35,6 +36,9 @@ public class DebugText : MonoBehaviour {
                 break;
             case DebugTextType.SnowBallGravity:
                 text.text = string.Format("{0:f2}", snowBall.GetComponent<Rigidbody2D>().gravityScale);
+                break;
+            case DebugTextType.ItemCount:
+                text.text = string.Format("{0:0}", GameManager.score);
                 break;
         }
     }
