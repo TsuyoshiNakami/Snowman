@@ -228,6 +228,11 @@ Prefab:
       propertyPath: maxThrowPower
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 114429224694397210, guid: 52f7ace6197286b4da6dce7f784dc9bd,
+        type: 2}
+      propertyPath: checkTimeInterval
+      value: 0.025
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
   m_IsPrefabParent: 0
@@ -1605,10 +1610,6 @@ Prefab:
       propertyPath: checkPoints.Array.data[1]
       value: 
       objectReference: {fileID: 2028411621}
-    - target: {fileID: 1073797624538598, guid: 4a3b84d682c55d041ba08f12dfb7dc7e, type: 2}
-      propertyPath: m_Name
-      value: basket
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4a3b84d682c55d041ba08f12dfb7dc7e, type: 2}
   m_IsPrefabParent: 0
@@ -1863,7 +1864,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.51739943, g: 0.5986833, b: 0.7264151, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1874,7 +1875,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.61
+  orthographic size: 11.3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

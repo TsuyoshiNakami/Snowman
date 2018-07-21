@@ -581,18 +581,48 @@ public class ThrowOrbitController : MonoBehaviour {
         //#Progress
         Vector2 vec = throwDirection * throwPower;
         float time = 0;
+        bool hitToWall = false;
+
         for (int i = 0; i < orbitsNum; i++)
         {
-            time = i * 0.1f;
+            time = i * 0.08f;
             calculatedPosition.x = vec.x * time;
             //#Progress
             calculatedPosition.y = vec.y * time - 9.8f * throwObjGravityScale * time * time / 2;
-            targetOrbits[i].transform.position = calculatedPosition + startPos;
+
+
+            if (IsThereCollider(calculatedPosition + startPos))
+            {
+                hitToWall = true;
+            }
+            else
+            {
+                targetOrbits[i].transform.position = calculatedPosition + startPos;
+            }
+
+            targetOrbits[i].SetActive(!hitToWall);
         }
 
         return vec;
     }
 
+    bool IsThereCollider(Vector2 point)
+    {
+        Collider2D[] hits = new Collider2D[3];
+        Physics2D.OverlapPointNonAlloc(point, hits);
+        foreach(Collider2D hit in hits)
+        {
+            if(hit == null)
+            {
+                continue;
+            }
+            if(hit.CompareTag("Road"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public GameObject GetNearTargetByPosition(Vector2 pos, float distance)
     {
         RaycastHit2D[] nearTargets = new RaycastHit2D[5];
