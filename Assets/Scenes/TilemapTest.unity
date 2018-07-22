@@ -233,6 +233,11 @@ Prefab:
       propertyPath: checkTimeInterval
       value: 0.025
       objectReference: {fileID: 0}
+    - target: {fileID: 114667337627405252, guid: 52f7ace6197286b4da6dce7f784dc9bd,
+        type: 2}
+      propertyPath: maxThrowHeight
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
   m_IsPrefabParent: 0

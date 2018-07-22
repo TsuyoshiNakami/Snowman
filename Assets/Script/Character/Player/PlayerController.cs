@@ -86,6 +86,8 @@ public class PlayerController : BaseCharacterController
 
     [SerializeField, Header("オートカーソルのスピードを自動調節するか")] bool autoCursorSpeedAdjust;
 
+    [SerializeField, Header("投げたものの最高到達点")] float maxThrowHeight = 7.5f;
+
     bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
     }
@@ -387,7 +389,7 @@ public class PlayerController : BaseCharacterController
         {
             radian = autoCursorTime / autoCursorTimeToVertical * 90 * Mathf.Deg2Rad;
         }
-        throwPower = Mathf.Sqrt(2 * 9.8f * 7.5f * throwObj.GetComponent<Rigidbody2D>().gravityScale);
+        throwPower = Mathf.Sqrt(2 * 9.8f * maxThrowHeight * throwObj.GetComponent<Rigidbody2D>().gravityScale);
         //Mathf.Sqrt(2 * 9.8f * 20)
         Vector2 throwDirection = new Vector2(Mathf.Cos(radian) * dir, Mathf.Sin(radian));
         throwVec = orbits.ShowOrbitByVector(ThrowPoint, throwDirection, throwPower, dir);
