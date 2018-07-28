@@ -462,7 +462,7 @@ MonoBehaviour:
   orbitAnimInterval: 0.04
   oldCapturedObj: {fileID: 0}
   snowBall: {fileID: 114439447875312726, guid: 0fd3d6fed763c1b42bd1c25137c8b5d6, type: 2}
-  checkTimeInterval: 0.02
+  checkTimeInterval: 0.025
   checkNum: 250
   captureObj: {fileID: 1898652494120590, guid: 6e5ce2a5b2a8e3a4783e9531444af85c, type: 2}
 --- !u!114 &114489944866126894
@@ -505,15 +505,11 @@ MonoBehaviour:
   SpriteforCheck: {fileID: 21300000, guid: 124b9cbc86ff05a48ae6edc1237459ba, type: 3}
   moveVec: {x: 0, y: 0}
   isStarted: 1
-  preparationToJump: 0
   slidePower: 1
   snowParticle: {fileID: 0}
-  throwType: 2
-  maxThrowPower: 21.8
-  jumpPower: 22
+  maxThrowPower: 30
   initHpMax: 8
   initSpeed: 8
-  jumpTimeMax: 0.2
   defaultThrowObj: {fileID: 1788969347490714, guid: 0fd3d6fed763c1b42bd1c25137c8b5d6,
     type: 2}
   cameraOffset: {x: 0, y: 0}
@@ -521,15 +517,21 @@ MonoBehaviour:
   damageEffect: {fileID: 0}
   throwPoint: {fileID: 0}
   jumpUpPower: 105
-  autoCursorTimeToVertical: 1
   freeVectorCursorSpeed: 15
-  throwObj: {fileID: 0}
+  preparationToJump: 0
+  jumpPower: 22
+  jumpTimeMax: 0.2
   jumpPowers:
   - 1
-  - 5
-  - 5
+  - 7
+  - 7
   - 0
   - 0
+  throwType: 3
+  autoCursorTimeToVertical: 1
+  autoCursorBothWays: 1
+  autoCursorSpeedAdjust: 1
+  maxThrowHeight: 10
 --- !u!114 &114873731930886694
 MonoBehaviour:
   m_ObjectHideFlags: 1
