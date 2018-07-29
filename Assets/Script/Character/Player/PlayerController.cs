@@ -99,7 +99,7 @@ public class PlayerController : BaseCharacterController
 
     bool IsJump
     {
-        get { return IsCurrentAnimation("Base Layer.Player_Jump"); }
+        get { return IsCurrentAnimation("Base Layer.Player_Jump") || IsCurrentAnimation("Base Layer.Player_JumpNoPreparation")  ; }
     }
 
     bool IsJumpFall
@@ -251,6 +251,11 @@ public class PlayerController : BaseCharacterController
             if (IsJumpFall)
             {
                 anime.SetTrigger("JumpLanding");
+
+            }
+            if(IsJump)
+            {
+                anime.SetTrigger("jumpFall");
 
             }
         }
