@@ -81,10 +81,7 @@ public class BasketMover : MonoBehaviour {
         transform.position += vec.normalized * speed * Time.deltaTime;
 
         float distance = (checkPoints[(pointNum + 1) % checkPoints.Length].transform.position - transform.position).magnitude;
-        if (gameObject.name == "basket_012")
-        {
-            Debug.Log(distance + " :  " + speed * Time.deltaTime);
-        }
+
         if (distance < 0.4f)//speed * Time.deltaTime)
         {
             pointNum++;

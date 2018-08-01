@@ -194,11 +194,6 @@ public class PlayerController : BaseCharacterController
         throwPower = maxThrowPower;
 
         //落下開始
-        if(rbody2D.velocity.y < 0 && oldVelocity.y >= 0 && !grounded)
-        {
-            anime.ResetTrigger("JumpLanding");
-            anime.SetTrigger("JumpFall");
-        }
 
         if (grounded && IsJump)
         {
@@ -257,6 +252,14 @@ public class PlayerController : BaseCharacterController
             {
                 anime.SetTrigger("jumpFall");
 
+            }
+        }
+        if (rbody2D.velocity.y < 0 && !grounded)
+        {
+            anime.ResetTrigger("JumpLanding");
+            if (!IsJumpFall)
+            {
+                anime.SetTrigger("JumpFall");
             }
         }
 
