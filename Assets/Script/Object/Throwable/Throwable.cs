@@ -14,6 +14,7 @@ public class Throwable : MonoBehaviour
     GameObject playerObj;
     GameObject holdObj = null;
 
+
     bool isTaken = false;
     int maxBoundCount = 0;
 

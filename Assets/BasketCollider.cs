@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UniRx;
 
 public class BasketCollider : MonoBehaviour {
 
@@ -10,6 +11,10 @@ public class BasketCollider : MonoBehaviour {
     Collider2D[] nowCollider = new Collider2D[6];
     Collider2D[] oldCollider = new Collider2D[6];
 
+    Subject<GameObject> ItemEnterSubject = new Subject<GameObject>();
+    public IObservable<GameObject> OnItemEnter {
+        get { return ItemEnterSubject; }
+    }
 
     bool isInCollider = false;
 
@@ -50,15 +55,23 @@ public class BasketCollider : MonoBehaviour {
             if (c == null) continue;
             if (exitCollider.Contains(c))
             {
-                Destroy(c.gameObject);
-                ballCount++;
-                GameManager.score += score;
-                //UIManager.SetText("BallCountText", "入った数：" + ballCount);
+                ItemEnter(c.gameObject);
+
             }
         }
 
         oldCollider = nowCollider;
         nowCollider = new Collider2D[6];
+    }
+
+    void ItemEnter(GameObject item)
+    {
+        Destroy(item);
+        ItemEnterSubject.OnNext(item);
+
+        ballCount++;
+        GameManager.score += score;
+        //UIManager.SetText("BallCountText", "入った数：" + ballCount);
     }
 
     void GetCollider()
