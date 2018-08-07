@@ -16,8 +16,6 @@ public enum PresentAttribute {
     Donut = 1 << 2,
     Brandy = 1 << 3,
     Sweet = 1 << 4,
-
-
 }
 public static class PresentAttributeExtensions
 {
@@ -39,5 +37,16 @@ public class Yaku {
     public string yakuName = "";
     public YakuEnum yakuEnum;
     public Present[] presents;
+    [NonSerialized] uint[] presentAttributeInt = new uint[3];
     public int score;
+
+    
+    public uint[] GetPresentAttributeInts()
+    {
+        for(int i = 0; i < presentAttributeInt.Length; i++)
+        {
+            presentAttributeInt[i] = presents[i].AttributesToUInt();
+        }
+        return presentAttributeInt;
+    }
 }

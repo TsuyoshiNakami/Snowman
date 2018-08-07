@@ -77,26 +77,24 @@ public class BasketPresentViewer : MonoBehaviour {
     void DistinguishYaku()
     {
         YakuList yakuList = GameObject.Find("YakuList").GetComponent<YakuList>();
-
-        foreach(Yaku yaku in yakuList.yakus)
+        Yaku maxYaku = null;
+        foreach (Yaku yaku in yakuList.yakus)
         {
 
             List<Present> tmpPresents = new List<Present>(presents);
-            
-            foreach (Present yakuElement in yaku.presents)
+
+
+            foreach (uint yakuInt in yaku.GetPresentAttributeInts())
             {
-                Debug.Log(yakuElement + "は入ってるかな？");
                 bool foundFlag = false;
                 Present foundPresent = null;
                 foreach(Present present in tmpPresents)
                 {
-                    Debug.Log("Yaku Element : " + yakuElement.AttributesToUInt() + ", present : " + present.AttributesToUInt());
+                    Debug.Log("Yaku Element : " + yakuInt + ", present : " + present.AttributesToUInt());
                     // presentの中に aフラグが含まれているか？
-                    if(present.MeetConditions(yakuElement.AttributesToUInt())) {
-                        Debug.Log(yakuElement + "は入ってる");
+                    if(present.MeetConditions(yakuInt)) {
                         foundFlag = true;
                         foundPresent = present;
-                        Debug.Log("見つかったプレゼント：" + foundPresent);
                         break;
                     }
                     if (foundFlag)
@@ -108,15 +106,22 @@ public class BasketPresentViewer : MonoBehaviour {
                 if(foundPresent != null)
                 {
 
-                    Debug.Log(foundPresent + "は除外する");
                     tmpPresents.Remove(foundPresent);
                 }
                 if (tmpPresents.Count == 0)
                 {
-                    GameManager.score += yaku.score;
-                    makeYakuSubject.OnNext(yaku.yakuName);
+                    if (maxYaku == null || yaku.score > maxYaku.score)
+                    {
+                        Debug.Log(yaku.yakuName + "成立");
+                        maxYaku = yaku;
+                    }
                     break;
                 }
+            }
+            if (maxYaku != null)
+            {
+                GameManager.score += maxYaku.score;
+                makeYakuSubject.OnNext(maxYaku.yakuName);
             }
         }
         Invoke("ClearPresents", 1.5f);
