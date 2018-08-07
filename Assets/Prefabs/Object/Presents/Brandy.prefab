@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presentName: Brandy
-  attribute: 03000000
+  attributes: 08000000
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1

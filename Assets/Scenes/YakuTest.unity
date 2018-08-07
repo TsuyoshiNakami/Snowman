@@ -185,7 +185,17 @@ MonoBehaviour:
   yakus:
   - yakuName: "\u30B9\u30A4\u30FC\u30C4\u30D1\u30E9\u30C0\u30A4\u30B9"
     yakuEnum: 0
-    attribute: 010000000000000002000000
+    presents:
+    - {fileID: 114938973979665916, guid: 52c9ea30e4e015c49921fd96b435b6f9, type: 2}
+    - {fileID: 114265617327219604, guid: 57b6b1c13cc167341b61705176b59b3c, type: 2}
+    - {fileID: 114559319745770342, guid: 180931ef7a6cf8645a850f8089d3be51, type: 2}
+    score: 200
+  - yakuName: "\u304A\u795D\u3044\u30BB\u30C3\u30C8"
+    yakuEnum: 0
+    presents:
+    - {fileID: 114938973979665916, guid: 52c9ea30e4e015c49921fd96b435b6f9, type: 2}
+    - {fileID: 114559319745770342, guid: 052304afc25a01a4ead4aefa2a775144, type: 2}
+    - {fileID: 114559319745770342, guid: 052304afc25a01a4ead4aefa2a775144, type: 2}
     score: 200
 --- !u!4 &107645735
 Transform:
@@ -232,7 +242,8 @@ MonoBehaviour:
   - {fileID: 1882362309303510, guid: 180931ef7a6cf8645a850f8089d3be51, type: 2}
   - {fileID: 1882362309303510, guid: 52c9ea30e4e015c49921fd96b435b6f9, type: 2}
   - {fileID: 1882362309303510, guid: 57b6b1c13cc167341b61705176b59b3c, type: 2}
-  interval: 2.5
+  - {fileID: 1882362309303510, guid: 052304afc25a01a4ead4aefa2a775144, type: 2}
+  interval: 2
   emitRangeMin: {x: 0, y: 0}
   emitRangeMax: {x: 5, y: 20}
 --- !u!212 &200709704
@@ -1870,7 +1881,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewStart: {fileID: 710793582}
   viewEnd: {fileID: 710793581}
-  presents: []
 --- !u!1 &861189156
 GameObject:
   m_ObjectHideFlags: 0

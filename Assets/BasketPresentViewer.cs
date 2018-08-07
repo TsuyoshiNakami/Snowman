@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -11,7 +12,7 @@ public class BasketPresentViewer : MonoBehaviour {
 
     List<GameObject> presentObjs;
     BasketCollider basketCollider;
-    public List<Present> presents = new List<Present>();
+    List<Present> presents = new List<Present>();
 
     Subject<string> makeYakuSubject = new Subject<string>();
     public IObservable<string> OnMakeYaku
@@ -35,7 +36,7 @@ public class BasketPresentViewer : MonoBehaviour {
     {
         Present present = item.GetComponent<Present>();
 
-        Debug.Log(present.attribute);
+        Debug.Log(present.attributes);
         GameObject newObj = Instantiate(new GameObject(), transform);
         newObj.transform.localScale = Vector3.one / 2;
 
@@ -44,7 +45,8 @@ public class BasketPresentViewer : MonoBehaviour {
         newObj.name = "EnterItem";
         Present newPresent = newObj.AddComponent<Present>();
         newPresent.presentName = present.presentName;
-        newPresent.attribute = present.attribute;
+        newPresent.attributes = present.attributes;
+
         presents.Add(newPresent);
         Sprite sprite = item.GetComponent<SpriteRenderer>().sprite;
         spriteRenderer.sprite = sprite;
@@ -80,26 +82,22 @@ public class BasketPresentViewer : MonoBehaviour {
         {
 
             List<Present> tmpPresents = new List<Present>(presents);
-
-            Debug.Log("見つかったプレゼントaiueo：" + presents[0]);
-            foreach (PresentAttribute a in yaku.attribute)
+            
+            foreach (Present yakuElement in yaku.presents)
             {
-                Debug.Log(a + "は入ってるかな？");
+                Debug.Log(yakuElement + "は入ってるかな？");
                 bool foundFlag = false;
                 Present foundPresent = null;
                 foreach(Present present in tmpPresents)
                 {
-                    foreach (PresentAttribute b in present.attribute)
-                    {
-                        if(a == b)
-                        {
-
-                            Debug.Log(a + "は入ってる");
-                            foundFlag = true;
-                            foundPresent = present;
-                            Debug.Log("見つかったプレゼント：" + foundPresent);
-                            break;
-                        }
+                    Debug.Log("Yaku Element : " + yakuElement.AttributesToUInt() + ", present : " + present.AttributesToUInt());
+                    // presentの中に aフラグが含まれているか？
+                    if(present.MeetConditions(yakuElement.AttributesToUInt())) {
+                        Debug.Log(yakuElement + "は入ってる");
+                        foundFlag = true;
+                        foundPresent = present;
+                        Debug.Log("見つかったプレゼント：" + foundPresent);
+                        break;
                     }
                     if (foundFlag)
                     {
@@ -110,11 +108,12 @@ public class BasketPresentViewer : MonoBehaviour {
                 if(foundPresent != null)
                 {
 
-                    Debug.Log(foundPresent.attribute + "は除外する");
+                    Debug.Log(foundPresent + "は除外する");
                     tmpPresents.Remove(foundPresent);
                 }
                 if (tmpPresents.Count == 0)
                 {
+                    GameManager.score += yaku.score;
                     makeYakuSubject.OnNext(yaku.yakuName);
                     break;
                 }

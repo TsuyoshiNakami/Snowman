@@ -70,7 +70,7 @@ public class BasketCollider : MonoBehaviour {
         ItemEnterSubject.OnNext(item);
 
         ballCount++;
-        GameManager.score += score;
+        //GameManager.score += score;
         //UIManager.SetText("BallCountText", "入った数：" + ballCount);
     }
 

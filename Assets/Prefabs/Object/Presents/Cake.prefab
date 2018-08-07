@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presentName: Cake
-  attribute: 0400000001000000
+  attributes: 0200000010000000
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1

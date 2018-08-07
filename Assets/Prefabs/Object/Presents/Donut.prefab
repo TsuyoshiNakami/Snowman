@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presentName: Donut
-  attribute: 0200000004000000
+  attributes: 0400000010000000
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
