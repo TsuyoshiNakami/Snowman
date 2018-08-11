@@ -87,6 +87,7 @@ public class PlayerController : BaseCharacterController
     [SerializeField, Header("オートカーソルのスピードを自動調節するか")] bool autoCursorSpeedAdjust;
 
     [SerializeField, Header("投げたものの最高到達点")] float maxThrowHeight = 7.5f;
+    [SerializeField, Header("雪玉投げられるか")] bool canThrowSnowBall = false;
 
     bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
@@ -664,7 +665,24 @@ public class PlayerController : BaseCharacterController
 
     public void PreThrow()
     {
-        if(IsThrow)
+
+        GameObject throwObj = FindThrowObj();
+
+        if (throwObj != null)
+        {
+            SetThrowObj(throwObj);
+            orbits.SetGravity(throwObj.GetComponent<Rigidbody2D>().gravityScale);
+        }
+        else
+        {
+            if(!canThrowSnowBall)
+            {
+                return;
+            }
+            SetThrowObj();
+            orbits.SetGravity(defaultThrowObj.GetComponent<Rigidbody2D>().gravityScale);
+        }
+        if (IsThrow)
         {
             Debug.Log("Reservation");
             throwReservation = true;
@@ -677,19 +695,6 @@ public class PlayerController : BaseCharacterController
 
         anime.SetTrigger("PreThrow");
         anime.ResetTrigger("Throw");
-        GameObject throwObj = FindThrowObj();
-
-        if (throwObj != null)
-        {
-            SetThrowObj(throwObj);
-            orbits.SetGravity(throwObj.GetComponent<Rigidbody2D>().gravityScale);
-        }
-        else
-        {
-            SetThrowObj();
-            orbits.SetGravity(defaultThrowObj.GetComponent<Rigidbody2D>().gravityScale);
-        }
-
         ShowOrbit();
     }
 
