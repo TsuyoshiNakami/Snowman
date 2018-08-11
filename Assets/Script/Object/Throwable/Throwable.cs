@@ -49,6 +49,9 @@ public class Throwable : MonoBehaviour
                 case "MaxBoundCount":
                     maxBoundCount = int.Parse(elements[1]);
                     break;
+                case "Fragile":
+
+                    break;
             }
         }
     }
@@ -111,6 +114,14 @@ public class Throwable : MonoBehaviour
                 boundCount++;
             }
 
+        }
+
+        if(attributes.Contains("Fragile"))
+        {
+            if(c.transform.CompareTag("Road") && rigid.velocity.magnitude > 2f)
+            {
+                Destroy(gameObject);
+            }
         }
 
     }

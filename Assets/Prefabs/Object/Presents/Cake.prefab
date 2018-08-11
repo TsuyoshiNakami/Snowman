@@ -102,7 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IgnorePlayer: 0
   gravity: 6.15
-  attributes: []
+  attributes:
+  - Fragile
 --- !u!114 &114938973979665916
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,19 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
+using TMPro;
 
 public class YakuText : MonoBehaviour {
 
-    [SerializeField]BasketPresentViewer viewer;
+    PresentManager presentManager;
+
     Text text;
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
         text.text = "";
-
-        viewer.OnMakeYaku.Subscribe(yakuName =>
+        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
+        presentManager.OnMakeYaku.Subscribe(yaku =>
         {
-            text.text = yakuName;
+
+            Debug.Log(yaku.yakuName + " +" + yaku.score);
+            text.text = yaku.yakuName + "　+" + yaku.score;
             Observable.Timer(TimeSpan.FromSeconds(1.5f)).Subscribe(_ =>
             {
                 text.text = "";

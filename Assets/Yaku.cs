@@ -16,6 +16,10 @@ public enum PresentAttribute {
     Donut = 1 << 2,
     Brandy = 1 << 3,
     Sweet = 1 << 4,
+    SoccerBall = 1 << 5,
+    Toy = 1 << 6,
+    Cat = 1 << 7,
+    Sake = 1 << 8,
 }
 public static class PresentAttributeExtensions
 {

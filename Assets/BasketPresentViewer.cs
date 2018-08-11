@@ -13,6 +13,8 @@ public class BasketPresentViewer : MonoBehaviour {
     List<GameObject> presentObjs;
     BasketCollider basketCollider;
     List<Present> presents = new List<Present>();
+    PresentManager presentManager;
+
 
     Subject<string> makeYakuSubject = new Subject<string>();
     public IObservable<string> OnMakeYaku
@@ -29,15 +31,18 @@ public class BasketPresentViewer : MonoBehaviour {
         basketCollider.OnItemEnter.Subscribe(item => {
             ViewPresent(item);
         });
-	}
+
+        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
+    }
 	
 
     public void ViewPresent(GameObject item)
     {
+        presentManager.HidePresentFromView(item);
         Present present = item.GetComponent<Present>();
 
-        Debug.Log(present.attributes);
-        GameObject newObj = Instantiate(new GameObject(), transform);
+        GameObject newObj = new GameObject();
+        newObj.transform.parent = transform;
         newObj.transform.localScale = Vector3.one / 2;
 
         SpriteRenderer spriteRenderer = newObj.AddComponent<SpriteRenderer>();
@@ -90,7 +95,6 @@ public class BasketPresentViewer : MonoBehaviour {
                 Present foundPresent = null;
                 foreach(Present present in tmpPresents)
                 {
-                    Debug.Log("Yaku Element : " + yakuInt + ", present : " + present.AttributesToUInt());
                     // presentの中に aフラグが含まれているか？
                     if(present.MeetConditions(yakuInt)) {
                         foundFlag = true;
@@ -112,7 +116,6 @@ public class BasketPresentViewer : MonoBehaviour {
                 {
                     if (maxYaku == null || yaku.score > maxYaku.score)
                     {
-                        Debug.Log(yaku.yakuName + "成立");
                         maxYaku = yaku;
                     }
                     break;
@@ -121,10 +124,15 @@ public class BasketPresentViewer : MonoBehaviour {
             if (maxYaku != null)
             {
                 GameManager.score += maxYaku.score;
+                presentManager.OnMakeYakuEvent(maxYaku);
                 makeYakuSubject.OnNext(maxYaku.yakuName);
+            } else
+            {
+                GameManager.score += yakuList.defaultYaku.score;
+                presentManager.OnMakeYakuEvent(yakuList.defaultYaku);
             }
         }
-        Invoke("ClearPresents", 1.5f);
+        Invoke("ClearPresents", 0f);
 
     }
 }
