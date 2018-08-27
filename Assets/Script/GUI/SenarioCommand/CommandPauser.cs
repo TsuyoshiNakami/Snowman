@@ -12,7 +12,7 @@ public class CommandPauser: ICommand {
 
 	public void Command(Dictionary<string, string> command) {
 		if (command ["command"] == "resume") {
-			Pauser.Resume (command ["name"]);
+		//	Pauser_old.Resume (command ["name"]);
 		}
 
 	}

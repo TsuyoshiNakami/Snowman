@@ -12,7 +12,7 @@ public class MessageController : MonoBehaviour {
 	private bool m_isCallPreLoad = false;
 	public bool m_stop = false;
 	public bool hiSpeed = false;
-	private MessageWindowController msgWindow;
+	private MessageWindowController_old msgWindow;
 	private CommandController commandController;
 	int yesGoto = 0;
 	int noGoto = 0;
@@ -42,7 +42,7 @@ public class MessageController : MonoBehaviour {
 			enabled = false;
 			return;
 		}
-		Pauser.Pause ();
+	//	Pauser_old.Pause ();
 		scenarios = scenarioText.text.Split (new string[]{ "@br" }, System.StringSplitOptions.None);
 		currentLine = 0;
 		//Debug.Log ("UpdateLines" + currentLine);
@@ -116,7 +116,7 @@ public class MessageController : MonoBehaviour {
 
 			#region UNITY_CALLBACK
 			void Start() {
-				msgWindow = GetComponent<MessageWindowController>();
+				msgWindow = GetComponent<MessageWindowController_old>();
 				commandController = GetComponent<CommandController>();
 	
 			}

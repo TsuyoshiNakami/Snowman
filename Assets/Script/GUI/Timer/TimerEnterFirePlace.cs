@@ -12,10 +12,10 @@ public class TimerEnterFirePlace : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Timer.state == TimerState.NONE && MessageWindowController.msgWindowInfo == "Msg_EnterFirePlace_End") {
+		if (Timer.state == TimerState.NONE && MessageWindowController_old.msgWindowInfo == "Msg_EnterFirePlace_End") {
 			Timer.SetTime (time);
 			Timer.StartTimer ();
-			MessageWindowController.clearInfo ();
+			MessageWindowController_old.clearInfo ();
 		}
 
 		if (Timer.state == TimerState.OVER) {

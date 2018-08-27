@@ -5,13 +5,13 @@ using System.Linq;
 using System;
 
 public class CommandEnd : ICommand {
-	MessageWindowController msgWindow;
+	MessageWindowController_old msgWindow;
 	public string Tag {
 		get { return"end"; }
 	}
 
 	public void Command(Dictionary<string, string> command) {
-		msgWindow = GameObject.Find ("MessageWindow").GetComponent<MessageWindowController>();
+		msgWindow = GameObject.Find ("MessageWindow").GetComponent<MessageWindowController_old>();
 		msgWindow.EndMessage ();
 	}
 }

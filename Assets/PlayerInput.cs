@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour {
     {
         target.SetActive(false);
     }
+
 	void Update () {
         Transform point = transform;
 

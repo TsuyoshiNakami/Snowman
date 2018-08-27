@@ -145,7 +145,7 @@ public class EnemyController : BaseCharacterController {
 		if(!deadEvent) {
 			base.Dead(gameOver);
 			rbody2D.AddForce (new Vector2 (0, 1000));
-			Pauser.targets.Remove(GetComponent<Pauser>());
+			Pauser_old.targets.Remove(GetComponent<Pauser_old>());
 			Destroy(gameObject, 0.5f);
 		}
 

@@ -16,7 +16,6 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	public static string currentSceneName = "Stage1";
 	static PlayerController playerController;
 	static bool isLoad = false;
-	public static bool isFirstPlay = true;
 	public int maxCoin = 6;
 	public static bool[] getCoins;
 	public static bool enableAllWarp;
@@ -24,6 +23,7 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	public int animeCount = -2;
 	[SerializeField] string sceneNameSerial = "Stage1";
     [SerializeField] GameObject playerObj;
+    [SerializeField] MessageWindowController messageWindowController;
 	public bool ReloadStage = false;
 	CameraFol cameraFol;
 	public static bool firstCheckPoint = false;
@@ -32,8 +32,13 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	static AsyncOperation ao;
 	public static bool isTitle = true;
     public static int score = 0;
+
+
     
 	void Start () {
+
+        //Invoke("ShowTestMsg", 5);
+
         if (GameObject.Find("Player") == null)
         {
             AddPlayer();
@@ -56,9 +61,27 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
         }
     }
 
-	public static void LoadScene(string name) {
+    private void Update()
+    {
+        if (Input.GetButtonDown(KeyConfig.NextMessage) && !messageWindowController.isShowing)
+        {
+            
 
-			isFirstPlay = false;
+
+        }
+    }
+
+    void ShowTestMsg()
+    {
+        List<string> a = new List<string>();
+        a.Add("あいうえお");
+        a.Add("あそ；ｈ；あおｆｈ；あへｆ；あｗｈｆ；あへｋ；ｊｆは；");
+        a.Add("as;odfihaoeifha;weohf;awoeehf;ouihefo;ahweo;fh");
+        ShowMessage(a);
+    }
+
+    public static void LoadScene(string name) {
+       
 
 		if (isLoad)
 			return;
@@ -89,5 +112,10 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
     public static PlayerController GetPlayerController()
     {
         return playerController;
+    }
+
+    public void ShowMessage(List<string> messages)
+    {
+        messageWindowController.StartMessage(messages);
     }
 }

@@ -47,7 +47,7 @@ public class EnemyBodyCollider : MonoBehaviour {
 			}
 
 			Vector2 vec = transform.position - other.transform.position;
-			Pauser.targets.Remove(other.transform.GetComponent<Pauser>());
+			Pauser_old.targets.Remove(other.transform.GetComponent<Pauser_old>());
 			Destroy(other.gameObject);
 			vec.Normalize ();
 			if (!enemyCtrl.isBoss) {

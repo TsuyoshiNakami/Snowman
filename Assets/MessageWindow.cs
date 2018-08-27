@@ -1,0 +1,23 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class MessageWindow : MonoBehaviour {
+
+    [SerializeField] TextMeshProUGUI text;
+
+	// Use this for initialization
+	void Start () {
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    public void SetText(string _text)
+    {
+        text.text = _text;
+    }
+}

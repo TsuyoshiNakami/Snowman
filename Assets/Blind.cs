@@ -12,11 +12,10 @@ public class Blind : MonoBehaviour {
 	void Start () {
 		pc = GameObject.Find ("Player").GetComponent<PlayerController> ();
 		image = GetComponent<Image> ();
-		if (!GameManager.isFirstPlay) {
-			RemoveBlind ();
+
 			removeSpeed = 0.02f;
 		//	Destroy (gameObject);
-		}
+		
 	}
 
 	void Update () {

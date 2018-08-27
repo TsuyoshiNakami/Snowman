@@ -121,16 +121,17 @@ public class BasketPresentViewer : MonoBehaviour {
                     break;
                 }
             }
-            if (maxYaku != null)
-            {
-                GameManager.score += maxYaku.score;
-                presentManager.OnMakeYakuEvent(maxYaku);
-                makeYakuSubject.OnNext(maxYaku.yakuName);
-            } else
-            {
-                GameManager.score += yakuList.defaultYaku.score;
-                presentManager.OnMakeYakuEvent(yakuList.defaultYaku);
-            }
+        }
+        if (maxYaku != null)
+        {
+            GameManager.score += maxYaku.score;
+            presentManager.OnMakeYakuEvent(maxYaku);
+            makeYakuSubject.OnNext(maxYaku.yakuName);
+        }
+        else
+        {
+            GameManager.score += yakuList.defaultYaku.score;
+            presentManager.OnMakeYakuEvent(yakuList.defaultYaku);
         }
         Invoke("ClearPresents", 0f);
 

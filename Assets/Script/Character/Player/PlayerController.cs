@@ -39,7 +39,7 @@ public class PlayerController : BaseCharacterController
     [System.NonSerialized] public float groundY = 0.0f;
     [System.NonSerialized] public static int coin = 5000;
     [SerializeField] Vector2 cameraOffset = Vector2.zero;
-    public MessageWindowController msgWindow;
+    public MessageWindowController_old msgWindow;
     public static int CheckPointNumber = 0;
     public static bool enterDoor = false;
 
@@ -684,7 +684,7 @@ public class PlayerController : BaseCharacterController
         }
         if (IsThrow)
         {
-            Debug.Log("Reservation");
+        //    Debug.Log("Reservation");
             throwReservation = true;
         }
 
