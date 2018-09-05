@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114870087322011438}
   - component: {fileID: 50204444677976674}
   - component: {fileID: 114938973979665916}
+  - component: {fileID: 114073224189299328}
   m_Layer: 17
   m_Name: Cake
   m_TagString: Throwable
@@ -37,13 +38,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882362309303510}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.566428, y: 8.875333, z: 0.22862764}
+  m_LocalRotation: {x: -0, y: 0.013097167, z: -0, w: 0.9999143}
+  m_LocalPosition: {x: 8.62, y: 0.2, z: 0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 1.501, z: 0}
 --- !u!50 &50204444677976674
 Rigidbody2D:
   serializedVersion: 4
@@ -76,7 +77,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.01163888, y: -0.0000009536743}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -87,8 +88,21 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.385, y: 3.24}
+  m_Size: {x: 2.8495955, y: 2.634968}
   m_EdgeRadius: 0
+--- !u!114 &114073224189299328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882362309303510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace704b257bde8e44af7fb9853c877e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minBakeTime: 1
+  maxBakeTime: 3
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,6 +118,7 @@ MonoBehaviour:
   gravity: 6.15
   attributes:
   - Fragile
+  carryMultiplier: 1
 --- !u!114 &114938973979665916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,8 +164,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 279216987
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 153fa69ae606b374b954a0653ad33799, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

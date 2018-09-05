@@ -398,7 +398,7 @@ public class PlayerController : BaseCharacterController
         {
             radian = autoCursorTime / autoCursorTimeToVertical * 90 * Mathf.Deg2Rad;
         }
-        throwPower = Mathf.Sqrt(2 * 9.8f * maxThrowHeight * throwObj.GetComponent<Rigidbody2D>().gravityScale);
+        throwPower = Mathf.Sqrt(2 * 9.8f * maxThrowHeight * throwObj.GetComponent<Throwable>().carryMultiplier * throwObj.GetComponent<Rigidbody2D>().gravityScale);
         //Mathf.Sqrt(2 * 9.8f * 20)
         Vector2 throwDirection = new Vector2(Mathf.Cos(radian) * dir, Mathf.Sin(radian));
         throwVec = orbits.ShowOrbitByVector(ThrowPoint, throwDirection, throwPower, dir);
@@ -668,6 +668,13 @@ public class PlayerController : BaseCharacterController
 
         GameObject throwObj = FindThrowObj();
 
+        GameObject inputInterrupter = FindInputInterrupter();
+        if (inputInterrupter != null && (throwObj == null || throwObj.GetComponent<Throwable>().IsTaken))
+        {
+            inputInterrupter.GetComponent<Oven>().PutOut();
+            return;
+        }
+
         if (throwObj != null)
         {
             SetThrowObj(throwObj);
@@ -743,6 +750,7 @@ public class PlayerController : BaseCharacterController
     {
         Transform point = transform.Find("PlayerSprite/ThrowPoint");
 
+
         Vector2 transformX = transform.position;
 
         if (Input.GetAxis("Horizontal") > 0)
@@ -755,20 +763,30 @@ public class PlayerController : BaseCharacterController
 
 
         throwPower = maxThrowPower;
+        GameObject inputInterrupter = FindInputInterrupter();
 
-        if (throwObj == defaultThrowObj)
+        if (inputInterrupter == null)
         {
-            throwObj = Instantiate(defaultThrowObj, ThrowPoint, transform.rotation);
-            throwObj.transform.position = throwPoint.position;
-            throwObj.GetComponent<Rigidbody2D>().gravityScale = defaultThrowObj.GetComponent<Rigidbody2D>().gravityScale;
-            throwObj.GetComponent<Throwable>().OnThrew(transform.position, throwVec, throwPower, dir);
-        }
-        else
+            if (throwObj == defaultThrowObj)
+            {
+                throwObj = Instantiate(defaultThrowObj, ThrowPoint, transform.rotation);
+                throwObj.transform.position = throwPoint.position;
+                throwObj.GetComponent<Rigidbody2D>().gravityScale = defaultThrowObj.GetComponent<Rigidbody2D>().gravityScale;
+                throwObj.GetComponent<Throwable>().OnThrew(transform.position, throwVec, throwPower, dir);
+            }
+            else
+            {
+                throwObj.transform.position = throwPoint.position;
+                throwObj.GetComponent<Throwable>().OnThrew(transform.position, throwVec, throwPower, dir);
+            }
+            throwObj = null;
+        } else
         {
-            throwObj.transform.position = throwPoint.position;
-            throwObj.GetComponent<Throwable>().OnThrew(transform.position, throwVec, throwPower, dir);
+            throwObj.GetComponent<Throwable>().OnRelease();
+            inputInterrupter.GetComponent<Oven>().PutIn(throwObj.GetComponent<Present>());
+
+            throwObj = null;
         }
-        throwObj = null;
 
         autoCursorTime = 0;
         orbits.HideCaptureObj();
@@ -776,6 +794,21 @@ public class PlayerController : BaseCharacterController
         //sbThrown.GetComponent<SnowBallNormal>().SetMovement(transform.position, throwVec, throwPower, dir);
     }
 
+    GameObject FindInputInterrupter()
+    {
+
+        Transform point = transform.Find("PlayerSprite/ThrowPoint");
+        RaycastHit2D[] rays = Physics2D.CircleCastAll(point.position, 1.5f, Vector2.zero, 0);
+        float distance = 999;
+        foreach (RaycastHit2D ray in rays)
+        {
+            if (ray.transform.tag == "InputInterrupter")
+            {
+                return ray.transform.gameObject;
+            }
+        }
+        return null;
+    }
 
     Vector2 throwVec = Vector2.zero;
     public Vector2 SearchTarget()

@@ -8,14 +8,21 @@ public class Throwable : MonoBehaviour
     [SerializeField] bool IgnorePlayer = false;
     [SerializeField] float gravity = 4;
     [SerializeField] List<string> attributes;
-    
+
+    public float carryMultiplier = 1;
     Rigidbody2D rigid;
     Collider2D collider2D;
     GameObject playerObj;
     GameObject holdObj = null;
 
+    bool hasBeThrew = false;
 
     bool isTaken = false;
+    public bool IsTaken {
+        get {
+            return holdObj != null;
+        }
+    }
     int maxBoundCount = 0;
 
     int boundCount = -99;
@@ -96,6 +103,8 @@ public class Throwable : MonoBehaviour
         }
         if (holdObj != null)
         {
+
+            rigid.velocity = Vector2.zero;
             transform.position = holdObj.transform.position;
         }
 
@@ -118,8 +127,9 @@ public class Throwable : MonoBehaviour
 
         if(attributes.Contains("Fragile"))
         {
-            if(c.transform.CompareTag("Road") && rigid.velocity.magnitude > 2f)
+            if(c.transform.CompareTag("Road")  && hasBeThrew)
             {
+                
                 Destroy(gameObject);
             }
         }
@@ -139,9 +149,20 @@ public class Throwable : MonoBehaviour
     public void OnHeld(GameObject holdObj)
     {
         this.holdObj = holdObj;
+
+        rigid.Sleep();
+    }
+
+    public void OnRelease()
+    {
+
+        rigid.WakeUp();
+        isTaken = false;
+        holdObj = null;
     }
     public void OnThrew(Vector2 destPos, Vector2 throwDirection, float power, float dir)
     {
+        hasBeThrew = true;
         if (attributes.Contains("Bound"))
         {
             GetComponent<Collider2D>().sharedMaterial.bounciness = 1;
