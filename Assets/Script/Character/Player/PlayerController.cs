@@ -45,8 +45,11 @@ public class PlayerController : BaseCharacterController
 
     public GameObject damageEffect;
     public Transform throwPoint;
+    
 
     ThrowOrbitController orbits;
+
+
     //鼻照準
     Vector3 oldThrowEuler = Vector3.zero;
     GameObject spriteObj;
@@ -67,7 +70,7 @@ public class PlayerController : BaseCharacterController
     [SerializeField] float freeVectorCursorSpeed = 15;
     bool IsAutoCursorUp = true;
     int jumpCount = 0;
-
+    PlayerThrowPointCollider throwPointCollider;
 
 
     [NonSerialized]public GameObject throwObj;
@@ -173,6 +176,7 @@ public class PlayerController : BaseCharacterController
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         throwPoint = transform.Find("PlayerSprite/ThrowPoint");
         frontPoint = transform.Find("FrontPoint");
+        throwPointCollider = throwPoint.gameObject.GetComponent<PlayerThrowPointCollider>();
     }
 
     private int GetCurrentAnimation()
@@ -358,6 +362,12 @@ public class PlayerController : BaseCharacterController
 
     void ShowOrbit()
     {
+        if (throwPointCollider.FoundInterrupter)
+        {
+            orbits.SetOrbitsActive(false);
+            return;
+        }
+
         switch (throwType)
         {
             case THROWTYPE.Parabola:
@@ -378,6 +388,7 @@ public class PlayerController : BaseCharacterController
 
     void ShowOrbitAutoCursor()
     {
+
         if(!Input.GetButton("RB"))
         {
             if (IsAutoCursorUp)
@@ -671,6 +682,7 @@ public class PlayerController : BaseCharacterController
         GameObject inputInterrupter = FindInputInterrupter();
         if (inputInterrupter != null && (throwObj == null || throwObj.GetComponent<Throwable>().IsTaken))
         {
+            Debug.Log("Putout");
             inputInterrupter.GetComponent<Oven>().PutOut();
             return;
         }
@@ -707,7 +719,7 @@ public class PlayerController : BaseCharacterController
 
     GameObject FindThrowObj()
     {
-        RaycastHit2D[] hit2D = new RaycastHit2D[3];
+        RaycastHit2D[] hit2D = new RaycastHit2D[5];
         int num = Physics2D.BoxCastNonAlloc(throwPoint.transform.position, new Vector2(2f, 2f), 0, Vector2.right * dir, hit2D, 0.1f);
 
         foreach(RaycastHit2D hit in hit2D)
@@ -763,9 +775,8 @@ public class PlayerController : BaseCharacterController
 
 
         throwPower = maxThrowPower;
-        GameObject inputInterrupter = FindInputInterrupter();
 
-        if (inputInterrupter == null)
+        if (!throwPointCollider.FoundInterrupter)
         {
             if (throwObj == defaultThrowObj)
             {
@@ -783,6 +794,7 @@ public class PlayerController : BaseCharacterController
         } else
         {
             throwObj.GetComponent<Throwable>().OnRelease();
+            GameObject inputInterrupter = throwPointCollider.GetFirstInterrputer();
             inputInterrupter.GetComponent<Oven>().PutIn(throwObj.GetComponent<Present>());
 
             throwObj = null;

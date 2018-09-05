@@ -63,10 +63,9 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 
     private void Update()
     {
-        if (Input.GetButtonDown(KeyConfig.NextMessage) && !messageWindowController.isShowing)
+        if (Input.GetKeyDown(KeyCode.M) && !messageWindowController.isShowing)
         {
-            
-
+            ShowTestMsg();
 
         }
     }
@@ -75,8 +74,8 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
     {
         List<string> a = new List<string>();
         a.Add("あいうえお");
-        a.Add("あそ；ｈ；あおｆｈ；あへｆ；あｗｈｆ；あへｋ；ｊｆは；");
-        a.Add("as;odfihaoeifha;weohf;awoeehf;ouihefo;ahweo;fh");
+        a.Add("春はあけぼの。やうやう白くなりゆく山際、少し明かりて、紫だちたる雲の細くたなびきたる。");
+        a.Add("夏は夜。月のころはさらなり、闇もなほ、蛍の多く飛びちがひたる。また、ただ一つ二つなど、ほのかにうち光て行くもをかし。雨など降るもをかし。");
         ShowMessage(a);
     }
 
