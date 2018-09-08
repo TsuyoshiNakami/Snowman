@@ -124,7 +124,7 @@ public class PlayerController : BaseCharacterController
 
     Vector2 ThrowPoint
     {
-        get { return throwPoint.position; }
+        get { return (Vector2)throwPoint.position; }
     }
 
     Vector2 StickDirection
@@ -408,6 +408,10 @@ public class PlayerController : BaseCharacterController
         else
         {
             radian = autoCursorTime / autoCursorTimeToVertical * 90 * Mathf.Deg2Rad;
+        }
+        if(!throwObj)
+        {
+            return;
         }
         throwPower = Mathf.Sqrt(2 * 9.8f * maxThrowHeight * throwObj.GetComponent<Throwable>().carryMultiplier * throwObj.GetComponent<Rigidbody2D>().gravityScale);
         //Mathf.Sqrt(2 * 9.8f * 20)

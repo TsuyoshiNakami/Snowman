@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4611000314544988}
   - component: {fileID: 212318156457080292}
-  - component: {fileID: 61125181206337908}
   - component: {fileID: 114870087322011438}
   - component: {fileID: 50204444677976674}
   - component: {fileID: 114265617327219604}
+  - component: {fileID: 58459640944749004}
   m_Layer: 17
   m_Name: SoccerBall
   m_TagString: Throwable
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882362309303510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.6258564, y: 5.2774367, z: 0.22862764}
+  m_LocalPosition: {x: 12.823256, y: 4.9715734, z: 0.22862764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,8 +64,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61125181206337908
-BoxCollider2D:
+--- !u!58 &58459640944749004
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -77,18 +77,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.4333334, y: 2.4333334}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.245, y: 4}
-  m_EdgeRadius: 0
+  m_Radius: 1
 --- !u!114 &114265617327219604
 MonoBehaviour:
   m_ObjectHideFlags: 1

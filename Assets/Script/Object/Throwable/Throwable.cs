@@ -127,9 +127,10 @@ public class Throwable : MonoBehaviour
 
         if(attributes.Contains("Fragile"))
         {
-            if(c.transform.CompareTag("Road")  && hasBeThrew)
+            if(c.transform.CompareTag("Road")  && hasBeThrew && !IsTaken)
             {
-                
+                Debug.Log("Fragile Destroy");
+                GameObject.Find("PresentManager").GetComponent<PresentManager>().HidePresentFromView(gameObject);
                 Destroy(gameObject);
             }
         }
@@ -150,12 +151,14 @@ public class Throwable : MonoBehaviour
     {
         this.holdObj = holdObj;
 
+        Debug.Log("On held");
         rigid.Sleep();
     }
 
     public void OnRelease()
     {
 
+        Debug.Log("On Release");
         rigid.WakeUp();
         isTaken = false;
         holdObj = null;
