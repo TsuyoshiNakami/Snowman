@@ -362,6 +362,10 @@ public class PlayerController : BaseCharacterController
 
     void ShowOrbit()
     {
+        if (throwObj == null)
+        {
+            return;
+        }
         if (throwPointCollider.FoundInterrupter)
         {
             orbits.SetOrbitsActive(false);
@@ -764,6 +768,10 @@ public class PlayerController : BaseCharacterController
 
     public void ThrowEnd()
     {
+        if(throwObj == null)
+        {
+            return;
+        }
         Transform point = transform.Find("PlayerSprite/ThrowPoint");
 
 
@@ -791,7 +799,7 @@ public class PlayerController : BaseCharacterController
             }
             else
             {
-                throwObj.transform.position = throwPoint.position;
+            //    throwObj.transform.position = throwPoint.position;
                 throwObj.GetComponent<Throwable>().OnThrew(transform.position, throwVec, throwPower, dir);
             }
             throwObj = null;

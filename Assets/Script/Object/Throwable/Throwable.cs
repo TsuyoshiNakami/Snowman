@@ -105,7 +105,7 @@ public class Throwable : MonoBehaviour
         {
 
             rigid.velocity = Vector2.zero;
-            transform.position = holdObj.transform.position;
+            transform.position = holdObj.transform.position + Vector3.up * 0.8f;
         }
 
     }

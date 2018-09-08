@@ -90,7 +90,6 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 		//	UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (name, UnityEngine.SceneManagement.LoadSceneMode.Single);
 		ao = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (currentSceneName, UnityEngine.SceneManagement.LoadSceneMode.Single); //Application.LoadLevelAsync(currentSceneName);
 		ao.allowSceneActivation = false;
-		Timer.InitTimer ();
 	}
 
     void AddPlayer()

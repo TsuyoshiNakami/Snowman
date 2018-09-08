@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 
 public class PresentManager : MonoBehaviour {
-    [SerializeField] List<GameObject> presents;
+    [SerializeField] List<GameObject> kindOfPresents;
     List<GameObject> presentsInView = new List<GameObject>();
 
     Subject<Yaku> makeYakuSubject = new Subject<Yaku>();
@@ -36,8 +36,8 @@ public class PresentManager : MonoBehaviour {
     public GameObject EmitPresentRandom(Vector2 pos)
     {
 
-        int index = Random.Range(0, presents.Count);
-        GameObject newPresentObj = Instantiate(presents[index], pos, transform.rotation);
+        int index = Random.Range(0, kindOfPresents.Count);
+        GameObject newPresentObj = Instantiate(kindOfPresents[index], pos, transform.rotation);
 
         presentsInView.Add(newPresentObj);
         return newPresentObj;
@@ -51,5 +51,14 @@ public class PresentManager : MonoBehaviour {
     public void OnMakeYakuEvent(Yaku yaku)
     {
         makeYakuSubject.OnNext(yaku);
+    }
+
+    public void DeleteAllPresents()
+    {
+        foreach(GameObject present in presentsInView)
+        {
+            Destroy(present);
+        }
+        presentsInView.Clear();
     }
 }

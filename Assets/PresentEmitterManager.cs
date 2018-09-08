@@ -12,15 +12,21 @@ public class PresentEmitterManager : MonoBehaviour {
     [SerializeField] Vector2 emitRangeMin;
     [SerializeField] Vector2 emitRangeMax;
     PresentManager presentManager;
-
+    PresentGameManager presentGameManager;
     
 	// Use this for initialization
 	void Start () {
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
-	}
+
+        presentGameManager = GameObject.Find("PresentGameManager").GetComponent<PresentGameManager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        if(!presentGameManager.isTimerAvailable)
+        {
+            return;
+        }
         timer += Time.deltaTime;
 
         if(timer > interval)

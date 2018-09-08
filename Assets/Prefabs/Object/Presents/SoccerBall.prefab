@@ -106,7 +106,7 @@ MonoBehaviour:
   IgnorePlayer: 0
   gravity: 6.15
   attributes: []
-  carryMultiplier: 1.5
+  carryMultiplier: 1
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1
