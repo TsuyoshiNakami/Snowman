@@ -13,7 +13,7 @@ public class MessageController : MonoBehaviour {
 	public bool m_stop = false;
 	public bool hiSpeed = false;
 	private MessageWindowController_old msgWindow;
-	private CommandController commandController;
+	//private CommandController commandController;
 	int yesGoto = 0;
 	int noGoto = 0;
 
@@ -99,7 +99,7 @@ public class MessageController : MonoBehaviour {
 				m_stop = true;
 			}
 			if(! string.IsNullOrEmpty(text)) {
-				if (text [0] == '@' && commandController.loadCommand (text)) {
+				if (text [0] == '@' ){ //&& commandController.loadCommand (text)) {
 					if (text.IndexOf( "@jump") >= 0) {
 						//Debug.Log("CommandProcess" + scenarios [1+currentLine]);
 						return scenarios [++currentLine];
@@ -117,7 +117,7 @@ public class MessageController : MonoBehaviour {
 			#region UNITY_CALLBACK
 			void Start() {
 				msgWindow = GetComponent<MessageWindowController_old>();
-				commandController = GetComponent<CommandController>();
+				//commandController = GetComponent<CommandController>();
 	
 			}
 	void Update() {
@@ -162,7 +162,7 @@ public class MessageController : MonoBehaviour {
 			msgWindow.VoiceStop ();
 			if (currentLine < scenarios.Length) {
 				if (!m_isCallPreLoad) {
-					commandController.PreloadCommand (scenarios [currentLine]);
+					//commandController.PreloadCommand (scenarios [currentLine]);
 					m_isCallPreLoad = true;
 				}
 

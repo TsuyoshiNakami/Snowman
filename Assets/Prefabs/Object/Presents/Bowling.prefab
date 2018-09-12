@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 114870087322011438}
   - component: {fileID: 50204444677976674}
   - component: {fileID: 114265617327219604}
-  - component: {fileID: 58459640944749004}
+  - component: {fileID: 58470342505055434}
   m_Layer: 17
-  m_Name: SoccerBall
+  m_Name: Bowling
   m_TagString: Throwable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882362309303510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.823256, y: 4.9715734, z: 0.22862764}
+  m_LocalPosition: {x: 11.593725, y: 0.84452057, z: 0.22862764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58459640944749004
+--- !u!58 &58470342505055434
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +78,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.24
 --- !u!114 &114265617327219604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89850692b4b7a1c4aabe9b88586bcdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  presentName: SoccerBall
-  attributes: 2000000000040000
+  presentName: Bowling
+  attributes: 00040000
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,9 +104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IgnorePlayer: 0
-  gravity: 6.15
+  gravity: 8.35
   attributes: []
-  carryMultiplier: 1
+  carryMultiplier: 0.4
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -142,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 279216987
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0fff281ab707f56429228b3972d81086, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fe34a24df73f34046a8a12e77342c2e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
