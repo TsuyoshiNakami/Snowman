@@ -194,8 +194,29 @@ public class PlayerController : BaseCharacterController
     }
 
     Vector2 oldVelocity = Vector2.zero;
+    Throwable lastThrowable = null;
     protected override void FixedUpdateCharacter()
     {
+
+        // Throwableのアウトライン表示
+        if(lastThrowable != null)
+        {
+            lastThrowable.SetOutline(false);
+        }
+        if (!IsPreThrow && !IsThrow)
+        {
+            GameObject tmpThrowObj = FindThrowObj();
+            if (tmpThrowObj != null)
+            {
+
+                Throwable throwable = tmpThrowObj.GetComponent<Throwable>();
+                throwable.SetOutline(true);
+                lastThrowable = throwable;
+            }
+        }
+
+
+
         throwPower = maxThrowPower;
 
         //落下開始
@@ -687,6 +708,7 @@ public class PlayerController : BaseCharacterController
 
         GameObject throwObj = FindThrowObj();
 
+        //  オーブン
         GameObject inputInterrupter = FindInputInterrupter();
         if (inputInterrupter != null && (throwObj == null || throwObj.GetComponent<Throwable>().IsTaken))
         {

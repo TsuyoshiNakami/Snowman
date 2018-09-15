@@ -103,6 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minBakeTime: 1
   maxBakeTime: 3
+  bakedObj: {fileID: 0}
+  burntObj: {fileID: 0}
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,6 +121,7 @@ MonoBehaviour:
   attributes:
   - Fragile
   carryMultiplier: 1
+  hasBeThrew: 0
 --- !u!114 &114938973979665916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presentName: Cake
-  attributes: 0200000010000000
+  attributes: 020000001000000000100000
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1

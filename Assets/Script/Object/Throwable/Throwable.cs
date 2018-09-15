@@ -15,7 +15,8 @@ public class Throwable : MonoBehaviour
     GameObject playerObj;
     GameObject holdObj = null;
 
-    bool hasBeThrew = false;
+    public bool hasBeThrew = false;
+    GameObject outlineObj;
 
     bool isTaken = false;
     public bool IsTaken {
@@ -38,6 +39,11 @@ public class Throwable : MonoBehaviour
 
     void Initialize()
     {
+        outlineObj = Resources.Load<GameObject>("PresentOutline");
+        GameObject obj = Instantiate(outlineObj, transform);
+        obj.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
+        obj.SetActive(false);
+        outlineObj = obj;
         collider2D = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
         rigid.gravityScale = gravity;
@@ -63,6 +69,11 @@ public class Throwable : MonoBehaviour
         }
     }
 
+    public void SetOutline(bool f)
+    {
+        outlineObj.SetActive(f);
+    }
+
     public void IgnoreCollision(GameObject obj, bool flag)
     {
         foreach (Collider2D c in obj.GetComponentsInChildren<Collider2D>())
@@ -74,6 +85,7 @@ public class Throwable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (attributes.Contains("Bound"))
         {
             Debug.Log("bounciness : " + GetComponent<Collider2D>().sharedMaterial.bounciness);

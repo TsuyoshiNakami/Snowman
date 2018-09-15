@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presentName: Bird
-  attributes: 0000000000000000
+  attributes: 00080000
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,6 +118,7 @@ MonoBehaviour:
   gravity: 6.15
   attributes: []
   carryMultiplier: 1
+  hasBeThrew: 0
 --- !u!114 &114969378744043348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minBakeTime: 1
   maxBakeTime: 100
-  bakedObj: {fileID: 1882362309303510, guid: 29458bf2c9c6e6248b697471f26127ae, type: 2}
+  bakedObj: {fileID: 1882362309303510, guid: e3a1ddda974184b4ca187a6a088e3de5, type: 2}
   burntObj: {fileID: 0}
 --- !u!212 &212318156457080292
 SpriteRenderer:

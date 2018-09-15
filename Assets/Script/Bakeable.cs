@@ -8,6 +8,13 @@ public class Bakeable : MonoBehaviour {
     public float maxBakeTime = 3;
     [SerializeField] GameObject bakedObj;
     [SerializeField] GameObject burntObj;
+    PresentManager presentManager;
+
+    void Start()
+    {
+
+        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
+    }
     public void Bake(float bakeTime)
     {
         if(bakeTime < minBakeTime)
@@ -19,7 +26,8 @@ public class Bakeable : MonoBehaviour {
             //完成\
             if (bakedObj)
             {
-                Instantiate(bakedObj, transform.position, transform.rotation);
+                GameObject newObj = Instantiate(bakedObj, transform.position, transform.rotation);
+                presentManager.ChangePresent(gameObject, newObj);
                 Destroy(gameObject);
             }
             else
@@ -31,7 +39,8 @@ public class Bakeable : MonoBehaviour {
             //焦げた
             if (burntObj)
             {
-                Instantiate(burntObj, transform.position, transform.rotation);
+                GameObject newObj = Instantiate(burntObj, transform.position, transform.rotation);
+                presentManager.ChangePresent(gameObject, newObj);
                 Destroy(gameObject);
             }
             else

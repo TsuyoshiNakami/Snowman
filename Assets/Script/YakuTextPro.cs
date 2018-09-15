@@ -20,8 +20,7 @@ public class YakuTextPro : MonoBehaviour
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
         presentManager.OnMakeYaku.Subscribe(yaku =>
         {
-
-            Debug.Log(yaku.yakuName + " +" + yaku.score);
+            
             text.text = yaku.yakuName + "　+" + yaku.score;
             Observable.Timer(TimeSpan.FromSeconds(1.5f)).Subscribe(_ =>
             {

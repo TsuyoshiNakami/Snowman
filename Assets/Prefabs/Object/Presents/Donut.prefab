@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4611000314544988}
   - component: {fileID: 212318156457080292}
-  - component: {fileID: 61125181206337908}
   - component: {fileID: 114870087322011438}
   - component: {fileID: 50204444677976674}
   - component: {fileID: 114559319745770342}
+  - component: {fileID: 58152914247321598}
   m_Layer: 17
   m_Name: Donut
   m_TagString: Throwable
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882362309303510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.1976, y: 6.173044, z: 0.22862764}
+  m_LocalPosition: {x: 13.215779, y: 5.9429884, z: 0.22862764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,38 +57,28 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 1.28
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61125181206337908
-BoxCollider2D:
+--- !u!58 &58152914247321598
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882362309303510}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3e3ebd787788f3748b156e36eba1413e, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.051126003, y: 0.08947134}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.175, y: 3.175}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 2.7148619, y: 2.6381721}
-  m_EdgeRadius: 0
+  m_Radius: 1.41
 --- !u!114 &114559319745770342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presentName: Donut
-  attributes: 0400000010000000
+  attributes: 040000001000000000100000
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -117,6 +107,7 @@ MonoBehaviour:
   gravity: 6.15
   attributes: []
   carryMultiplier: 1
+  hasBeThrew: 0
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1

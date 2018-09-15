@@ -61,6 +61,10 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
         }
     }
 
+    public void PlaySE(string name)
+    {
+        soundManager.PlaySEOneShot(name);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.M) && !messageWindowController.isShowing)

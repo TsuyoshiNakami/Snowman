@@ -61,4 +61,10 @@ public class PresentManager : MonoBehaviour {
         }
         presentsInView.Clear();
     }
+
+    public void ChangePresent(GameObject from, GameObject to)
+    {
+        presentsInView.Remove(from);
+        presentsInView.Add(to);
+    }
 }

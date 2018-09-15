@@ -14,7 +14,7 @@ public class BasketPresentViewer : MonoBehaviour {
     BasketCollider basketCollider;
     List<Present> presents = new List<Present>();
     PresentManager presentManager;
-
+    GameManager gameManager;
 
     Subject<string> makeYakuSubject = new Subject<string>();
     public IObservable<string> OnMakeYaku
@@ -32,6 +32,7 @@ public class BasketPresentViewer : MonoBehaviour {
             ViewPresent(item);
         });
 
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
     }
 	
@@ -63,6 +64,14 @@ public class BasketPresentViewer : MonoBehaviour {
         {
             presentObjs[i].transform.position = (Vector2)viewStart.transform.position + viewLine / (presentObjs.Count + 1) * (i + 1);
         }
+        if(presentObjs.Count == 1)
+        {
+            gameManager.PlaySE("PresentEnter1");
+        } else if (presentObjs.Count == 2)
+        {
+
+            gameManager.PlaySE("PresentEnter2");
+        }
 
         if(presentObjs.Count >= 3)
         {
@@ -88,13 +97,14 @@ public class BasketPresentViewer : MonoBehaviour {
 
             List<Present> tmpPresents = new List<Present>(presents);
 
-
+            Debug.Log("役：" + yaku.yakuName);
             foreach (uint yakuInt in yaku.GetPresentAttributeInts())
             {
                 bool foundFlag = false;
                 Present foundPresent = null;
                 foreach(Present present in tmpPresents)
                 {
+                    Debug.Log(present.name);
                     // presentの中に aフラグが含まれているか？
                     if(present.MeetConditions(yakuInt)) {
                         foundFlag = true;
@@ -127,13 +137,30 @@ public class BasketPresentViewer : MonoBehaviour {
             GameManager.score += maxYaku.score;
             presentManager.OnMakeYakuEvent(maxYaku);
             makeYakuSubject.OnNext(maxYaku.yakuName);
+            PlaySeByScore(maxYaku.score);
         }
         else
         {
             GameManager.score += yakuList.defaultYaku.score;
             presentManager.OnMakeYakuEvent(yakuList.defaultYaku);
+            PlaySeByScore(yakuList.defaultYaku.score);
         }
+
+
         Invoke("ClearPresents", 0f);
 
+    }
+
+    void PlaySeByScore(int score)
+    {
+        if (score < 100)
+        {
+            gameManager.PlaySE("PresentEnter3");
+        }
+        else
+        {
+
+            gameManager.PlaySE("GoodPresent1");
+        }
     }
 }
