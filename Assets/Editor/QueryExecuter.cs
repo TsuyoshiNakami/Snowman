@@ -34,7 +34,7 @@ public class QueryExecuter : EditorWindow
     {
         WWWForm form = new WWWForm();
         form.AddField("sql", sql);
-        WWW www = new WWW(UrlConsts.execute, form.data);
+        WWW www = new WWW(PresentGameConsts.execute, form.data);
 
         yield return www;
         Debug.Log(www.text);

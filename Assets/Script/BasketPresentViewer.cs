@@ -97,7 +97,7 @@ public class BasketPresentViewer : MonoBehaviour {
 
             List<Present> tmpPresents = new List<Present>(presents);
 
-            Debug.Log("役：" + yaku.yakuName);
+            //Debug.Log("役：" + yaku.yakuName);
             foreach (uint yakuInt in yaku.GetPresentAttributeInts())
             {
                 bool foundFlag = false;
@@ -134,14 +134,14 @@ public class BasketPresentViewer : MonoBehaviour {
         }
         if (maxYaku != null)
         {
-            GameManager.score += maxYaku.score;
+            PresentGameManager.score += maxYaku.score;
             presentManager.OnMakeYakuEvent(maxYaku);
             makeYakuSubject.OnNext(maxYaku.yakuName);
             PlaySeByScore(maxYaku.score);
         }
         else
         {
-            GameManager.score += yakuList.defaultYaku.score;
+            PresentGameManager.score += yakuList.defaultYaku.score;
             presentManager.OnMakeYakuEvent(yakuList.defaultYaku);
             PlaySeByScore(yakuList.defaultYaku.score);
         }

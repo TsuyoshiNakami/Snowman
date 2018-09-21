@@ -17,9 +17,9 @@ public class UIManager : MonoBehaviour {
             texts.Add(ui.GetComponent<Text>());
         }
 
-        this.ObserveEveryValueChanged(score => GameManager.score)
+        this.ObserveEveryValueChanged(score => PresentGameManager.score)
         .Subscribe(score => {
-            UIManager.SetText("BallCountText", "Score：" + GameManager.score);
+            UIManager.SetText("BallCountText", "Score：" + PresentGameManager.score);
         });
     }
 	

@@ -39,11 +39,11 @@ public class DebugText : MonoBehaviour {
                 text.text = string.Format("{0:f2}", snowBall.GetComponent<Rigidbody2D>().gravityScale);
                 break;
             case DebugTextType.ItemCount:
-                text.text = string.Format("{0:0}", GameManager.score);
+                text.text = string.Format("{0:0}", PresentGameManager.score);
                 break;
             case DebugTextType.Score:
 
-                text.text = string.Format("{0:0}", GameManager.score);
+                text.text = string.Format("{0:0}", PresentGameManager.score);
                 break;
 
         }

@@ -49,7 +49,7 @@ public class RankingManager : MonoBehaviour {
     void ShowRankingSender()
     {
         GameObject tmp = rankingSender.transform.parent.gameObject;
-        rankingSender.SetScoreText(GameManager.score);
+        rankingSender.SetScoreText(PresentGameManager.score);
             tmp.SetActive(!tmp.activeInHierarchy);
 
     }
@@ -71,7 +71,7 @@ public class RankingManager : MonoBehaviour {
         string sql = "select * from ranking";
         WWWForm form = new WWWForm();
         form.AddField("sql", sql);
-        WWW www = new WWW(UrlConsts.execute, form.data);
+        WWW www = new WWW(PresentGameConsts.execute, form.data);
 
         yield return www;
 
@@ -138,12 +138,12 @@ public class RankingManager : MonoBehaviour {
     {
         string playerName = nameText.text;
         string sql = "INSERT INTO ranking (name, score) VALUES('" + playerName +
-        "'," + GameManager.score + ")";
+        "'," + PresentGameManager.score + ")";
         
         Debug.Log(sql);
         WWWForm form = new WWWForm();
             form.AddField("sql", sql);
-            WWW www = new WWW(UrlConsts.execute, form.data);
+            WWW www = new WWW(PresentGameConsts.execute, form.data);
             yield return www;
             Debug.Log(www.text);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
+[RequireComponent(typeof(Pauser))]
 public class Throwable : MonoBehaviour
 {
     [SerializeField] bool IgnorePlayer = false;
@@ -34,6 +35,7 @@ public class Throwable : MonoBehaviour
 
     void Start()
     {
+        gameObject.AddComponent<Pauser>();
         Initialize();
     }
 

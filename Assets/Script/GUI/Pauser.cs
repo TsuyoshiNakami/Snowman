@@ -12,6 +12,12 @@ public enum PauseType
     KeepRigidbody,
 }
 
+public enum PauseMode
+{
+    Normal,
+    Force
+}
+
 public class Pauser : MonoBehaviour
 {
     public static List<Pauser> targets = new List<Pauser>();    // ポーズ対象のスクリプト
@@ -47,7 +53,7 @@ public class Pauser : MonoBehaviour
     }
     
     // ポーズされたとき
-    void OnPause()
+    void OnPause(PauseMode mode)
     {
 
         if (pauseBehavs != null)
@@ -62,10 +68,12 @@ public class Pauser : MonoBehaviour
                 targets.Remove(targets[i]);
             }
         }
-
-        if(pauseType == PauseType.KeepRigidbody)
+        if (mode == PauseMode.Normal)
         {
-            return;
+            if (pauseType == PauseType.KeepRigidbody)
+            {
+                return;
+            }
         }
         // 有効なコンポーネントを取得
 
@@ -156,32 +164,59 @@ public class Pauser : MonoBehaviour
         }
         foreach (var obj in targets)
         {
-            obj.OnPause();
+            obj.OnPause(PauseMode.Normal);
         }
     }
     // ポーズ
     public static void PauseWithout(string name)
     {
-
+        isPausing = true;
         foreach (var obj in targets)
         {
 
             if (obj.name != name)
-                obj.OnPause();
+                obj.OnPause(PauseMode.Normal);
 
         }
     }
     public static void Pause(string name)
     {
-
+        isPausing = true;
         foreach (var obj in targets)
         {
 
             if (obj.name == name)
-                obj.OnPause();
+                obj.OnPause(PauseMode.Normal);
             break;
         }
     }
+    public static void Pause(PauseMode mode)
+    {
+        isPausing = true;
+        foreach (var obj in targets)
+        {
+            
+                obj.OnPause(mode);
+
+        }
+
+
+    }
+    public static void Pause(string name, PauseMode mode)
+    {
+        isPausing = true;
+        foreach (var obj in targets)
+                {
+
+                    if (obj.name == name)
+                        obj.OnPause(mode);
+                    break;
+                }
+
+
+    }
+
+
     public static void Resume(string name)
     {
 

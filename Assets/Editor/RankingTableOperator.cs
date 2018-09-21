@@ -100,7 +100,7 @@ public class RankingTableOperator : EditorWindow
         string sql = "select * from skill";
         WWWForm form = new WWWForm();
         form.AddField("sql", sql);
-        WWW www = new WWW(UrlConsts.execute, form.data);
+        WWW www = new WWW(PresentGameConsts.execute, form.data);
 
         yield return www;
 
@@ -144,7 +144,7 @@ public class RankingTableOperator : EditorWindow
             "' WHERE id = " + entity.id + ";";
             WWWForm form = new WWWForm();
             form.AddField("sql", sql);
-            WWW www = new WWW(UrlConsts.execute, form.data);
+            WWW www = new WWW(PresentGameConsts.execute, form.data);
             yield return www;
             Debug.Log(sql);
             Debug.Log(www.text);
@@ -160,7 +160,7 @@ public class RankingTableOperator : EditorWindow
 
         WWWForm form = new WWWForm();
         form.AddField("sql", sql);
-        WWW www = new WWW(UrlConsts.execute, form.data);
+        WWW www = new WWW(PresentGameConsts.execute, form.data);
 
         yield return www;
         Debug.Log(www.text);
@@ -179,7 +179,7 @@ public class RankingTableOperator : EditorWindow
         string sql = "delete from skill";
         WWWForm form = new WWWForm();
         form.AddField("sql", sql);
-        WWW www = new WWW(UrlConsts.execute, form.data);
+        WWW www = new WWW(PresentGameConsts.execute, form.data);
 
         yield return www;
 

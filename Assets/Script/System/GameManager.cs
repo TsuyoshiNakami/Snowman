@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerData {
 	public int checkPointNumber = 0;
@@ -31,8 +31,8 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	SoundManager soundManager;
 	static AsyncOperation ao;
 	public static bool isTitle = true;
-    public static int score = 0;
 
+    string loadingSceneName = "";
 
     
 	void Start () {
@@ -43,7 +43,7 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
         {
             AddPlayer();
         }
-        SetCamera();
+        //SetCamera();
 
 		enableAllWarp = enableAllWarpDebug;
 		getCoins = new bool[maxCoin];
@@ -83,18 +83,31 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
         ShowMessage(a);
     }
 
-    public static void LoadScene(string name) {
-       
+    public void LoadScene(string name)
+    {
+        loadingSceneName = name;
+        StartCoroutine(ILoadScene());
+    }
 
-		if (isLoad)
-			return;
+    IEnumerator ILoadScene()
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
 
-		currentSceneName = name;
-		isLoad = true;
-		//	UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (name, UnityEngine.SceneManagement.LoadSceneMode.Single);
-		ao = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (currentSceneName, UnityEngine.SceneManagement.LoadSceneMode.Single); //Application.LoadLevelAsync(currentSceneName);
-		ao.allowSceneActivation = false;
-	}
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(loadingSceneName);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        if (loadingSceneName == PresentGameConsts.sceneGame)
+        {
+            SetCamera();
+        }
+    }
 
     void AddPlayer()
     {

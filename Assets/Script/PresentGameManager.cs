@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
+
 public class PresentGameManager : MonoBehaviour {
+    public static int score = 0;
+
 
     Subject<Unit> timerSubject = new Subject<Unit>();
     public IObservable<Unit> OnTimeUp
@@ -30,7 +33,7 @@ public class PresentGameManager : MonoBehaviour {
 
     private void Start()
     {
-
+        score = 0;
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
         SetTimer(initialTimeLimit);
     }
@@ -41,6 +44,8 @@ public class PresentGameManager : MonoBehaviour {
         isTimerAvailable = true;
     }
 
+
+
     private void Update()
     {
         if(!isTimerAvailable)
@@ -48,6 +53,10 @@ public class PresentGameManager : MonoBehaviour {
             return;
         }
 
+        if(Pauser.isPausing)
+        {
+            return;
+        }
         timeLimit -= Time.deltaTime;
         if (timeLimit <= 0)
         {
