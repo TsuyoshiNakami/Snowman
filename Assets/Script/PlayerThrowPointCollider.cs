@@ -24,7 +24,6 @@ public class PlayerThrowPointCollider : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D c)
     {
         if(c.gameObject.CompareTag("InputInterrupter")) {
-            Debug.Log("Found");
             interrupters.Add(c.gameObject);
         }
     }

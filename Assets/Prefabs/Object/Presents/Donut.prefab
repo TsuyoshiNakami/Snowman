@@ -92,6 +92,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Donut
   attributes: 040000001000000000100000
+  completeYaku:
+    yakuName: "\u5927\u8ECA\u8F2A"
+    yakuEnum: 0
+    presents: []
+    score: 400
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1

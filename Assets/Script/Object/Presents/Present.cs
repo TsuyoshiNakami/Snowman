@@ -5,6 +5,7 @@ using UnityEngine;
 public class Present : MonoBehaviour{
     public string presentName = "";
     public PresentAttribute[] attributes;
+    [SerializeField]public Yaku completeYaku;
 
     public uint AttributesToUInt ()
     {

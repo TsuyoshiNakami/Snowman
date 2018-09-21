@@ -52,7 +52,7 @@ public class BasketPresentViewer : MonoBehaviour {
         Present newPresent = newObj.AddComponent<Present>();
         newPresent.presentName = present.presentName;
         newPresent.attributes = present.attributes;
-
+        newPresent.completeYaku = present.completeYaku;
         presents.Add(newPresent);
         Sprite sprite = item.GetComponent<SpriteRenderer>().sprite;
         spriteRenderer.sprite = sprite;
@@ -98,13 +98,26 @@ public class BasketPresentViewer : MonoBehaviour {
             List<Present> tmpPresents = new List<Present>(presents);
 
             //Debug.Log("役：" + yaku.yakuName);
+            for(int i = 0; i < tmpPresents.Count; i++)
+            {
+                if(tmpPresents[0].presentName != tmpPresents[i].presentName)
+                {
+                    break;
+                }
+
+                if(i == tmpPresents.Count - 1)
+                {
+                    Debug.Log(tmpPresents[0].presentName);
+                    maxYaku = presents[0].completeYaku;
+                    Debug.Log(presents[0].completeYaku);
+                }
+            }
             foreach (uint yakuInt in yaku.GetPresentAttributeInts())
             {
                 bool foundFlag = false;
                 Present foundPresent = null;
                 foreach(Present present in tmpPresents)
                 {
-                    Debug.Log(present.name);
                     // presentの中に aフラグが含まれているか？
                     if(present.MeetConditions(yakuInt)) {
                         foundFlag = true;

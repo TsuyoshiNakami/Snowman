@@ -34,7 +34,8 @@ public class PauseWindow : MonoBehaviour {
         {
             if (pauseWindowObj.activeInHierarchy)
             {
-                gameManager.LoadScene(PresentGameConsts.sceneTitle);
+
+                gameManager.LoadScene(GameScenes.Title);
             }
         }
 	}

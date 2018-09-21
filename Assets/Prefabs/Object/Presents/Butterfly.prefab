@@ -101,8 +101,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89850692b4b7a1c4aabe9b88586bcdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  presentName: Monaka
+  presentName: Butterfly
   attributes: 00080000
+  completeYaku:
+    yakuName: 
+    yakuEnum: 0
+    presents: []
+    score: 0
 --- !u!114 &114605061701699366
 MonoBehaviour:
   m_ObjectHideFlags: 1

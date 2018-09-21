@@ -102,6 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Parfait
   attributes: 010000001000000000100000
+  completeYaku:
+    yakuName: "\u30AB\u30ED\u30EA\u30FC\u306E\u5854"
+    yakuEnum: 0
+    presents: []
+    score: 420
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1

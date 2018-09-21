@@ -152,19 +152,14 @@ public class Pauser : MonoBehaviour
         rg2dBodyAVels = null;
     }
     // ポーズ
-    public static void Pause()
+    public static void Pause(PauseMode mode = PauseMode.Normal)
     {
+        targets.RemoveAll(item => item == null);
         isPausing = true;
-        for (int i = targets.Count - 1; i >= 0; i--)
-        {
-            if (targets[i] == null)
-            {
-                targets.Remove(targets[i]);
-            }
-        }
+
         foreach (var obj in targets)
         {
-            obj.OnPause(PauseMode.Normal);
+            obj.OnPause(mode);
         }
     }
     // ポーズ
@@ -190,18 +185,7 @@ public class Pauser : MonoBehaviour
             break;
         }
     }
-    public static void Pause(PauseMode mode)
-    {
-        isPausing = true;
-        foreach (var obj in targets)
-        {
-            
-                obj.OnPause(mode);
 
-        }
-
-
-    }
     public static void Pause(string name, PauseMode mode)
     {
         isPausing = true;

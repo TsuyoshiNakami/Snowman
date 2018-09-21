@@ -90,8 +90,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89850692b4b7a1c4aabe9b88586bcdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  presentName: SoccerBall
+  presentName: BaseBall
   attributes: 0002000000040000
+  completeYaku:
+    yakuName: "\u786C\u7403\u30C7\u30D3\u30E5\u30FC"
+    yakuEnum: 0
+    presents: []
+    score: 450
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1

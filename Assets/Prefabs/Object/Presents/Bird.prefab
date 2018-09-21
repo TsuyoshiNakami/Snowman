@@ -103,6 +103,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Bird
   attributes: 00080000
+  completeYaku:
+    yakuName: "\u65E9\u8D77\u304D\u30BB\u30C3\u30C8"
+    yakuEnum: 0
+    presents: []
+    score: 320
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1

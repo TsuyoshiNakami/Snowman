@@ -15,6 +15,7 @@ TagManager:
   - Throwable
   - Item
   - InputInterrupter
+  - TransitionManager
   layers:
   - Default
   - TransparentFX

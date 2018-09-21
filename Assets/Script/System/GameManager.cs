@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.SceneManagement;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
 public class PlayerData {
 	public int checkPointNumber = 0;
@@ -31,6 +32,7 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	SoundManager soundManager;
 	static AsyncOperation ao;
 	public static bool isTitle = true;
+
 
     string loadingSceneName = "";
 
@@ -77,16 +79,22 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
     void ShowTestMsg()
     {
         List<string> a = new List<string>();
-        a.Add("あいうえお");
-        a.Add("春はあけぼの。やうやう白くなりゆく山際、少し明かりて、紫だちたる雲の細くたなびきたる。");
-        a.Add("夏は夜。月のころはさらなり、闇もなほ、蛍の多く飛びちがひたる。また、ただ一つ二つなど、ほのかにうち光て行くもをかし。雨など降るもをかし。");
+        a.Add("@Face Tim");
+        a.Add("キミは…！なんという格好をしてるんだ。頭部だけじゃないか。");
+        a.Add("でも、そういう自分のスタイルを貫く感じ、すごくうらやましい。ボクにもそんな生き方ができるのかな？");
+        a.Add("@Face Tobe");
+        a.Add("本番ではしゃべる予定ないけど、テストでしゃべってみるぞ。");
+        a.Add("しゃべるっていう漢字が表示できない…レアな漢字は事前に登録しておかないとダメなんだ。");
+        a.Add("@Face Cake");
+        a.Add("あたいはケーキ。16さい。");
         ShowMessage(a);
     }
 
-    public void LoadScene(string name)
+    public void LoadScene(GameScenes scene)
     {
-        loadingSceneName = name;
-        StartCoroutine(ILoadScene());
+        SceneLoader.LoadScene(scene);
+        //loadingSceneName = name;
+        //StartCoroutine(ILoadScene());
     }
 
     IEnumerator ILoadScene()

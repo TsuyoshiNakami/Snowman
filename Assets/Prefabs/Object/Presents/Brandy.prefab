@@ -102,6 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Brandy
   attributes: 0800000000010000
+  completeYaku:
+    yakuName: "\u5408\u308F\u305B\u3066\u30A2\u30EB\u30B3\u30FC\u30EB100%"
+    yakuEnum: 0
+    presents: []
+    score: 300
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,6 +123,7 @@ MonoBehaviour:
   attributes:
   - Fragile
   carryMultiplier: 1
+  hasBeThrew: 0
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1

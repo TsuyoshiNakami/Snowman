@@ -9,6 +9,8 @@ public class PresentGameManager : MonoBehaviour {
 
 
     Subject<Unit> timerSubject = new Subject<Unit>();
+    SoundManager soundManager;
+
     public IObservable<Unit> OnTimeUp
     {
         get { return timerSubject; }
@@ -35,6 +37,8 @@ public class PresentGameManager : MonoBehaviour {
     {
         score = 0;
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        soundManager.PlayBGM("Main");
         SetTimer(initialTimeLimit);
     }
     public void SetTimer(float f)

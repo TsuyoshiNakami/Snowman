@@ -1,12 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[System.Serializable]
+public class MessageWindowImage
+{
+    public string displayName;
+    public string id;
+    public Sprite faceSprite;
+}
 public class MessageWindowController : MonoBehaviour {
 
     MessageWindow messageWindow;
+    [SerializeField] List<MessageWindowImage> messageWindowImages;
     float timer;
     [SerializeField] GameObject windowObject;
+    [SerializeField] Image faceImage;
     [SerializeField] float charTime;
     List<string> messages;
     int messageNum = 0;
@@ -55,9 +65,31 @@ public class MessageWindowController : MonoBehaviour {
         if (messages.Count - 1 < messageNum)
         {
             hideWindow();
+            return;
         }
+        if (messages[messageNum].IndexOf("@") > -1)
+        {
+            
+            string[] command = messages[messageNum].Split('@')[1].Split(' ');
+            if(command[0] == "Face")
+            {
+                foreach(MessageWindowImage image in messageWindowImages)
+                {
+                    if(image.id == command[1])
+                    {
+                        ChangeImage(image.faceSprite);
+                    }
+                }
+            }
+            messageNum++;
+        }
+
     }
 
+    void ChangeImage(Sprite sprite)
+    {
+        faceImage.sprite = sprite;
+    }
     void ViewAllMessage()
     {
         timer = charTime * messages[messageNum].Length;
@@ -87,6 +119,8 @@ public class MessageWindowController : MonoBehaviour {
     {
         ShowWindow();
         this.messages = messages;
+        messageNum = -1;
+        ShowNextMessage();
     }
 
     public void ShowWindow()
@@ -95,8 +129,7 @@ public class MessageWindowController : MonoBehaviour {
 
         messageWindow.SetText("");
         isShowing = true;
-        messageNum = 0;
-        timer = 0;
+
         Pauser.Pause();
     }
 

@@ -165,7 +165,6 @@ public class Throwable : MonoBehaviour
     {
         this.holdObj = holdObj;
 
-        Debug.Log("On held");
         rigid.Sleep();
     }
 

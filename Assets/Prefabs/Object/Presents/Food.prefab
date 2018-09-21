@@ -100,8 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89850692b4b7a1c4aabe9b88586bcdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  presentName: Sweet
+  presentName: Food
   attributes: 00100000
+  completeYaku:
+    yakuName: "\u30D5\u30EB\u30B3\u30FC\u30B9"
+    yakuEnum: 0
+    presents: []
+    score: 200
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1

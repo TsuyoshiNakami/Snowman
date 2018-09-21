@@ -135,6 +135,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Cake
   attributes: 020000001000000000100000
+  completeYaku:
+    yakuName: "\u30AB\u30ED\u30EA\u30FC\u306E\u304A\u5316\u3051"
+    yakuEnum: 0
+    presents: []
+    score: 500
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1
