@@ -18,7 +18,7 @@ public class RankingRow : MonoBehaviour {
 
     public void SetText(int rank, string nameText, int score)
     {
-        rankText.text = rank + "位";
+        rankText.text = rank + 1 + "位";
         this.nameText.text = nameText;
         scoreText.text = score + "";
     }

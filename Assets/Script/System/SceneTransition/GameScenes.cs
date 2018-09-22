@@ -2,4 +2,5 @@
 {
     Title,
     YakuTest,
+    Recipes
 }

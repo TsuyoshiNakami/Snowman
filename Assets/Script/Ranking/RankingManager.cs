@@ -31,6 +31,10 @@ public class RankingManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if(rankingSender == null)
+        {
+            return;
+        }
         rankingSender.OnClickSendButton.Subscribe(_ =>
         {
             SendData();
@@ -51,7 +55,6 @@ public class RankingManager : MonoBehaviour {
         GameObject tmp = rankingSender.transform.parent.gameObject;
         rankingSender.SetScoreText(PresentGameManager.score);
             tmp.SetActive(!tmp.activeInHierarchy);
-
     }
 
     void SendData()
@@ -76,6 +79,7 @@ public class RankingManager : MonoBehaviour {
         yield return www;
 
         var resultJson = JSON.Parse(www.text);
+        Debug.Log(www.text);
         if (resultJson != null)
         {
             SetRankingData(resultJson);
@@ -103,8 +107,13 @@ public class RankingManager : MonoBehaviour {
         }
     }
 
-    void ShowRanking()
+    public void ShowRanking()
     {
+        foreach(Transform row in rankingWindow.transform)
+        {
+            Destroy(row.gameObject);
+            entities.Clear();
+        } 
         Observable.FromCoroutine(GetRanking).Subscribe(_ =>
         {
             rankingWindow.SetActive(true);
@@ -120,6 +129,11 @@ public class RankingManager : MonoBehaviour {
                 }
             }
         });
+    }
+
+    public void HideRanking()
+    {
+        rankingWindow.SetActive(false);
     }
 
     void AddRankingRow(int i, RankingEntity entity)

@@ -18,14 +18,18 @@ public class PauseWindow : MonoBehaviour {
 	void Update () {
 		if(Input.GetButtonDown(KeyConfig.Home))
         {
+            
             if (pauseWindowObj.activeInHierarchy)
             {
                 Pauser.Resume();
                 pauseWindowObj.SetActive(false);
             } else
             {
-                Pauser.Pause(PauseMode.Force);
-                pauseWindowObj.SetActive(true);
+                if (!Pauser.isPausing)
+                {
+                    Pauser.Pause(PauseMode.Force);
+                    pauseWindowObj.SetActive(true);
+                }
             }
         }
 
@@ -35,7 +39,7 @@ public class PauseWindow : MonoBehaviour {
             if (pauseWindowObj.activeInHierarchy)
             {
 
-                gameManager.LoadScene(GameScenes.Title);
+                GameManager.LoadScene(GameScenes.Title);
             }
         }
 	}

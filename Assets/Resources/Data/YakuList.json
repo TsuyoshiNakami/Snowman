@@ -1,0 +1,8 @@
+[{"yakuName":"カロリーの里","yakuEnum":0,"presents":[{"instanceID":13788},{"instanceID":13790},{"instanceID":13792}],"score":400,"presentNames":["Donut","Cake","Parfait"]}
+{"yakuName":"お祝いセット","yakuEnum":0,"presents":[{"instanceID":13790},{"instanceID":13794},{"instanceID":13794}],"score":300,"presentNames":["Cake","Brandy","Brandy"]}
+{"yakuName":"スイーツセット","yakuEnum":0,"presents":[{"instanceID":13796},{"instanceID":13796},{"instanceID":13796}],"score":180,"presentNames":["Sweet","Sweet","Sweet"]}
+{"yakuName":"ちょっと苦いジュース","yakuEnum":0,"presents":[{"instanceID":13798},{"instanceID":13794},{"instanceID":13794}],"score":0,"presentNames":["Monaka","Brandy","Brandy"]}
+{"yakuName":"スポーツの冬","yakuEnum":0,"presents":[{"instanceID":13800},{"instanceID":13800},{"instanceID":13800}],"score":150,"presentNames":["Sports","Sports","Sports"]}
+{"yakuName":"ミニ動物園","yakuEnum":0,"presents":[{"instanceID":13802},{"instanceID":13802},{"instanceID":13802}],"score":300,"presentNames":["Animal","Animal","Animal"]}
+{"yakuName":"フルコース","yakuEnum":0,"presents":[{"instanceID":13804},{"instanceID":13804},{"instanceID":13804}],"score":130,"presentNames":["Food","Food","Food"]}
+]

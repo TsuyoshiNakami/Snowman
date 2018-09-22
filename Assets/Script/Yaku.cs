@@ -44,10 +44,20 @@ public class Yaku {
     [SerializeField]
     public string yakuName = "";
     public YakuEnum yakuEnum;
-    public Present[] presents;
+    [SerializeField] public List<Present> presents = new List<Present>();
+    public List<string> PresentNames {
+        get {
+            List<string> tmp = new List<string>();
+            foreach(Present present in presents)
+            {
+                tmp.Add(present.presentName);
+            }
+            return tmp;
+        }
+    }
     [NonSerialized] uint[] presentAttributeInt = new uint[3];
     public int score;
-
+    [SerializeField] public List<string> presentNames = new List<string>();
     
     public uint[] GetPresentAttributeInts()
     {

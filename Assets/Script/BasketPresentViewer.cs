@@ -107,9 +107,7 @@ public class BasketPresentViewer : MonoBehaviour {
 
                 if(i == tmpPresents.Count - 1)
                 {
-                    Debug.Log(tmpPresents[0].presentName);
                     maxYaku = presents[0].completeYaku;
-                    Debug.Log(presents[0].completeYaku);
                 }
             }
             foreach (uint yakuInt in yaku.GetPresentAttributeInts())
