@@ -15,6 +15,7 @@ public class BasketPresentViewer : MonoBehaviour {
     List<Present> presents = new List<Present>();
     PresentManager presentManager;
     GameManager gameManager;
+    
 
     Subject<string> makeYakuSubject = new Subject<string>();
     public IObservable<string> OnMakeYaku
@@ -75,7 +76,7 @@ public class BasketPresentViewer : MonoBehaviour {
 
         if(presentObjs.Count >= 3)
         {
-            DistinguishYaku();
+            OnEnterPresent();
         }
     }
 
@@ -88,67 +89,20 @@ public class BasketPresentViewer : MonoBehaviour {
         presentObjs.Clear();
         presents.Clear();
     }
-    void DistinguishYaku()
+    void OnEnterPresent()
     {
         YakuList yakuList = GameObject.Find("YakuList").GetComponent<YakuList>();
-        Yaku maxYaku = null;
-        foreach (Yaku yaku in yakuList.yakus)
-        {
+        Yaku maxYaku = PresentUtility.DistinguishYaku(presents, yakuList);
 
-            List<Present> tmpPresents = new List<Present>(presents);
 
-            //Debug.Log("役：" + yaku.yakuName);
-            for(int i = 0; i < tmpPresents.Count; i++)
-            {
-                if(tmpPresents[0].presentName != tmpPresents[i].presentName)
-                {
-                    break;
-                }
-
-                if(i == tmpPresents.Count - 1)
-                {
-                    maxYaku = presents[0].completeYaku;
-                }
-            }
-            foreach (uint yakuInt in yaku.GetPresentAttributeInts())
-            {
-                bool foundFlag = false;
-                Present foundPresent = null;
-                foreach(Present present in tmpPresents)
-                {
-                    // presentの中に aフラグが含まれているか？
-                    if(present.MeetConditions(yakuInt)) {
-                        foundFlag = true;
-                        foundPresent = present;
-                        break;
-                    }
-                    if (foundFlag)
-                    {
-                        break;
-                    }
-                }
-
-                if(foundPresent != null)
-                {
-
-                    tmpPresents.Remove(foundPresent);
-                }
-                if (tmpPresents.Count == 0)
-                {
-                    if (maxYaku == null || yaku.score > maxYaku.score)
-                    {
-                        maxYaku = yaku;
-                    }
-                    break;
-                }
-            }
-        }
         if (maxYaku != null)
         {
             PresentGameManager.score += maxYaku.score;
             presentManager.OnMakeYakuEvent(maxYaku);
             makeYakuSubject.OnNext(maxYaku.yakuName);
             PlaySeByScore(maxYaku.score);
+
+            ES3.Save<bool>(maxYaku.yakuName, true, PresentGameConsts.saveSetting);
         }
         else
         {

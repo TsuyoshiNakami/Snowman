@@ -7,11 +7,14 @@ public class PauseWindow : MonoBehaviour {
     [SerializeField] GameObject pauseWindowObj;
     PresentGameManager presentGameManager;
     GameManager gameManager;
+    SoundManager soundManager;
+
 	// Use this for initialization
 	void Start () {
         presentGameManager = GameObject.Find("PresentGameManager").GetComponent<PresentGameManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         pauseWindowObj.SetActive(false);
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -22,12 +25,14 @@ public class PauseWindow : MonoBehaviour {
             if (pauseWindowObj.activeInHierarchy)
             {
                 Pauser.Resume();
+                soundManager.PlayBGM();
                 pauseWindowObj.SetActive(false);
             } else
             {
                 if (!Pauser.isPausing)
                 {
                     Pauser.Pause(PauseMode.Force);
+                    soundManager.StopBGM();
                     pauseWindowObj.SetActive(true);
                 }
             }

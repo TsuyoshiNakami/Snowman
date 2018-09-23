@@ -33,6 +33,7 @@ public class RankingManager : MonoBehaviour {
     void Start () {
         if(rankingSender == null)
         {
+            ShowRanking();
             return;
         }
         rankingSender.OnClickSendButton.Subscribe(_ =>
@@ -44,6 +45,10 @@ public class RankingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(Input.GetButtonDown(KeyConfig.Cancel))
+        {
+            GameManager.LoadScene(GameScenes.Title);
+        }
 		if(Input.GetKeyDown(KeyCode.R))
         {
             ShowRankingSender();
@@ -79,7 +84,7 @@ public class RankingManager : MonoBehaviour {
         yield return www;
 
         var resultJson = JSON.Parse(www.text);
-        Debug.Log(www.text);
+        //Debug.Log(www.text);
         if (resultJson != null)
         {
             SetRankingData(resultJson);
@@ -148,6 +153,7 @@ public class RankingManager : MonoBehaviour {
     {
         string sql = "DELETE FROM ranking where id = " + id;
     }
+
     IEnumerator ESaveRanking()
     {
         string playerName = nameText.text;

@@ -12,9 +12,6 @@ public class TitleText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetButtonDown("Home"))
-        {
-            SceneManager.LoadScene(PresentGameConsts.sceneGame);
-        }
+
 	}
 }

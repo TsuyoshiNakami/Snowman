@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1406813009967586}
+  m_RootGameObject: {fileID: 1986184402165966}
   m_IsPrefabAsset: 1
---- !u!1 &1406813009967586
+--- !u!1 &1986184402165966
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4540591948027678}
-  - component: {fileID: 114595879414350886}
+  - component: {fileID: 4712059652547986}
+  - component: {fileID: 114212216139011126}
   m_Layer: 0
   m_Name: YakuList
   m_TagString: Untagged
@@ -27,12 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4540591948027678
+--- !u!4 &4712059652547986
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1406813009967586}
+  m_GameObject: {fileID: 1986184402165966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +40,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114595879414350886
+--- !u!114 &114212216139011126
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1406813009967586}
+  m_GameObject: {fileID: 1986184402165966}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 675bc3d6516b2dd42b8cd84f0f17d060, type: 3}
@@ -85,17 +85,6 @@ MonoBehaviour:
     - Sweet
     - Sweet
     - Sweet
-  - yakuName: "\u3061\u3087\u3063\u3068\u82E6\u3044\u30B8\u30E5\u30FC\u30B9"
-    yakuEnum: 0
-    presents:
-    - {fileID: 114265617327219604, guid: 36a21839549201e43bf8cc8476841c8b, type: 2}
-    - {fileID: 114559319745770342, guid: c9efb8c45e5a5ba439ec629da4e325b3, type: 2}
-    - {fileID: 114559319745770342, guid: c9efb8c45e5a5ba439ec629da4e325b3, type: 2}
-    score: 0
-    presentNames:
-    - Monaka
-    - Brandy
-    - Brandy
   - yakuName: "\u30B9\u30DD\u30FC\u30C4\u306E\u51AC"
     yakuEnum: 0
     presents:

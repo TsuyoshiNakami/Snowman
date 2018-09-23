@@ -63,40 +63,6 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		//Aus2.volume = initBGMVolume2;
 	}
 
-	public void ChangeBGM(int num) {
-		return;
-		switch(num) {
-		case 1:
-			bgmNumber = 1;
-			InvokeRepeating ("volumeUp", 0.1f, 0.2f);
-			volumeDown2 ();
-			break;
-		case 2:
-			bgmNumber = 2;
-			InvokeRepeating ("volumeUp2", 0.1f, 0.2f);
-			volumeDown ();
-			break;
-		}
-	}
-	public void ChangeBGMImmediately(int num) {
-		return;
-		if (!BGM_ON) {
-			return;
-		}
-		Aus2.volume = 0;
-		switch(num) {
-		case 1:
-			bgmNumber = 1;
-			Aus.volume = initBGMVolume;
-			Aus2.volume = 0;
-			break;
-		case 2:
-			bgmNumber = 2;
-			Aus2.volume = initBGMVolume2;
-			Aus.volume = 0;
-			break;
-		}
-	}
 
 	public void Play(AudioSource Aus, bool loop) {
 		Aus.loop = loop;
@@ -182,85 +148,8 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 			Play (Aus, isLoop);
 		}
 	}
-	public void PlayBGM2(string soundName) {
-		fadeOut = 0;
-		if (!BGM_ON) {
-			return;
-		}
-		Aus2 = transform.Find("BGM2").gameObject.GetComponent<AudioSource>();
 
-		foreach (SoundInfo si in BGM) {
 
-			if (si.soundName == soundName) {
-				Aus2.clip = si.clip;
-				Aus2.volume = si.volume;
-				initBGMVolume2 = Aus2.volume;
-				break;
-			}
-
-		}
-		if(Aus2) {
-			Play (Aus2, true);
-		}
-	}
-	public void PlayBGMAfterIntro() {
-
-		FadeIn (Aus, true);
-	}
-	public void FadeIn(AudioSource Aus, bool loop) {
-		if (!BGM_ON) {
-			return;
-		}
-		initBGMVolume = Aus.volume;
-		Aus.volume /= 1.5f;
-		Play (Aus, loop);
-		InvokeRepeating ("volumeUp",0,0.05f);
-	}
-	public void FadeIn(string name, bool loop) {
-		if (!BGM_ON) {
-			return;
-		}
-		initBGMVolume = Aus.volume;
-		Aus.volume /= 1.5f;
-		PlayBGM (name);
-
-		//Play (Aus, loop);
-		InvokeRepeating ("volumeUp",0,0.05f);
-	}
-	void volumeUp() {
-		if (!BGM_ON) {
-			return;
-		}
-		if (initBGMVolume <= Aus.volume) {
-			CancelInvoke ();
-			return;
-		}
-		Aus.volume += 0.02f;
-	}
-	void volumeDown() {
-		if (!BGM_ON) {
-			return;
-		}
-		Aus.volume -= 0.008f;
-	}
-	void volumeUp2() {
-		if (!BGM_ON) {
-			return;
-		}
-		Debug.Log ("asdf");
-		if (initBGMVolume2 <= Aus2.volume) {
-			Debug.Log ("cansel");
-			CancelInvoke ();
-			return;
-		}
-		Aus2.volume += 0.02f;
-	}
-	void volumeDown2() {
-		if (!BGM_ON) {
-			return;
-		}
-		Aus2.volume -= 0.008f;
-	}
 	public void initSE() {
 		SEObj = GameObject.Find ("SE");
 		foreach(SoundInfo se in SE) {
@@ -270,6 +159,7 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
             aus.loop = se.loop;
 		}
 	}
+
 	public void PlaySEOneShot(string soundName) {
 		if (!SE_ON) {
 			return;
@@ -325,6 +215,7 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
             }
         }
     }
+
     public void StopSE(string soundName)
     {
         if (!SE_ON)
@@ -339,6 +230,7 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
             }
         }
     }
+
     public void PitchDown(float time) {
 		if (!BGM_ON) {
 			return;
@@ -346,6 +238,7 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		pitchDownConst = Aus.pitch / time / time;
 		pitchDown = time;
 	}
+
 	public void FadeOut(float time) {
 		if (!BGM_ON) {
 			return;
@@ -357,17 +250,25 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		}
 		fadeOut = time;
 	}
+
+    int stopSample = 0;
+    public void StopBGM()
+    {
+        stopSample = Aus.timeSamples;
+        Aus.Stop();
+    }
+
+    public void PlayBGM()
+    {
+        Aus.Play();
+        Aus.timeSamples = stopSample;
+    }
 	// Update is called once per frame
 	void Update () {
 		if (!BGM_ON) {
 			return;
 		}
-		samples = Aus.timeSamples;
-		//if (GameManager.currentSceneName=="Stage1" && Aus.clip.name == "OpeningAndStage1") {
-		//	if (Aus.timeSamples > 8853569) {
-		//		Aus.timeSamples = 3411019;
-		//	}
-		//}
+
 		if (fadeOut > 0) {
 			fadeOut -= Time.deltaTime;
 			if (bgmNumber == 1) {

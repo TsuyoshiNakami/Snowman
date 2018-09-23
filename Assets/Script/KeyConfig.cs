@@ -9,4 +9,5 @@ public static class KeyConfig {
     public static string NextMessage = "Joy2";
     public static string Home = "Home";
     public static string Decide = "Joy1";
+    public static string Cancel = "Joy0";
 }

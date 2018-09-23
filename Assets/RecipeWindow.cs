@@ -8,11 +8,12 @@ public class RecipeWindow : MonoBehaviour {
     [SerializeField]RectTransform contentRect;
     [SerializeField] GameObject recipeElement;
     [SerializeField] RectTransform canvasRect;
+    [SerializeField] float speed = 1;
     // Use this for initialization
     void Start () {
         scrollRect = transform.Find("Scroll View").GetComponent<ScrollRect>();
        // contentRect = transform.Find("Scroll View/Viewport/Content").GetComponent<RectTransform>();
-
+       
 
 
     }
@@ -30,6 +31,6 @@ public class RecipeWindow : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        
+        scrollRect.verticalNormalizedPosition += speed * Time.deltaTime * Input.GetAxis("Vertical");
     }
 }

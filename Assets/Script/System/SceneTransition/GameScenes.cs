@@ -1,6 +1,7 @@
 ﻿public enum GameScenes
 {
     Title,
-    YakuTest,
-    Recipes
+    Game,
+    Recipes,
+    Ranking
 }

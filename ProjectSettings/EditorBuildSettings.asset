@@ -18,9 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 9c0992671750fa64981d38ae16b8f948
   - enabled: 1
-    path: Assets/Scenes/YakuTest.unity
+    path: Assets/Scenes/Game.unity
     guid: f2e479168ff05a34796f24fa4c75b518
   - enabled: 1
     path: Assets/Scenes/Recipes.unity
     guid: b9155a5c90f61c04fa61d342a10bb484
+  - enabled: 1
+    path: Assets/Scenes/Ranking.unity
+    guid: 33307818ed13d03439099ed234b44c6b
   m_configObjects: {}

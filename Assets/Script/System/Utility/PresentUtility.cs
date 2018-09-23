@@ -84,4 +84,66 @@ public static class PresentUtility {
         }
         return entities;
     }
+    
+
+    public static Yaku DistinguishYaku(List<Present> presents, YakuList yakuList)
+    {
+
+        Yaku maxYaku = null;
+        foreach (Yaku yaku in yakuList.yakus)
+        {
+
+            List<Present> tmpPresents = new List<Present>(presents);
+
+            //Debug.Log("役：" + yaku.yakuName);
+            for (int i = 0; i < tmpPresents.Count; i++)
+            {
+                if (tmpPresents[0].presentName != tmpPresents[i].presentName)
+                {
+                    break;
+                }
+
+                if (i == tmpPresents.Count - 1)
+                {
+                    maxYaku = presents[0].completeYaku;
+                }
+            }
+            foreach (uint yakuInt in yaku.GetPresentAttributeInts())
+            {
+                bool foundFlag = false;
+                Present foundPresent = null;
+                foreach (Present present in tmpPresents)
+                {
+                    // presentの中に aフラグが含まれているか？
+                    if (present.MeetConditions(yakuInt))
+                    {
+                        foundFlag = true;
+                        foundPresent = present;
+                        break;
+                    }
+                    if (foundFlag)
+                    {
+                        break;
+                    }
+                }
+
+                if (foundPresent != null)
+                {
+
+                    tmpPresents.Remove(foundPresent);
+                }
+                if (tmpPresents.Count == 0)
+                {
+                    if (maxYaku == null || yaku.score > maxYaku.score)
+                    {
+                        maxYaku = yaku;
+                    }
+                    break;
+                }
+            }
+        }
+        return maxYaku;
+    }
+
+
 }

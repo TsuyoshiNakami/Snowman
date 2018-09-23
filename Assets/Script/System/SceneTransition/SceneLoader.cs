@@ -27,7 +27,6 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities
 
         public static void Initialize()
         {
-            Debug.Log("Initialize");
             if(TransitionManager.Instance == null)
             {
                 var resource = Resources.Load("Utilities/TransitionCanvas");

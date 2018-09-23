@@ -31,13 +31,21 @@ public class RecipeElement : MonoBehaviour {
 
     public void SetUI(Yaku yaku)
     {
-        yakuNameText.text = yaku.yakuName;
-        scoreText.text = yaku.score + "";
-
-        for(int i = 0; i < 3; i++)
+        if (ES3.KeyExists(yaku.yakuName, PresentGameConsts.saveSetting))
         {
-            images[i].sprite = yaku.presents[i].GetComponent<SpriteRenderer>().sprite;
+            yakuNameText.text = yaku.yakuName;
+            scoreText.text = yaku.score + "";
+        } else
+        {
+            yakuNameText.text = "???";
+            scoreText.text = "???";
         }
+
+            for (int i = 0; i < 3; i++)
+            {
+                images[i].sprite = yaku.presents[i].GetComponent<SpriteRenderer>().sprite;
+            }
+        
     }
 
 }

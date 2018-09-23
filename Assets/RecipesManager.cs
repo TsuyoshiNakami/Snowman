@@ -16,5 +16,9 @@ public class RecipesManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(Input.GetButtonDown(KeyConfig.Cancel))
+        {
+            GameManager.LoadScene(GameScenes.Title);
+        }
 	}
 }
