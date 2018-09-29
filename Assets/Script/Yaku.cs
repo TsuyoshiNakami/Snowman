@@ -24,6 +24,12 @@ public enum PresentAttribute {
     Sports = 1 << 10,
     Animal = 1 << 11,
     Food = 1 << 12,
+    PikopikoHummer = 1 << 13,
+    Robot = 1 << 14,
+    Kendama = 1 << 15,
+    Hiyoko = 1 << 16,
+    GingerBread = 1 << 17,
+    Monaka = 1 << 18
 }
 public static class PresentAttributeExtensions
 {

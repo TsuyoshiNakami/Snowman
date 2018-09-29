@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1986184402165966}
+  m_RootGameObject: {fileID: 1300560559917228}
   m_IsPrefabAsset: 1
---- !u!1 &1986184402165966
+--- !u!1 &1300560559917228
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4712059652547986}
-  - component: {fileID: 114212216139011126}
+  - component: {fileID: 4987325041822312}
+  - component: {fileID: 114674053473528600}
   m_Layer: 0
   m_Name: YakuList
   m_TagString: Untagged
@@ -27,12 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4712059652547986
+--- !u!4 &4987325041822312
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1986184402165966}
+  m_GameObject: {fileID: 1300560559917228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +40,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114212216139011126
+--- !u!114 &114674053473528600
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1986184402165966}
+  m_GameObject: {fileID: 1300560559917228}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 675bc3d6516b2dd42b8cd84f0f17d060, type: 3}
@@ -118,6 +118,17 @@ MonoBehaviour:
     - Food
     - Food
     - Food
+  - yakuName: "\u304A\u3082\u3061\u3083\u7BB1"
+    yakuEnum: 0
+    presents:
+    - {fileID: 114265617327219604, guid: 8e506e36004de8146b85c9ee8a4fd56d, type: 2}
+    - {fileID: 114265617327219604, guid: 8e506e36004de8146b85c9ee8a4fd56d, type: 2}
+    - {fileID: 114265617327219604, guid: 8e506e36004de8146b85c9ee8a4fd56d, type: 2}
+    score: 350
+    presentNames:
+    - Toy
+    - Toy
+    - Toy
   defaultYaku:
     yakuName: "\u30D7\u30EC\u30BC\u30F3\u30C8"
     yakuEnum: 0

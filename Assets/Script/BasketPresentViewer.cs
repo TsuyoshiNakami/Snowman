@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
+public enum BasketType
+{
+    Normal,
+    X2
+}
 public class BasketPresentViewer : MonoBehaviour {
     [SerializeField]
     GameObject viewStart;
@@ -15,7 +20,7 @@ public class BasketPresentViewer : MonoBehaviour {
     List<Present> presents = new List<Present>();
     PresentManager presentManager;
     GameManager gameManager;
-    
+    [SerializeField] BasketType basketType;
 
     Subject<string> makeYakuSubject = new Subject<string>();
     public IObservable<string> OnMakeYaku
@@ -97,8 +102,7 @@ public class BasketPresentViewer : MonoBehaviour {
 
         if (maxYaku != null)
         {
-            PresentGameManager.score += maxYaku.score;
-            presentManager.OnMakeYakuEvent(maxYaku);
+            presentManager.OnMakeYakuEvent(maxYaku, basketType);
             makeYakuSubject.OnNext(maxYaku.yakuName);
             PlaySeByScore(maxYaku.score);
 
@@ -106,8 +110,7 @@ public class BasketPresentViewer : MonoBehaviour {
         }
         else
         {
-            PresentGameManager.score += yakuList.defaultYaku.score;
-            presentManager.OnMakeYakuEvent(yakuList.defaultYaku);
+            presentManager.OnMakeYakuEvent(yakuList.defaultYaku, basketType);
             PlaySeByScore(yakuList.defaultYaku.score);
         }
 

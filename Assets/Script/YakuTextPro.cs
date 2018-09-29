@@ -18,14 +18,24 @@ public class YakuTextPro : MonoBehaviour
         text = GetComponent<TextMeshProUGUI>();
         text.text = "";
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
-        presentManager.OnMakeYaku.Subscribe(yaku =>
+        presentManager.OnMakeYaku.Subscribe(madeYaku =>
         {
-            
-            text.text = yaku.yakuName + "　+" + yaku.score;
-            Observable.Timer(TimeSpan.FromSeconds(1.5f)).Subscribe(_ =>
-            {
-                text.text = "";
-            }).AddTo(this);
+            switch (madeYaku.basketType) {
+                case BasketType.Normal:
+                text.text = madeYaku.yaku.yakuName + "　+" + madeYaku.yaku.score;
+                Observable.Timer(TimeSpan.FromSeconds(1.5f)).Subscribe(_ =>
+                {
+                    text.text = "";
+                }).AddTo(this);
+                    break;
+                case BasketType.X2:
+                    text.text = madeYaku.yaku.yakuName + "　+" + madeYaku.yaku.score + "× 2";
+                    Observable.Timer(TimeSpan.FromSeconds(1.5f)).Subscribe(_ =>
+                    {
+                        text.text = "";
+                    }).AddTo(this);
+                    break;
+            }
         });
     }
 

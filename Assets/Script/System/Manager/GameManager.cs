@@ -74,6 +74,12 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
             ShowTestMsg();
 
         }
+
+        if(Input.GetKeyDown(KeyCode.C)) {
+            float max = Mathf.Max(Screen.width, Screen.height);
+            //int scale = Mathf.RoundToInt(2048 / max);
+            ScreenCapture.CaptureScreenshot("image.png", 1);
+        }
     }
 
     void ShowTestMsg()

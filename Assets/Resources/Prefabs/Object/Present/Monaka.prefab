@@ -101,12 +101,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presentName: Monaka
-  attributes: 1000000000100000
+  attributes: 100000000010000000000400
   completeYaku:
     yakuName: "\u3072\u3093\u3084\u308A\u30E2\u30CA\u30AB"
     yakuEnum: 0
     presents: []
     score: 300
+    presentNames: []
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1

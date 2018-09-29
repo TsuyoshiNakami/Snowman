@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
+public class MadeYaku
+{
+    public Yaku yaku;
+    public BasketType basketType;
+
+    public MadeYaku(Yaku yaku, BasketType basketType)
+    {
+        this.yaku = yaku;
+        this.basketType = basketType;
+    }
+}
+
 public class PresentManager : MonoBehaviour {
     [SerializeField] List<GameObject> kindOfPresents;
     List<GameObject> presentsInView = new List<GameObject>();
 
-    Subject<Yaku> makeYakuSubject = new Subject<Yaku>();
-    public IObservable<Yaku> OnMakeYaku
+    Subject<MadeYaku> makeYakuSubject = new Subject<MadeYaku>();
+    public IObservable<MadeYaku> OnMakeYaku
     {
         get
         {
@@ -48,9 +60,19 @@ public class PresentManager : MonoBehaviour {
         presentsInView.Remove(hideObj);
     }
 
-    public void OnMakeYakuEvent(Yaku yaku)
+    public void OnMakeYakuEvent(Yaku yaku, BasketType type)
     {
-        makeYakuSubject.OnNext(yaku);
+        makeYakuSubject.OnNext(new MadeYaku(yaku, type));
+        switch(type)
+        {
+            case BasketType.Normal:
+                PresentGameManager.score += yaku.score;
+                break;
+            case BasketType.X2:
+                PresentGameManager.score += yaku.score * 2;
+                break;
+        }
+
     }
 
     public void DeleteAllPresents()

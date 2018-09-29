@@ -1,7 +1,8 @@
-[{"yakuName":"カロリーの里","yakuEnum":0,"presents":[{"instanceID":18186},{"instanceID":18230},{"instanceID":18202}],"score":400,"presentNames":["Donut","Cake","Parfait"]}
-{"yakuName":"お祝いセット","yakuEnum":0,"presents":[{"instanceID":18230},{"instanceID":18118},{"instanceID":18118}],"score":300,"presentNames":["Cake","Brandy","Brandy"]}
-{"yakuName":"スイーツセット","yakuEnum":0,"presents":[{"instanceID":18446},{"instanceID":18446},{"instanceID":18446}],"score":180,"presentNames":["Sweet","Sweet","Sweet"]}
-{"yakuName":"スポーツの冬","yakuEnum":0,"presents":[{"instanceID":18448},{"instanceID":18448},{"instanceID":18448}],"score":150,"presentNames":["Sports","Sports","Sports"]}
-{"yakuName":"ミニ動物園","yakuEnum":0,"presents":[{"instanceID":18450},{"instanceID":18450},{"instanceID":18450}],"score":300,"presentNames":["Animal","Animal","Animal"]}
-{"yakuName":"フルコース","yakuEnum":0,"presents":[{"instanceID":18452},{"instanceID":18452},{"instanceID":18452}],"score":130,"presentNames":["Food","Food","Food"]}
+[{"yakuName":"カロリーの里","yakuEnum":0,"presents":[{"instanceID":14866},{"instanceID":14910},{"instanceID":14882}],"score":400,"presentNames":["Donut","Cake","Parfait"]}
+{"yakuName":"お祝いセット","yakuEnum":0,"presents":[{"instanceID":14910},{"instanceID":14810},{"instanceID":14810}],"score":300,"presentNames":["Cake","Brandy","Brandy"]}
+{"yakuName":"スイーツセット","yakuEnum":0,"presents":[{"instanceID":15302},{"instanceID":15302},{"instanceID":15302}],"score":180,"presentNames":["Sweet","Sweet","Sweet"]}
+{"yakuName":"スポーツの冬","yakuEnum":0,"presents":[{"instanceID":15304},{"instanceID":15304},{"instanceID":15304}],"score":150,"presentNames":["Sports","Sports","Sports"]}
+{"yakuName":"ミニ動物園","yakuEnum":0,"presents":[{"instanceID":15306},{"instanceID":15306},{"instanceID":15306}],"score":300,"presentNames":["Animal","Animal","Animal"]}
+{"yakuName":"フルコース","yakuEnum":0,"presents":[{"instanceID":15308},{"instanceID":15308},{"instanceID":15308}],"score":130,"presentNames":["Food","Food","Food"]}
+{"yakuName":"おもちゃ箱","yakuEnum":0,"presents":[{"instanceID":18588},{"instanceID":18588},{"instanceID":18588}],"score":350,"presentNames":["Toy","Toy","Toy"]}
 ]

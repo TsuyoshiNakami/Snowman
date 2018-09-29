@@ -19,12 +19,12 @@ public class YakuText : MonoBehaviour {
         presentManager.OnMakeYaku.Subscribe(yaku =>
         {
 
-            Debug.Log(yaku.yakuName + " +" + yaku.score);
-            text.text = yaku.yakuName + "　+" + yaku.score;
-            Observable.Timer(TimeSpan.FromSeconds(1.5f)).Subscribe(_ =>
-            {
-                text.text = "";
-            }).AddTo(this);
+            //Debug.Log(yaku.yakuName + " +" + yaku.score);
+            //text.text = yaku.yakuName + "　+" + yaku.score;
+            //Observable.Timer(TimeSpan.FromSeconds(1.5f)).Subscribe(_ =>
+            //{
+            //    text.text = "";
+            //}).AddTo(this);
         });
 	}
 	
