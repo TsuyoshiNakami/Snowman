@@ -35,16 +35,22 @@ public class RecipeElement : MonoBehaviour {
         {
             yakuNameText.text = yaku.yakuName;
             scoreText.text = yaku.score + "";
-        } else
-        {
-            yakuNameText.text = "???";
-            scoreText.text = "???";
-        }
-
             for (int i = 0; i < 3; i++)
             {
                 images[i].sprite = yaku.presents[i].GetComponent<SpriteRenderer>().sprite;
             }
+        } else
+        {
+            yakuNameText.text = "???";
+            scoreText.text = "???";
+            for (int i = 0; i < 3; i++)
+            {
+                images[i].sprite = yaku.presents[i].GetComponent<SpriteRenderer>().sprite;
+                images[i].color = Color.black;
+            }
+        }
+
+
         
     }
 
