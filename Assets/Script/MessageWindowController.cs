@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 [System.Serializable]
 public class MessageWindowImage
@@ -22,6 +23,15 @@ public class MessageWindowController : MonoBehaviour {
     int messageNum = 0;
     bool allMessageShown = false;
     public bool isShowing = false;
+
+    Subject<Unit> messageFinishedSubject = new Subject<Unit>();
+    public IObservable<Unit> OnMessageFinished
+    {
+        get
+        {
+            return messageFinishedSubject;
+        }
+    }
 
 	// Use this for initialization
 	void Awake () {
@@ -65,6 +75,7 @@ public class MessageWindowController : MonoBehaviour {
         if (messages.Count - 1 < messageNum)
         {
             hideWindow();
+            messageFinishedSubject.OnNext(Unit.Default);
             return;
         }
         if (messages[messageNum].IndexOf("@") > -1)
@@ -83,7 +94,6 @@ public class MessageWindowController : MonoBehaviour {
             }
             messageNum++;
         }
-
     }
 
     void ChangeImage(Sprite sprite)

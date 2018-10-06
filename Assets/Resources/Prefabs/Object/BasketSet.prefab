@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 50140832941879822}
   - component: {fileID: 114995486530748792}
   m_Layer: 0
-  m_Name: basket_01
+  m_Name: Basket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999467334870994}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.43, y: 5.83, z: 0.22862764}
+  m_LocalPosition: {x: 4.222809, y: 2.2793958, z: 0.22862764}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4624981999782710}
@@ -375,6 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewStart: {fileID: 1818167495904316}
   viewEnd: {fileID: 1881363399749956}
+  basketType: 0
 --- !u!212 &212570327713874320
 SpriteRenderer:
   m_ObjectHideFlags: 1

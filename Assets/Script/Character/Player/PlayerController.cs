@@ -92,30 +92,34 @@ public class PlayerController : BaseCharacterController
     [SerializeField, Header("投げたものの最高到達点")] float maxThrowHeight = 7.5f;
     [SerializeField, Header("雪玉投げられるか")] bool canThrowSnowBall = false;
 
-    bool IsPreThrow {
+    public bool IsPreThrow {
         get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
     }
 
-    bool IsThrow
+    public bool IsThrow
     {
         get { return IsCurrentAnimation("Base Layer.Player_Throw"); }
     }
 
-    bool IsJump
+    public bool IsJump
     {
         get { return IsCurrentAnimation("Base Layer.Player_Jump") || IsCurrentAnimation("Base Layer.Player_JumpNoPreparation")  ; }
     }
 
-    bool IsJumpFall
+    public bool IsJumpFall
     {
         get { return IsCurrentAnimation("Base Layer.Player_JumpFall"); }
     }
 
-    bool IsJumpLanding
+    public bool IsJumpLanding
     {
         get { return IsCurrentAnimation("Base Layer.Player_JumpLanding"); }
     }
 
+    public bool IsWalk
+    {
+        get { return IsCurrentAnimation("Base Layer.Player_Walk"); }
+    }
     //効果音
     SoundManager soundManager;
     [System.NonSerialized] public Transform targetTalkTo;
@@ -176,6 +180,7 @@ public class PlayerController : BaseCharacterController
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         throwPoint = transform.Find("PlayerSprite/ThrowPoint");
         frontPoint = transform.Find("FrontPoint");
+
         throwPointCollider = throwPoint.gameObject.GetComponent<PlayerThrowPointCollider>();
     }
 
@@ -742,6 +747,7 @@ public class PlayerController : BaseCharacterController
             return;
         }
 
+        anime.ResetTrigger("ThrowCancel");
         anime.SetTrigger("PreThrow");
         anime.ResetTrigger("Throw");
         ShowOrbit();
@@ -787,7 +793,18 @@ public class PlayerController : BaseCharacterController
             anime.SetTrigger("Throw");
         }
     }
+    public void ThrowCancel()
+    {
+        anime.ResetTrigger("PreThrow");
+        anime.SetTrigger("ThrowCancel");
+        if (throwObj != null)
+        {
+            throwObj.GetComponent<Throwable>().OnThrew(transform.position, Vector2.zero, throwPower, dir);
+            throwObj = null;
+        }
 
+        spriteObj.transform.eulerAngles = Vector3.zero;
+    }
     public void ThrowEnd()
     {
         if(throwObj == null)

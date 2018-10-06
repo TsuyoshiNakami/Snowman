@@ -21,7 +21,7 @@ public class PlayerInputManager : MonoBehaviour {
         {
             plyCtrl.Move(0);
             plyCtrl.EndJumpUp();
-            plyCtrl.Throw();
+            plyCtrl.ThrowCancel();
             return;
         }
 		//操作可能か

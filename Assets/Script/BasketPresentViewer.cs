@@ -30,6 +30,15 @@ public class BasketPresentViewer : MonoBehaviour {
             return makeYakuSubject;
         }
     }
+    Subject<GameObject> presentEnterSubject = new Subject<GameObject>();
+    public IObservable<GameObject> OnPresentEnter
+    {
+        get
+        {
+            return presentEnterSubject;
+        }
+    }
+    
     // Use this for initialization
     void Start () {
         presentObjs = new List<GameObject>();
@@ -46,6 +55,7 @@ public class BasketPresentViewer : MonoBehaviour {
     public void ViewPresent(GameObject item)
     {
         presentManager.HidePresentFromView(item);
+        presentEnterSubject.OnNext(item);
         Present present = item.GetComponent<Present>();
 
         GameObject newObj = new GameObject();
@@ -93,6 +103,8 @@ public class BasketPresentViewer : MonoBehaviour {
         }
         presentObjs.Clear();
         presents.Clear();
+
+        Destroy(gameObject);
     }
     void OnEnterPresent()
     {
@@ -102,21 +114,20 @@ public class BasketPresentViewer : MonoBehaviour {
 
         if (maxYaku != null)
         {
-            presentManager.OnMakeYakuEvent(maxYaku, basketType);
-            makeYakuSubject.OnNext(maxYaku.yakuName);
-            PlaySeByScore(maxYaku.score);
-
             ES3.Save<bool>(maxYaku.yakuName, true, PresentGameConsts.saveSetting);
         }
         else
         {
-            presentManager.OnMakeYakuEvent(yakuList.defaultYaku, basketType);
-            PlaySeByScore(yakuList.defaultYaku.score);
+            maxYaku = yakuList.defaultYaku;
         }
 
+        //役完成時のイベント
+        presentManager.OnMakeYakuEvent(maxYaku, basketType);
+        makeYakuSubject.OnNext(maxYaku.yakuName);
+        PlaySeByScore(maxYaku.score);
 
         Invoke("ClearPresents", 0f);
-
+        
     }
 
     void PlaySeByScore(int score)
