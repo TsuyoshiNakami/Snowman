@@ -3,5 +3,6 @@
     Title,
     Game,
     Recipes,
-    Ranking
+    Ranking,
+    Tutorial
 }

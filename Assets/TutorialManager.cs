@@ -21,15 +21,16 @@ public class TutorialManager : MonoBehaviour {
             case 0:
                 List<string> messages = new List<string>();
                 messages.Add("@Face Tim");
-                messages.Add("ねえトーブ、大変だよ！マスターがいない！");
+                messages.Add("ねえトーブ、大変だよ！マスターがいなくなっちゃったんだ！");
                 messages.Add("クリスマスは明日だっていうのに…プレゼントどうしよう？？" +
                             "ボク、プレゼントなんて作ったことないよ…！");
                 messageWindowController.StartMessage(messages);
-                messageWindowController.OnMessageFinished.Subscribe(_ =>
+                messageWindowController.OnMessageFinished.First().Subscribe(_ =>
                 {
                     NextAction();
                 });
                 break;
+                // プレゼントを箱に一つ入れたら
             case 1:
                 GameObject.Find("Basket").GetComponent<BasketPresentViewer>().OnPresentEnter
                                  .First()
@@ -43,7 +44,7 @@ public class TutorialManager : MonoBehaviour {
                         messages2.Add("あれ？キミ、プレゼントを投げられるのかい？");
                         messages2.Add("じゃあもしかして…プレゼントを箱に3つ入れて完成させることもできるのかい？");
                         messageWindowController.StartMessage(messages2);
-                        messageWindowController.OnMessageFinished.Subscribe(_2 =>
+                        messageWindowController.OnMessageFinished.First().Subscribe(_2 =>
                         {
                             NextAction();
                         });
@@ -71,6 +72,9 @@ public class TutorialManager : MonoBehaviour {
                        });
                    });
                 });
+                break;
+            case 3:
+                GameManager.LoadScene(GameScenes.Game);
                 break;
         }
     }
