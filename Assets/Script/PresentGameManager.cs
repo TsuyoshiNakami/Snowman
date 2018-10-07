@@ -7,7 +7,9 @@ using UniRx;
 public class PresentGameManager : MonoBehaviour {
     public static int score = 0;
 
-
+    [SerializeField] GameObject resultElement;
+    [SerializeField] Transform resultTransform;
+    [SerializeField] GameObject resultWindow;
     Subject<Unit> timerSubject = new Subject<Unit>();
     SoundManager soundManager;
 
@@ -74,5 +76,12 @@ public class PresentGameManager : MonoBehaviour {
     void OnTimerEnd()
     {
         presentManager.DeleteAllPresents();
+
+        resultWindow.SetActive(true);
+        foreach (YakuResult result in presentManager.yakuResults) {
+            Debug.Log(result.presents[0].presentName + result.presents[1].presentName + result.presents[2].presentName + " : " + result.yaku.yakuName + " : " + result.yaku.score);
+            GameObject newResult = Instantiate(resultElement, resultTransform);
+            newResult.GetComponent<ResultElement>().SetUI(result.yaku, result.presents);
+        }
     }
 }

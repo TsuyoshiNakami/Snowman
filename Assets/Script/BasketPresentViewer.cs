@@ -122,7 +122,7 @@ public class BasketPresentViewer : MonoBehaviour {
         }
 
         //役完成時のイベント
-        presentManager.OnMakeYakuEvent(maxYaku, basketType);
+        presentManager.OnMakeYakuEvent(presents, maxYaku, basketType);
         makeYakuSubject.OnNext(maxYaku.yakuName);
         PlaySeByScore(maxYaku.score);
 

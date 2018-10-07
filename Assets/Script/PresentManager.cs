@@ -15,8 +15,28 @@ public class MadeYaku
     }
 }
 
+public struct YakuResult
+{
+    public Yaku yaku;
+    public List<Present> presents; 
+
+    public YakuResult(Yaku yaku, List<Present> presents)
+    {
+        this.yaku = yaku;
+        List<Present> newPresents = new List<Present>();
+        foreach(Present p in presents)
+        {
+            Present tmp = new Present();
+            tmp.presentName = p.presentName;
+            tmp.sprite = p.GetComponent<SpriteRenderer>().sprite;
+            newPresents.Add(tmp);
+        }
+        this.presents = newPresents;
+    }
+}
 public class PresentManager : MonoBehaviour {
     [SerializeField] List<GameObject> kindOfPresents;
+    public List<YakuResult> yakuResults = new List<YakuResult>();
     List<GameObject> presentsInView = new List<GameObject>();
 
     Subject<MadeYaku> makeYakuSubject = new Subject<MadeYaku>();
@@ -35,15 +55,7 @@ public class PresentManager : MonoBehaviour {
             return presentsInView.Count;
         }
     }
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 
     public GameObject EmitPresentRandom(Vector2 pos)
     {
@@ -60,8 +72,11 @@ public class PresentManager : MonoBehaviour {
         presentsInView.Remove(hideObj);
     }
 
-    public void OnMakeYakuEvent(Yaku yaku, BasketType type)
+    public void OnMakeYakuEvent(List<Present> presents, Yaku yaku, BasketType type)
     {
+        YakuResult yakuResult = new YakuResult(yaku, presents);
+        yakuResults.Add(yakuResult);
+
         makeYakuSubject.OnNext(new MadeYaku(yaku, type));
         switch(type)
         {

@@ -100,13 +100,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89850692b4b7a1c4aabe9b88586bcdba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  presentName: PikopikoHummer
+  presentName: Robot
   attributes: 4000000000400000
+  sprite: {fileID: 0}
   completeYaku:
-    yakuName: "\u30D4\u30B3\u30D4\u30B3\u30D4\u30B3\u30D4\u30B3\u30D4\u30B3\u30D4\u30B3\u30CF\u30F3\u30DE\u30FC"
+    yakuName: "\u51AC\u4F11\u307F\u306E\u5BBF\u984C\u4EE3\u884C\u30DE\u30F3"
     yakuEnum: 0
-    presents: []
-    score: 300
+    presents:
+    - {fileID: 114265617327219604}
+    - {fileID: 114265617327219604}
+    - {fileID: 114265617327219604}
+    - {fileID: 114265617327219604}
+    - {fileID: 114265617327219604}
+    - {fileID: 114265617327219604}
+    score: 420
     presentNames: []
 --- !u!114 &114870087322011438
 MonoBehaviour:

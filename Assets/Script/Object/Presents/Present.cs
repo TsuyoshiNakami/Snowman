@@ -6,6 +6,7 @@ using UnityEngine;
 public class Present : MonoBehaviour{
     public string presentName = "";
     public PresentAttribute[] attributes;
+    public Sprite sprite;
     [SerializeField]public Yaku completeYaku;
 
     public uint AttributesToUInt ()
