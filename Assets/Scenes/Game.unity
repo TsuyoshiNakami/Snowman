@@ -122,7 +122,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4776894288482520, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -10.22
+      value: 5.08
       objectReference: {fileID: 0}
     - target: {fileID: 4776894288482520, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2998,7 +2998,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1682557632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.47, y: 0.86, z: 0}
+  m_LocalPosition: {x: -9.55, y: 0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3289,11 +3289,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d5dde7d5b981047bd993814e06aab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emitFoodEater: 0
   resultElement: {fileID: 1773193285629560, guid: 9568457810e901342a40bc8196bfe7c4,
     type: 2}
   resultTransform: {fileID: 434590834}
   resultWindow: {fileID: 434590833}
-  initialTimeLimit: 20
+  initialTimeLimit: 90
 --- !u!4 &1906968514
 Transform:
   m_ObjectHideFlags: 0

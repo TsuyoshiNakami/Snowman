@@ -7,6 +7,7 @@ using UniRx;
 public class PresentGameManager : MonoBehaviour {
     public static int score = 0;
 
+    [SerializeField] bool emitFoodEater = false;
     [SerializeField] GameObject resultElement;
     [SerializeField] Transform resultTransform;
     [SerializeField] GameObject resultWindow;
@@ -69,6 +70,11 @@ public class PresentGameManager : MonoBehaviour {
             timerSubject.OnNext(Unit.Default);
             isTimerAvailable = false;
             OnTimerEnd();
+        }
+
+        if(Random.Range(0, 1000) < 1)
+        {
+            Instantiate(Resources.Load<GameObject>("Prefabs/Enemy/Mouse"), new Vector3(25.17f, 0f, 0f), Quaternion.identity);
         }
 
     }

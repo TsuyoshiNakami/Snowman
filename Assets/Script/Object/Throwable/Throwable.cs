@@ -6,7 +6,6 @@ using UniRx;
 [RequireComponent(typeof(Pauser))]
 public class Throwable : MonoBehaviour
 {
-    [SerializeField] bool IgnorePlayer = false;
     [SerializeField] float gravity = 4;
     [SerializeField] List<string> attributes;
 
@@ -28,6 +27,15 @@ public class Throwable : MonoBehaviour
     int maxBoundCount = 0;
 
     int boundCount = -99;
+
+    Subject<Unit> threwSubject = new Subject<Unit>();
+    public IObservable<Unit> OnThrewEvent
+    {
+        get
+        {
+            return threwSubject;
+        }
+    }
 
     private void Awake()
     {
@@ -209,5 +217,6 @@ public class Throwable : MonoBehaviour
         holdObj = null;
         rigid.velocity = vec;
         //rigid.AddForce(force, ForceMode2D.Impulse);
+        threwSubject.OnNext(Unit.Default);
     }
 }

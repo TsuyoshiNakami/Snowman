@@ -47,7 +47,7 @@ public class PresentManager : MonoBehaviour {
             return makeYakuSubject;
         }
     }
-
+    
     public int NumberOfPresentInView
     {
         get
@@ -67,6 +67,17 @@ public class PresentManager : MonoBehaviour {
         return newPresentObj;
     }
 
+    public List<Present> GetPresentByAttribute(PresentAttribute attribute)
+    {
+        List<Present> tmp = new List<Present>();
+        foreach (GameObject obj in presentsInView)
+        {
+            if (obj.GetComponent<Present>().MeetConditions((uint)attribute.GetHashCode())) {
+                tmp.Add(obj.GetComponent<Present>());
+            }
+        }
+        return tmp;
+    }
     public void HidePresentFromView(GameObject hideObj)
     {
         presentsInView.Remove(hideObj);
