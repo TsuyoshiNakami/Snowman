@@ -9,13 +9,14 @@ public enum TitleState
     Menu
 }
 public class TitleManager : MonoBehaviour {
-   
+
     TitleState state = TitleState.PressStart;
     [SerializeField] GameObject pressStartText;
     [SerializeField] GameObject buttons;
+    SoundManager soundManager; 
 	// Use this for initialization
 	void Start () {
-
+        soundManager = GameObject.Find("SoundManager"). GetComponent<SoundManager>();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +27,7 @@ public class TitleManager : MonoBehaviour {
             state = TitleState.Menu;
             pressStartText.SetActive(false);
             buttons.SetActive(true);
+            soundManager.PlaySEOneShot("Decide");
         }
 
         if(Input.GetButtonDown(KeyConfig.Cancel) && state == TitleState.Menu)

@@ -8,10 +8,12 @@ public class TransitionButton : MonoBehaviour {
 
     [SerializeField] GameScenes scene;
     [SerializeField] bool focused = false;
+    SoundManager soundManager;
 
 	// Use this for initialization
 	void Start () {
-        if(focused)
+        soundManager = GameObject.Find("SoundManager"). GetComponent<SoundManager>();
+        if (focused)
         {
             EventSystem.current.SetSelectedGameObject(this.gameObject);
         }
@@ -24,6 +26,7 @@ public class TransitionButton : MonoBehaviour {
 
     public void OnClick()
     {
+        soundManager.PlaySEOneShot("Decide");
         GameManager.LoadScene(scene);
     }
 }

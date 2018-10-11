@@ -4,18 +4,87 @@ using UnityEngine;
 using UniRx;
 using System;
 
+enum TutorialCommandType{
+    Message,
+    Timeline,
+    Input
+}
+
+struct TutorialCommand
+{
+    public TutorialCommandType type;
+    public List<string> msg;
+
+    public TutorialCommand(TutorialCommandType _type, List<string> _msg)
+    {
+        type = _type;
+        msg = _msg;
+    }
+}
+
 public class TutorialManager : MonoBehaviour {
     [SerializeField]MessageWindowController messageWindowController;
     int actionCount = -1;
+    List<TutorialCommand> commands = new List<TutorialCommand>();
 
 	// Use this for initialization
 	void Start () {
+        List<string> messages = new List<string>();
+                messages.Add("@Face Tim");
+                messages.Add("ねえトーブ、大変だよ！マスターがいなくなっちゃったんだ！");
+                messages.Add("クリスマスは明日だっていうのに…プレゼントどうしよう？？" +
+                            "ボク、プレゼントなんて作ったことないよ…！");
+                List<string> messages2 = new List<string>();
+        messages2.Add("@Face Tim");
+        messages2.Add("あれ？キミ、プレゼントを投げられるのかい？");
+        messages2.Add("じゃあもしかして…プレゼントを箱に3つ入れて完成させることもできるのかい？");
+
+
+
+
+        commands.Add(new TutorialCommand(TutorialCommandType.Message, messages));
+        commands.Add(new TutorialCommand(TutorialCommandType.Input, messages));
+
+        commands.Add(new TutorialCommand(TutorialCommandType.Message, messages2));
         NextAction();
     }
 
+    /* commandを作る
+    
+        commandとstringsのDictionary
+        コマンドは：
+            メッセージ表示
+            タイムライン再生
+            入力待ち
+         
+         */
+
+    void PlayCommand(TutorialCommand command)
+    {
+        switch(command.type)
+        {
+            case TutorialCommandType.Input:
+                NextAction();
+                break;
+            case TutorialCommandType.Message:
+                messageWindowController.StartMessage(command.msg);
+                messageWindowController.OnMessageFinished.First().Subscribe(_ =>
+                {
+                    NextAction();
+                });
+                break;
+            case TutorialCommandType.Timeline:
+                break;
+        }
+    }
     void NextAction()
     {
         actionCount++;
+        if (commands.Count - 1 >= actionCount)
+        {
+            PlayCommand(commands[actionCount]);
+        }
+        /*
         switch (actionCount)
         {
             case 0:
@@ -25,10 +94,6 @@ public class TutorialManager : MonoBehaviour {
                 messages.Add("クリスマスは明日だっていうのに…プレゼントどうしよう？？" +
                             "ボク、プレゼントなんて作ったことないよ…！");
                 messageWindowController.StartMessage(messages);
-                messageWindowController.OnMessageFinished.First().Subscribe(_ =>
-                {
-                    NextAction();
-                });
                 break;
                 // プレゼントを箱に一つ入れたら
             case 1:
@@ -39,10 +104,7 @@ public class TutorialManager : MonoBehaviour {
                 {
                     Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(a =>
                     {
-                        List<string> messages2 = new List<string>();
-                        messages2.Add("@Face Tim");
-                        messages2.Add("あれ？キミ、プレゼントを投げられるのかい？");
-                        messages2.Add("じゃあもしかして…プレゼントを箱に3つ入れて完成させることもできるのかい？");
+
                         messageWindowController.StartMessage(messages2);
                         messageWindowController.OnMessageFinished.First().Subscribe(_2 =>
                         {
@@ -77,6 +139,7 @@ public class TutorialManager : MonoBehaviour {
                 GameManager.LoadScene(GameScenes.Game);
                 break;
         }
+        */
     }
 	// Update is called once per frame
 	void Update () {

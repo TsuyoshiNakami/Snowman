@@ -802,7 +802,7 @@ public class PlayerController : BaseCharacterController
             throwObj.GetComponent<Throwable>().OnThrew(transform.position, Vector2.zero, throwPower, dir);
             throwObj = null;
         }
-
+        autoCursorTime = 0;
         spriteObj.transform.eulerAngles = Vector3.zero;
     }
     public void ThrowEnd()
