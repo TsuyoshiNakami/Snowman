@@ -85,9 +85,8 @@ public class PresentGameManager : MonoBehaviour {
 
         resultWindow.SetActive(true);
         foreach (YakuResult result in presentManager.yakuResults) {
-            Debug.Log(result.presents[0].presentName + result.presents[1].presentName + result.presents[2].presentName + " : " + result.yaku.yakuName + " : " + result.yaku.score);
             GameObject newResult = Instantiate(resultElement, resultTransform);
-            newResult.GetComponent<ResultElement>().SetUI(result.yaku, result.presents);
+            newResult.GetComponent<ResultElement>().SetUI(result);
         }
     }
 }

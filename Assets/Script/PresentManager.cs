@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using System.Linq;
 
 public class MadeYaku
 {
@@ -18,7 +19,8 @@ public class MadeYaku
 public struct YakuResult
 {
     public Yaku yaku;
-    public List<Present> presents; 
+    public List<Present> presents;
+    public int count;
 
     public YakuResult(Yaku yaku, List<Present> presents)
     {
@@ -32,6 +34,7 @@ public struct YakuResult
             newPresents.Add(tmp);
         }
         this.presents = newPresents;
+        count = 1;
     }
 }
 public class PresentManager : MonoBehaviour {
@@ -86,7 +89,27 @@ public class PresentManager : MonoBehaviour {
     public void OnMakeYakuEvent(List<Present> presents, Yaku yaku, BasketType type)
     {
         YakuResult yakuResult = new YakuResult(yaku, presents);
-        yakuResults.Add(yakuResult);
+
+        YakuResult existYaku = yakuResults.Find(exist => exist.yaku.yakuName == yakuResult.yaku.yakuName);
+        //　今回のプレイで初めて作った役
+        if (existYaku.yaku == null)
+        {
+            yakuResults.Add(yakuResult);
+        } else
+        {
+            yakuResults.Remove(existYaku);
+            switch (type)
+            {
+                case BasketType.Normal:
+                    existYaku.count++;
+                    break;
+                case BasketType.X2:
+                    existYaku.count += 2;
+                    break;
+            }
+
+            yakuResults.Add(existYaku);
+        }
 
         makeYakuSubject.OnNext(new MadeYaku(yaku, type));
         switch(type)

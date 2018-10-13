@@ -14,13 +14,13 @@ public class ResultElement : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Image[] images;
 
-    public void SetUI(Yaku yaku, List<Present> presents)
+    public void SetUI(YakuResult result)
     {
-            yakuNameText.text = yaku.yakuName;
-            scoreText.text = yaku.score + "";
+            yakuNameText.text = result.yaku.yakuName;
+            scoreText.text = result.yaku.score + "" + " × " + result.count;
             for (int i = 0; i < 3; i++)
             {
-                images[i].sprite = presents[i].sprite;
+                images[i].sprite = result.presents[i].sprite;
             }
     }
 
