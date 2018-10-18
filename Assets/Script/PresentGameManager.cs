@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-
+using TMPro;
 
 public class PresentGameManager : MonoBehaviour {
     public static int score = 0;
 
     [SerializeField] bool emitFoodEater = false;
-    [SerializeField] GameObject resultElement;
-    [SerializeField] Transform resultTransform;
     [SerializeField] GameObject resultWindow;
+    [SerializeField] TextMeshProUGUI startText;
+
     Subject<Unit> timerSubject = new Subject<Unit>();
     SoundManager soundManager;
 
@@ -38,10 +38,34 @@ public class PresentGameManager : MonoBehaviour {
 
     private void Start()
     {
+        startText.gameObject.SetActive(false);
         score = 0;
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         soundManager.PlayBGM("Main");
+        StartCountDown();
+    }
+
+    void StartCountDown()
+    {
+        startText.gameObject.SetActive(true);
+        StartCoroutine(ICountDown());
+    }
+
+    IEnumerator ICountDown()
+    {
+        startText.text = "3";
+        yield return new WaitForSeconds(1);
+
+        startText.text = "2";
+        yield return new WaitForSeconds(1);
+
+        startText.text = "1";
+        yield return new WaitForSeconds(1);
+
+        startText.text = "スタート！";
+        yield return new WaitForSeconds(1);
+        startText.gameObject.SetActive(false);
         SetTimer(initialTimeLimit);
     }
     public void SetTimer(float f)
@@ -72,7 +96,7 @@ public class PresentGameManager : MonoBehaviour {
             OnTimerEnd();
         }
 
-        if(Random.Range(0, 1000) < 1)
+        if(emitFoodEater && Random.Range(0, 1000) < 1)
         {
             Instantiate(Resources.Load<GameObject>("Prefabs/Enemy/Mouse"), new Vector3(25.17f, 0f, 0f), Quaternion.identity);
         }
@@ -82,11 +106,7 @@ public class PresentGameManager : MonoBehaviour {
     void OnTimerEnd()
     {
         presentManager.DeleteAllPresents();
-
-        resultWindow.SetActive(true);
-        foreach (YakuResult result in presentManager.yakuResults) {
-            GameObject newResult = Instantiate(resultElement, resultTransform);
-            newResult.GetComponent<ResultElement>().SetUI(result);
-        }
+        resultWindow.gameObject.SetActive(true);
+        resultWindow.GetComponent<ResultManager>().ShowResult();
     }
 }

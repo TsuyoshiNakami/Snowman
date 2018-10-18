@@ -46,11 +46,15 @@ public class PresentEater : MonoBehaviour {
         {
             // ターゲットの食べ物に近づいているか？
             closeToTarget = Vector3.Distance(targetFood.transform.position, transform.position) < 1 ? true : false;
-            if(closeToTarget)
+            bool canEat =Vector3.Distance(targetFood.transform.position, transform.position) < 2 ? true : false ;
+
+            if (canEat)
             {
                 eatingTime += Time.deltaTime;
+            }else { 
+                eatingTime = 0;
             }
-            if(eatingTime > 4)
+            if(eatingTime > 3)
             {
                 eatingTime = 0;
                 presentManager.HidePresentFromView(targetFood.gameObject);
@@ -59,7 +63,6 @@ public class PresentEater : MonoBehaviour {
             }
             if(!closeToTarget)
             {
-                eatingTime = 0;
                 float dir = 0;
                 dir = targetFood.transform.position.x < transform.position.x ? -1 : 1;
 

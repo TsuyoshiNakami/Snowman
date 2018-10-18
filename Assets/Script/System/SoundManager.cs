@@ -264,6 +264,10 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 
     public void PlayBGM()
     {
+        if(Aus == null)
+        {
+            return;
+        }
         Aus.Play();
         Aus.timeSamples = stopSample;
     }

@@ -8,12 +8,22 @@ public class BasketManager : MonoBehaviour {
     [SerializeField] int basketX2AppearanceDivider = 3;
     [SerializeField] GameObject basket;
     [SerializeField] GameObject basketX2;
-    [SerializeField] GameObject generatePosition;
+    List<Transform> generatePositions = new List<Transform>();
+    List<bool> basketExistence = new List<bool>();
 
     int generateCount = 0;
     int x2appearTiming = 0;
 	// Use this for initialization
 	void Start () {
+
+        //バスケット出現位置
+        foreach(Transform child in GameObject.Find("BasketGeneratePoints").transform)
+        {
+            generatePositions.Add(child);
+            basketExistence.Add(false);
+        }
+
+
         // 何回目に2倍カゴが現れるか    初回は出さない
         x2appearTiming = Random.Range(1, basketX2AppearanceDivider);
         // X2カゴのタイミングならX2、それ以外なら普通のカゴを生成
@@ -25,6 +35,7 @@ public class BasketManager : MonoBehaviour {
         {
             GenerateBasket(basket);
         }
+        OnPresentCompleted();
     }
 	
 	// Update is called once per frame
@@ -58,8 +69,20 @@ public class BasketManager : MonoBehaviour {
 
     void GenerateBasket(GameObject basket)
     {
-        GameObject newObj = Instantiate(basket, generatePosition.transform.position, generatePosition.transform.rotation);
+        //int i = Random.Range(0, generatePositions.Count);
+        int i = 0;
+        while(basketExistence[i])
+        {
+            i++;
+            if(basketExistence.Count <= i)
+            {
+                return;
+            }
+        }
+        basketExistence[i] = true;
+        GameObject newObj = Instantiate(basket, generatePositions[i].position, generatePositions[i].rotation);
         newObj.GetComponentInChildren<BasketPresentViewer>().OnMakeYaku.Subscribe(yaku => {
+            basketExistence[i] = false;
             OnPresentCompleted();
         });
     }

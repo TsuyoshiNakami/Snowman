@@ -757,14 +757,24 @@ public class PlayerController : BaseCharacterController
     {
         RaycastHit2D[] hit2D = new RaycastHit2D[5];
         int num = Physics2D.BoxCastNonAlloc(throwPoint.transform.position, new Vector2(2f, 2f), 0, Vector2.right * dir, hit2D, 0.1f);
+        GameObject tmpObj = null;
 
         foreach(RaycastHit2D hit in hit2D)
         {
             if (hit.collider == null) continue;
 
             if(hit.collider.gameObject.CompareTag("Throwable")) {
-                return hit.collider.gameObject;
+                // PresentEaterは優先する
+                if (hit.collider.gameObject.GetComponent<PresentEater>() != null)
+                {
+                    return hit.collider.gameObject;
+                }
+                tmpObj = hit.collider.gameObject;
             }
+        }
+        if(tmpObj != null)
+        {
+            return tmpObj;
         }
         return null;
     }

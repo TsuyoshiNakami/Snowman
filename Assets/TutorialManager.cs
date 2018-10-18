@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UniRx;
 using System;
 
 enum TutorialCommandType{
     Message,
     Timeline,
-    Input
+    Input,
+    ToGame
 }
 
 struct TutorialCommand
@@ -19,6 +21,20 @@ struct TutorialCommand
     {
         type = _type;
         msg = _msg;
+    }
+
+    public TutorialCommand(TutorialCommandType _type, string _msg)
+    {
+        type = _type;
+        List<string> tmp = new List<string>();
+        tmp.Add(_msg);
+        msg = tmp;
+    }
+
+    public TutorialCommand(TutorialCommandType _type)
+    {
+        type = _type;
+        msg = new List<string>();
     }
 }
 
@@ -38,14 +54,22 @@ public class TutorialManager : MonoBehaviour {
         messages2.Add("@Face Tim");
         messages2.Add("あれ？キミ、プレゼントを投げられるのかい？");
         messages2.Add("じゃあもしかして…プレゼントを箱に3つ入れて完成させることもできるのかい？");
+                       List<string> messages3 = new List<string>();
+                       messages3.Add("@Face Tim");
+                       messages3.Add("キミ、すごいよ！プレゼントが完成した！");
+                       messages3.Add("この調子でプレゼント作っていけば、クリスマスに間に合うよ！");
 
-
-
+        Pauser.Pause();
+        commands.Add(new TutorialCommand(TutorialCommandType.Timeline, messages));
 
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages));
-        commands.Add(new TutorialCommand(TutorialCommandType.Input, messages));
+        commands.Add(new TutorialCommand(TutorialCommandType.Input, "EnterPresent"));
 
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages2));
+        commands.Add(new TutorialCommand(TutorialCommandType.Input, "MakePresent"));
+
+        commands.Add(new TutorialCommand(TutorialCommandType.Message, messages3));
+        commands.Add(new TutorialCommand(TutorialCommandType.ToGame));
         NextAction();
     }
 
@@ -64,7 +88,7 @@ public class TutorialManager : MonoBehaviour {
         switch(command.type)
         {
             case TutorialCommandType.Input:
-                NextAction();
+                DetectInputCommand(command.msg);
                 break;
             case TutorialCommandType.Message:
                 messageWindowController.StartMessage(command.msg);
@@ -74,9 +98,56 @@ public class TutorialManager : MonoBehaviour {
                 });
                 break;
             case TutorialCommandType.Timeline:
+                PlayableDirector playableDirector = GameObject.Find("Timeline").GetComponent<PlayableDirector>();
+                playableDirector.stopped += OnTimelineStopped;
+                playableDirector.Play();
+                break;
+            case TutorialCommandType.ToGame:
+                GameManager.LoadScene(GameScenes.Game);
                 break;
         }
     }
+
+    void OnTimelineStopped(PlayableDirector playableDirector)
+    {
+
+        Destroy(playableDirector);
+        NextAction();
+        //playableDirector.stopped -= OnTimelineStopped;
+    }
+    void DetectInputCommand(List<string> msg)
+    {
+        switch (msg[0]) {
+            case "EnterPresent":
+                        GameObject.Find("Basket").GetComponent<BasketPresentViewer>().OnPresentEnter
+                    .First()
+                   .Subscribe(_ =>
+
+                     {
+                         Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(a =>
+                        {
+
+
+                            NextAction();
+                            ;
+                        });
+                     });
+                break;
+            case "MakePresent":
+                GameObject.Find("Basket").GetComponent<BasketPresentViewer>().OnMakeYaku.Subscribe(yaku =>
+                {
+
+                    Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(a =>
+                   {
+     
+                           NextAction();
+
+                   });
+                });
+                break;
+        }
+    }
+
     void NextAction()
     {
         actionCount++;
