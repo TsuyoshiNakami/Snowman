@@ -2195,7 +2195,6 @@ MonoBehaviour:
   basketX2AppearanceDivider: 5
   basket: {fileID: 1999467334870994, guid: cae68dcbe7dc1734e8b2a11afdf8130f, type: 2}
   basketX2: {fileID: 1999467334870994, guid: b6ff46d0f11933c4f86622c2b65e64e3, type: 2}
-  generatePosition: {fileID: 823329866}
 --- !u!4 &586632124
 Transform:
   m_ObjectHideFlags: 0
@@ -3576,7 +3575,7 @@ MonoBehaviour:
   emitFoodEater: 1
   resultWindow: {fileID: 434590833}
   startText: {fileID: 875800579}
-  initialTimeLimit: 40
+  initialTimeLimit: 90
 --- !u!4 &1906968514
 Transform:
   m_ObjectHideFlags: 0
