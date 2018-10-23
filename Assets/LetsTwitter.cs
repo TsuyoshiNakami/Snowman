@@ -13,7 +13,7 @@ using System.Security.Cryptography;
 
 using UnityEngine;
 
-namespace Twitter
+namespace LetsTwitter
 {
     public class RequestTokenResponse
     {
@@ -32,12 +32,6 @@ namespace Twitter
     public delegate void RequestTokenCallback(bool success, RequestTokenResponse response);
     public delegate void AccessTokenCallback(bool success, AccessTokenResponse response);
     public delegate void PostTweetCallback(bool success);
-	public delegate void GetUserTimelineCallback(bool success, string response);
-	public delegate void GetFriendsWithIdsCallback(bool success, string response);
-	public delegate void GetFriendshipsLookupCallback(bool success, string response);
-	public delegate void GetFavoritesListCallback(bool success, string response);
-	public delegate void GetUsersLookupCallback(bool success, string response);
-
 
     public class API
     {
@@ -50,7 +44,7 @@ namespace Twitter
 
         // Twitter APIs for OAuth process
         private static readonly string RequestTokenURL = "https://api.twitter.com/oauth/request_token";
-        private static readonly string AuthorizationURL = "https://api.twitter.com/oauth/authorize?oauth_token={0}";
+        private static readonly string AuthorizationURL = "https://api.twitter.com/oauth/authenticate?oauth_token={0}";
         private static readonly string AccessTokenURL = "https://api.twitter.com/oauth/access_token";
 
         public static IEnumerator GetRequestToken(string consumerKey, string consumerSecret, RequestTokenCallback callback)
@@ -128,23 +122,19 @@ namespace Twitter
             }
         }
 
-
         private static WWW WWWRequestToken(string consumerKey, string consumerSecret)
         {
-            string callbackUrl = "oob";
             // Add data to the form to post.
             WWWForm form = new WWWForm();
-            form.AddField("oauth_callback", callbackUrl);
+            form.AddField("oauth_callback", "oob");
 
             // HTTP header
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             AddDefaultOAuthParams(parameters, consumerKey, consumerSecret);
-            parameters.Add("oauth_callback", callbackUrl);
+            parameters.Add("oauth_callback", "oob");
 
-            //var headers = new Hashtable();
-
-			Dictionary<string, string> headers = new Dictionary<string, string> ();
-			headers["Authorization"] = GetFinalOAuthHeader("POST", RequestTokenURL, parameters);
+            var headers = new Hashtable();
+            headers["Authorization"] = GetFinalOAuthHeader("POST", RequestTokenURL, parameters);
 
             return new WWW(RequestTokenURL, form.data, headers);
         }
@@ -156,7 +146,7 @@ namespace Twitter
             dummmy[0] = 0;
 
             // HTTP header
-			Dictionary<string, string> headers = new Dictionary<string, string> ();
+            var headers = new Hashtable();
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             AddDefaultOAuthParams(parameters, consumerKey, consumerSecret);
             parameters.Add("oauth_token", requestToken);
@@ -182,15 +172,10 @@ namespace Twitter
         #region Twitter API Methods
 
         private const string PostTweetURL = "https://api.twitter.com/1.1/statuses/update.json";
-		private const string GetUserTimelineURL = "https://api.twitter.com/1.1/statuses/user_timeline.json";
-		private const string GetFriendsWithIdsURL = "https://api.twitter.com/1.1/friends/ids.json";
-		private const string GetFriendshipsLookupURL = "https://api.twitter.com/1.1/friendships/lookup.json";
-		private const string GetFavoritesListURL = "https://api.twitter.com/1.1/favorites/list.json";
-		private const string GetUsersLookupURL = "https://api.twitter.com/1.1/users/lookup.json";
-
 
         public static IEnumerator PostTweet(string text, string consumerKey, string consumerSecret, AccessTokenResponse response, PostTweetCallback callback)
         {
+            Debug.Log("Post Tweet");
             if (string.IsNullOrEmpty(text) || text.Length > 140)
             {
                 Debug.Log(string.Format("PostTweet - text[{0}] is empty or too long.", text));
@@ -207,7 +192,7 @@ namespace Twitter
                 form.AddField("status", text);
 
                 // HTTP header
-				Dictionary<string, string> headers = new Dictionary<string, string> ();
+                var headers = new Hashtable();
                 headers["Authorization"] = GetHeaderWithAccessToken("POST", PostTweetURL, consumerKey, consumerSecret, response, parameters);
 
                 WWW web = new WWW(PostTweetURL, form.data, headers);
@@ -234,7 +219,109 @@ namespace Twitter
                 }
             }
         }
+        private const string UploadMediaURL = "https://upload.twitter.com/1.1/media/upload.json";
+        // １回目のレスポンスJSONをオブジェクトに変換するためのクラス
+        class strctImage
+        {
+            public string image_type;
+            public long w;
+            public long h;
+        }
+        class mediaResponse
+        {
+            public long media_id;
+            public string media_id_string;
+            public long size;
+            public long expires_after_secs;
+            public strctImage image;
+        }
 
+        // Twitter.csに追加するメソッド
+        public static IEnumerator PostTweetWithMedia(string text, string imagePath, string consumerKey, string consumerSecret, AccessTokenResponse response, PostTweetCallback callback)
+        {
+            if (string.IsNullOrEmpty(text) || text.Length > 140)
+            {
+                Debug.Log(string.Format("PostTweet - text[{0}] is empty or too long.", text));
+
+                callback(false);
+            }
+            else
+            {
+                FileStream fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+                BinaryReader bin = new BinaryReader(fileStream);
+                byte[] bytes = bin.ReadBytes((int)bin.BaseStream.Length);
+                var bs64 = Convert.ToBase64String(bytes);
+                bin.Close();
+
+                Dictionary<string, string> mediaParameters = new Dictionary<string, string>();
+                mediaParameters.Add("media_data", bs64);
+                WWWForm mediaForm = new WWWForm();
+                mediaForm.AddField("media_data", bs64);
+                var mediaHeaders = new Dictionary<string, string>();
+                mediaHeaders.Add("Authorization", GetHeaderWithAccessToken("POST", UploadMediaURL, consumerKey, consumerSecret, response, mediaParameters));
+                WWW mediaWeb = new WWW(UploadMediaURL, mediaForm.data, mediaHeaders);
+
+                yield return mediaWeb;
+
+                string media_id_string = "";
+                if (!string.IsNullOrEmpty(mediaWeb.error))
+                {
+                    Debug.Log(string.Format("PostMedia - failed. {0}\n{1}", mediaWeb.error, mediaWeb.text));
+                    callback(false);
+                    yield break;
+                }
+                else
+                {
+                    string error = Regex.Match(mediaWeb.text, @"<error>([^&]+)</error>").Groups[1].Value;
+
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        Debug.Log(string.Format("PostTweet - failed. {0}", error));
+                        callback(false);
+                        yield break;
+                    }
+                    else
+                    {
+                        var res = JsonUtility.FromJson<mediaResponse>(mediaWeb.text);
+                        media_id_string = res.media_id_string;
+                    }
+                }
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+                parameters.Add("status", text);
+                parameters.Add("media_ids", media_id_string);
+                WWWForm form = new WWWForm();
+                form.AddField("status", text);
+                form.AddField("media_ids", media_id_string);
+
+                // HTTP header
+                var headers = new Dictionary<string, string>();
+                headers.Add("Authorization", GetHeaderWithAccessToken("POST", PostTweetURL, consumerKey, consumerSecret, response, parameters));
+
+                WWW web = new WWW(PostTweetURL, form.data, headers);
+                yield return web;
+
+                if (!string.IsNullOrEmpty(web.error))
+                {
+                    Debug.Log(string.Format("PostTweet - failed. {0}\n{1}", web.error, web.text));
+                    callback(false);
+                }
+                else
+                {
+                    string error = Regex.Match(web.text, @"<error>([^&]+)</error>").Groups[1].Value;
+
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        Debug.Log(string.Format("PostTweet - failed. {0}", error));
+                        callback(false);
+                    }
+                    else
+                    {
+                        callback(true);
+                    }
+                }
+            }
+        }
         #endregion
 
         #region OAuth Help Methods
@@ -387,19 +474,20 @@ namespace Twitter
             {
                 return string.Empty;
             }
-//			#if false
-			value = Uri.EscapeDataString(value);
-//			#else
-//			var result = "";
-//			int len;
-//			while ((len = value.Length) != 0)
-//			{
-//				var nowLen = (value.Length > 32766) ? 32766 : value.Length;
-//				result += Uri.EscapeDataString(value.Substring(0, nowLen));
-//				value = value.Substring(nowLen);
-//			}
-//			value = result;
-//			#endif
+#if false
+    value = Uri.EscapeDataString(value);
+#else
+            var result = "";
+            int len;
+            while ((len = value.Length) != 0)
+            {
+                var nowLen = (value.Length > 32766) ? 32766 : value.Length;
+                result += Uri.EscapeDataString(value.Substring(0, nowLen));
+                value = value.Substring(nowLen);
+            }
+            value = result;
+#endif
+
             // UrlEncode escapes with lowercase characters (e.g. %2f) but oAuth needs %2F
             value = Regex.Replace(value, "(%[0-9a-f][0-9a-f])", c => c.Value.ToUpper());
 
@@ -444,230 +532,6 @@ namespace Twitter
             return UrlEncode(parameterString.ToString());
         }
 
-
-		private static string BuildURL(string baseURL, Dictionary<string, string> parameters)
-		{
-			StringBuilder sb = new StringBuilder(baseURL);
-
-			if (parameters != null && parameters.Count > 0)
-			{
-				sb.Append("?");
-
-				foreach (var pair in parameters)
-				{
-					sb.Append(WWW.EscapeURL(pair.Key)).Append("=").Append(WWW.EscapeURL(pair.Value)).Append("&");
-				}
-
-				sb.Remove(sb.Length - 1, 1);
-			}
-
-			return sb.ToString();
-		}
-
-		public static IEnumerator GetFriendsWithIds(string user_id, string consumerKey, string consumerSecret, AccessTokenResponse response, GetFriendsWithIdsCallback callback) {
-			// Need to fill body since Unity doesn't like an empty request body.
-			byte[] dummmy = null;
-			string url = GetFriendsWithIdsURL;
-
-			Dictionary<string, string> parameters = new Dictionary<string, string>();
-
-			parameters.Add("user_id", user_id);
-			parameters.Add("count", 2000.ToString());
-			parameters.Add("stringify_ids", "true");
-
-			url = BuildURL (url, parameters);
-
-			// HTTP header
-			Dictionary<string, string> headers = new Dictionary<string, string>();
-			headers["Authorization"] = GetHeaderWithAccessToken("GET", url, consumerKey, consumerSecret, response, parameters);
-
-			WWW web = new WWW(url, dummmy, headers);
-			yield return web;
-
-			if (!string.IsNullOrEmpty(web.error))
-			{
-				Debug.Log(string.Format("GetFriendsWithIds - failed. {0}\n{1}", web.error, web.text));
-				callback(false, web.error);
-			}
-			else
-			{
-				string error = Regex.Match(web.text, @"<error>([^&]+)</error>").Groups[1].Value;
-
-				if (!string.IsNullOrEmpty(error))
-				{
-					Debug.Log(string.Format("GetFriendsWithIds - failed. {0}", error));
-					callback(false, web.error);
-				}
-				else
-				{
-					callback(true, web.text);
-				}
-			}
-
-		}
-
-		public static IEnumerator GetFriendshipsLookup(string user_id, string consumerKey, string consumerSecret, AccessTokenResponse response, GetFriendshipsLookupCallback callback, string ids) {
-			// Need to fill body since Unity doesn't like an empty request body.
-			byte[] dummmy = null;
-			string url = GetFriendshipsLookupURL;
-
-			Dictionary<string, string> parameters = new Dictionary<string, string>();
-
-			Debug.Log ("Get friendships lookup with : " + ids);
-			parameters.Add("user_id", ids);
-
-
-			url = BuildURL (url, parameters);
-
-			// HTTP header
-			Dictionary<string, string> headers = new Dictionary<string, string>();
-			headers["Authorization"] = GetHeaderWithAccessToken("GET", url, consumerKey, consumerSecret, response, parameters);
-
-			WWW web = new WWW(url, dummmy, headers);
-			yield return web;
-
-			if (!string.IsNullOrEmpty(web.error))
-			{
-				Debug.Log(string.Format("GetFriendshipsLookup - failed. {0}\n{1}", web.error, web.text));
-				callback(false, web.error);
-			}
-			else
-			{
-				string error = Regex.Match(web.text, @"<error>([^&]+)</error>").Groups[1].Value;
-
-				if (!string.IsNullOrEmpty(error))
-				{
-					Debug.Log(string.Format("GetFriendshipsLookup - failed. {0}", error));
-					callback(false, web.error);
-				}
-				else
-				{
-					callback(true, web.text);
-				}
-			}
-
-		}
-		public static IEnumerator GetUserTimeline(string user_id, string consumerKey, string consumerSecret, AccessTokenResponse response, GetUserTimelineCallback callback)
-		{
-			// Need to fill body since Unity doesn't like an empty request body.
-			byte[] dummmy = null;
-			string url = GetUserTimelineURL;
-
-			Dictionary<string, string> parameters = new Dictionary<string, string>();
-			parameters.Add ("screen_name", "@yuuto33");
-			parameters.Add("count", 30.ToString());
-			parameters.Add("include_rts", "false");
-
-			url = BuildURL (url, parameters);
-
-			// HTTP header
-			Dictionary<string, string> headers = new Dictionary<string, string>();
-			headers["Authorization"] = GetHeaderWithAccessToken("GET", url, consumerKey, consumerSecret, response, parameters);
-
-			WWW web = new WWW(url, dummmy, headers);
-			yield return web;
-
-			if (!string.IsNullOrEmpty(web.error))
-			{
-				Debug.Log(string.Format("GetUserTimeline - failed. {0}\n{1}", web.error, web.text));
-				callback(false, web.error);
-			}
-			else
-			{
-				string error = Regex.Match(web.text, @"<error>([^&]+)</error>").Groups[1].Value;
-
-				if (!string.IsNullOrEmpty(error))
-				{
-					Debug.Log(string.Format("GetUserTimeline - failed. {0}", error));
-					callback(false, web.error);
-				}
-				else
-				{
-					callback(true, web.text);
-				}
-			}
-		}
-
-		public static IEnumerator GetUsersLookup(string user_id, string consumerKey, string consumerSecret, AccessTokenResponse response, GetUsersLookupCallback callback, string ids)
-		{
-			// Need to fill body since Unity doesn't like an empty request body.
-			byte[] dummmy = null;
-			string url = GetUsersLookupURL;
-
-			Debug.Log ("get user Lookup : " + ids);
-			Dictionary<string, string> parameters = new Dictionary<string, string>();
-			parameters.Add ("user_id", ids);
-			//parameters.Add("user_id", user_id);
-
-
-			url = BuildURL (url, parameters);
-
-			// HTTP header
-			Dictionary<string, string> headers = new Dictionary<string, string>();
-			headers["Authorization"] = GetHeaderWithAccessToken("GET", url, consumerKey, consumerSecret, response, parameters);
-
-			WWW web = new WWW(url, dummmy, headers);
-			yield return web;
-
-			if (!string.IsNullOrEmpty(web.error))
-			{
-				Debug.Log(string.Format("GetUsersLookup - failed. {0}\n{1}", web.error, web.text));
-				callback(false, web.error);
-			}
-			else
-			{
-				string error = Regex.Match(web.text, @"<error>([^&]+)</error>").Groups[1].Value;
-
-				if (!string.IsNullOrEmpty(error))
-				{
-					Debug.Log(string.Format("GetUsersLookup - failed. {0}", error));
-					callback(false, web.error);
-				}
-				else
-				{
-					callback(true, web.text);
-				}
-			}
-		}
-		public static IEnumerator GetFavoritesList(string user_id, string consumerKey, string consumerSecret, AccessTokenResponse response, GetFavoritesListCallback callback, string id)
-		{
-			// Need to fill body since Unity doesn't like an empty request body.
-			byte[] dummmy = null;
-			string url = GetFavoritesListURL;
-
-			Dictionary<string, string> parameters = new Dictionary<string, string>();
-			parameters.Add("user_id", id);
-			parameters.Add("count", 50.ToString());
-
-
-			url = BuildURL (url, parameters);
-
-			// HTTP header
-			Dictionary<string, string> headers = new Dictionary<string, string>();
-			headers["Authorization"] = GetHeaderWithAccessToken("GET", url, consumerKey, consumerSecret, response, parameters);
-			WWW web = new WWW(url, dummmy, headers);
-			yield return web;
-
-			if (!string.IsNullOrEmpty(web.error))
-			{
-				Debug.Log(string.Format("GetFavoritesList - failed. {0}\n{1}", web.error, web.text));
-				callback(false, web.error);
-			}
-			else
-			{
-				string error = Regex.Match(web.text, @"<error>([^&]+)</error>").Groups[1].Value;
-
-				if (!string.IsNullOrEmpty(error))
-				{
-					Debug.Log(string.Format("GetFavoritesList - failed. {0}", error));
-					callback(false, web.error);
-				}
-				else
-				{
-					callback(true, web.text);
-				}
-			}
-		}
         #endregion
     }
 }

@@ -27,6 +27,21 @@ public class TransitionButton : MonoBehaviour {
     public void OnClick()
     {
         soundManager.PlaySEOneShot("Decide");
-        GameManager.LoadScene(scene);
+        switch (scene)
+        {
+            case GameScenes.Tutorial:
+                if (ES3.Load<bool>("Tutorial", false))
+                {
+                    GameManager.LoadScene(GameScenes.Game);
+                }
+                else
+                {
+                    GameManager.LoadScene(GameScenes.Tutorial);
+                }
+                break;
+            default:
+                GameManager.LoadScene(scene);
+                break;
+        }
     }
 }

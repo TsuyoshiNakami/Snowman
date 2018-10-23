@@ -133,6 +133,11 @@ public class PresentManager : MonoBehaviour {
         presentsInView.Clear();
     }
 
+    public void DeletePresent(GameObject presentObj)
+    {
+        Destroy(presentObj);
+        presentsInView.Remove(presentObj);
+    }
     public void ChangePresent(GameObject from, GameObject to)
     {
         presentsInView.Remove(from);

@@ -10,9 +10,11 @@ public class PresentGameManager : MonoBehaviour {
     [SerializeField] bool emitFoodEater = false;
     [SerializeField] GameObject resultWindow;
     [SerializeField] TextMeshProUGUI startText;
+    [SerializeField] Transform presentEaterPosition;
 
     Subject<Unit> timerSubject = new Subject<Unit>();
     SoundManager soundManager;
+    public bool enablePresentEmit = false;
 
     public IObservable<Unit> OnTimeUp
     {
@@ -56,7 +58,7 @@ public class PresentGameManager : MonoBehaviour {
     {
         startText.text = "3";
         yield return new WaitForSeconds(1);
-
+        enablePresentEmit = true;
         startText.text = "2";
         yield return new WaitForSeconds(1);
 
@@ -98,7 +100,7 @@ public class PresentGameManager : MonoBehaviour {
 
         if(emitFoodEater && Random.Range(0, 1000) < 1)
         {
-            Instantiate(Resources.Load<GameObject>("Prefabs/Enemy/Mouse"), new Vector3(25.17f, 0f, 0f), Quaternion.identity);
+            Instantiate(Resources.Load<GameObject>("Prefabs/Enemy/Mouse"), presentEaterPosition.position, Quaternion.identity);
         }
 
     }
@@ -108,5 +110,6 @@ public class PresentGameManager : MonoBehaviour {
         presentManager.DeleteAllPresents();
         resultWindow.gameObject.SetActive(true);
         resultWindow.GetComponent<ResultManager>().ShowResult();
+        enablePresentEmit = true;
     }
 }

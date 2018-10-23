@@ -41,10 +41,10 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 
         //Invoke("ShowTestMsg", 5);
 
-        if (GameObject.Find("Player") == null)
-        {
-            AddPlayer();
-        }
+        //if (GameObject.Find("Player") == null)
+        //{
+        //    AddPlayer();
+        //}
         //SetCamera();
 
 		enableAllWarp = enableAllWarpDebug;
@@ -56,11 +56,11 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 		DontDestroyOnLoad (gameObject);
 		soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager>();
 
-        if (playerController == null)
-        {
-            playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-            cameraFol = GameObject.FindWithTag("MainCamera").GetComponent<CameraFol>();
-        }
+        //if (playerController == null)
+        //{
+        //    playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        //    cameraFol = GameObject.FindWithTag("MainCamera").GetComponent<CameraFol>();
+        //}
     }
 
     public void PlaySE(string name)

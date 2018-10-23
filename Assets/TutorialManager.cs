@@ -103,6 +103,7 @@ public class TutorialManager : MonoBehaviour {
                 playableDirector.Play();
                 break;
             case TutorialCommandType.ToGame:
+                ES3.Save<bool>("Tutorial", true, PresentGameConsts.saveSetting);
                 GameManager.LoadScene(GameScenes.Game);
                 break;
         }

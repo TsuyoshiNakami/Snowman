@@ -28,6 +28,7 @@ public class TitleManager : MonoBehaviour {
             pressStartText.SetActive(false);
             buttons.SetActive(true);
             soundManager.PlaySEOneShot("Decide");
+            
         }
 
         if(Input.GetButtonDown(KeyConfig.Cancel) && state == TitleState.Menu)

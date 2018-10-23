@@ -23,7 +23,7 @@ public class PresentEmitterManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(!presentGameManager.isTimerAvailable)
+        if(!presentGameManager.enablePresentEmit)
         {
             return;
         }
