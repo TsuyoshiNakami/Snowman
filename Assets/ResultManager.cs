@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ResultManager : MonoBehaviour {
     [SerializeField] GameObject resultWindow;
@@ -9,7 +11,9 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] GameObject resultElement;
     [SerializeField] Transform resultTransform;
     [SerializeField] TextMeshProUGUI sumText;
+    [SerializeField] Button[] buttons;
     PresentManager presentManager;
+
 
 	// Use this for initialization
 	void Start () {
@@ -30,4 +34,17 @@ public class ResultManager : MonoBehaviour {
         }
         sumText.text = "合計：" + PresentGameManager.score;
     }
-}
+
+    public void SetButtonsInteractive(bool f)
+    {
+        for(int i = 0; i < buttons.Length; i++) 
+        {
+            buttons[i].interactable = f;
+        }
+    }
+
+    public void InitButtonFocus()
+    {
+        EventSystem.current.SetSelectedGameObject(buttons[1].gameObject);
+    }
+} 

@@ -19,6 +19,10 @@ public class PauseWindow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(presentGameManager.gameFinished)
+        {
+            return;
+        }
 		if(Input.GetButtonDown(KeyConfig.Home))
         {
             

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PresentGameManager : MonoBehaviour {
     public static int score = 0;
 
     [SerializeField] bool emitFoodEater = false;
-    [SerializeField] GameObject resultWindow;
+    [SerializeField] ResultManager resultWindow;
     [SerializeField] TextMeshProUGUI startText;
     [SerializeField] Transform presentEaterPosition;
 
@@ -28,10 +29,13 @@ public class PresentGameManager : MonoBehaviour {
     }
 
     float timeLimit = 0;
+    bool isRankingOpen = false;
+    public bool gameFinished = false;
     [System.NonSerialized]public bool isTimerAvailable = false;
 
     [SerializeField, Header("制限時間")] float initialTimeLimit = 90;
     PresentManager presentManager;
+    PlayerController playerController;
 
     public float TimeLimit
     {
@@ -46,6 +50,7 @@ public class PresentGameManager : MonoBehaviour {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         soundManager.PlayBGM("Main");
         StartCountDown();
+        playerController = PlayerController.GetController();
     }
 
     void StartCountDown()
@@ -81,6 +86,13 @@ public class PresentGameManager : MonoBehaviour {
 
     private void Update()
     {
+        if(isRankingOpen)
+        {
+            if(Input.GetButtonDown(KeyConfig.Jump))
+            {
+                CloseRanking();
+            }
+        }
         if(!isTimerAvailable)
         {
             return;
@@ -107,9 +119,26 @@ public class PresentGameManager : MonoBehaviour {
 
     void OnTimerEnd()
     {
+        gameFinished = true;
+        playerController.activeSts = false;
         presentManager.DeleteAllPresents();
         resultWindow.gameObject.SetActive(true);
-        resultWindow.GetComponent<ResultManager>().ShowResult();
+        resultWindow.ShowResult();
         enablePresentEmit = true;
+    }
+
+    public void OpenRanking()
+    {
+        resultWindow.SetButtonsInteractive(false);
+        SceneManager.LoadScene("RankingAdditive", LoadSceneMode.Additive);
+        isRankingOpen = true;
+    }
+
+    public void CloseRanking()
+    {
+        resultWindow.SetButtonsInteractive(true);
+        SceneManager.UnloadSceneAsync("RankingAdditive");
+        isRankingOpen = false;
+        resultWindow.InitButtonFocus();
     }
 }

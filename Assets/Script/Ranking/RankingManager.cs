@@ -28,6 +28,7 @@ public class RankingManager : MonoBehaviour {
     [SerializeField] GameObject rankingWindow;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] GameObject rankingRowObject;
+    [SerializeField] bool enableKeyInput = true;
 
     // Use this for initialization
     void Start () {
@@ -45,6 +46,7 @@ public class RankingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!enableKeyInput) return;
         if(Input.GetButtonDown(KeyConfig.Cancel))
         {
             GameManager.LoadScene(GameScenes.Title);
@@ -55,7 +57,7 @@ public class RankingManager : MonoBehaviour {
         }
 	}
 
-    void ShowRankingSender()
+    public void ShowRankingSender()
     {
         GameObject tmp = rankingSender.transform.parent.gameObject;
         rankingSender.SetScoreText(PresentGameManager.score);
