@@ -832,6 +832,50 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 331486080}
   m_CullTransparentMesh: 0
+--- !u!1 &345128319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 345128321}
+  - component: {fileID: 345128320}
+  m_Layer: 0
+  m_Name: FoodEaterEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &345128320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 345128319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6448a9ddc5a184cbff7f825bd0909c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitFoodEater: 1
+  presentEaterPosition: {fileID: 2080166906}
+  emitStartTime: 10
+  isStartedEmit: 0
+--- !u!4 &345128321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 345128319}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.467303, y: 5.5067205, z: 97.6763}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &371397631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4509,13 +4553,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d5dde7d5b981047bd993814e06aab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitFoodEater: 1
   resultWindow: {fileID: 434590838}
   startText: {fileID: 875800579}
-  presentEaterPosition: {fileID: 2080166906}
   enablePresentEmit: 0
+  foodEaterEmitter: {fileID: 345128320}
   gameFinished: 0
-  initialTimeLimit: 1
+  initialTimeLimit: 30
 --- !u!4 &1906968514
 Transform:
   m_ObjectHideFlags: 0
@@ -4553,7 +4596,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1957614886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.8, y: 8.4, z: 0}
+  m_LocalPosition: {x: -24.7, y: 8.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 200709705}
@@ -4894,7 +4937,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2080166905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.06, y: -1.47, z: 84.60925}
+  m_LocalPosition: {x: -13.06, y: -1.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

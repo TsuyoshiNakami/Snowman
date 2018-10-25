@@ -85,12 +85,8 @@ public class BasketCollider : MonoBehaviour {
         foreach (Collider2D c in results)
         {
             if (c == null) continue;
-            if (c.tag == "PlayerArmBullet")
-            {
-                nowCollider[count] = c;
-                count++;
-            }
-            if(c.tag == "Throwable")
+
+            if(c.tag == "Throwable" && c.gameObject.GetComponent<Throwable>().hasBeThrew && !c.gameObject.GetComponent<Throwable>().IsTaken)
             {
                 nowCollider[count] = c;
                 count++;

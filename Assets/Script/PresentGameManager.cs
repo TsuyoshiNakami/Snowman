@@ -8,14 +8,13 @@ using UnityEngine.SceneManagement;
 public class PresentGameManager : MonoBehaviour {
     public static int score = 0;
 
-    [SerializeField] bool emitFoodEater = false;
     [SerializeField] ResultManager resultWindow;
     [SerializeField] TextMeshProUGUI startText;
-    [SerializeField] Transform presentEaterPosition;
 
     Subject<Unit> timerSubject = new Subject<Unit>();
     SoundManager soundManager;
     public bool enablePresentEmit = false;
+    [SerializeField] FoodEaterEmitter foodEaterEmitter;
 
     public IObservable<Unit> OnTimeUp
     {
@@ -109,12 +108,11 @@ public class PresentGameManager : MonoBehaviour {
             isTimerAvailable = false;
             OnTimerEnd();
         }
-
-        if(emitFoodEater && Random.Range(0, 1000) < 1)
+        
+        if(foodEaterEmitter.emitStartTime <= initialTimeLimit - timeLimit)
         {
-            Instantiate(Resources.Load<GameObject>("Prefabs/Enemy/Mouse"), presentEaterPosition.position, Quaternion.identity);
+            foodEaterEmitter.isStartedEmit = true;
         }
-
     }
 
     void OnTimerEnd()
@@ -125,6 +123,7 @@ public class PresentGameManager : MonoBehaviour {
         resultWindow.gameObject.SetActive(true);
         resultWindow.ShowResult();
         enablePresentEmit = true;
+        foodEaterEmitter.isStartedEmit = false;
     }
 
     public void OpenRanking()

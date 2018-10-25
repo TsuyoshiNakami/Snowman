@@ -46,6 +46,7 @@ public class PresentEater : MonoBehaviour {
         {
             // ターゲットの食べ物に近づいているか？
             closeToTarget = Vector3.Distance(targetFood.transform.position, transform.position) < 1 ? true : false;
+            Debug.Log("Distance : " + Vector3.Distance(targetFood.transform.position, transform.position));
             bool canEat =Vector3.Distance(targetFood.transform.position, transform.position) < 2 ? true : false ;
 
             if (canEat)

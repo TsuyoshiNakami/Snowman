@@ -138,7 +138,6 @@ public class BasketPresentViewer : MonoBehaviour {
         }
         else
         {
-
             gameManager.PlaySE("GoodPresent1");
         }
     }
