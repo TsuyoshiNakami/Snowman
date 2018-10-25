@@ -5,6 +5,7 @@ using SimpleJSON;
 using UniRx;
 using System;
 using TMPro;
+using UnityEngine.UI;
 
 public class RankingEntity
 {
@@ -29,18 +30,46 @@ public class RankingManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] GameObject rankingRowObject;
     [SerializeField] bool enableKeyInput = true;
-
+    [SerializeField] int rankingRowMax = 8;
+    int minRankingScore = 0;
+    bool canSendRanking = false;
+    public static bool hasSendRanking = false;
     // Use this for initialization
     void Start () {
+        Debug.Log("RankingManager start");
         if(rankingSender == null)
         {
+            Observable.FromCoroutine(GetRanking).Subscribe(_ =>
+        {
+            SortAndCutRankingRow();
             ShowRanking();
+        });
             return;
         }
+        SetActiveRankingSender(false);
+                    rankingWindow.SetActive(false);
+        Observable.FromCoroutine(GetRanking).Subscribe(_ =>
+        {
+            SortAndCutRankingRow();
+            canSendRanking = minRankingScore < PresentGameManager.score ? true : false;
+            if (canSendRanking && !hasSendRanking)
+            {
+                Debug.Log("なんで？");
+                rankingSender.SetScoreText(PresentGameManager.score);
+                SetActiveRankingSender(true);
+            } else
+            {
+                SetActiveRankingSender(false);
+                ShowRanking();
+            }
+        });
+
         rankingSender.OnClickSendButton.Subscribe(_ =>
         {
             SendData();
         });
+
+
         //rankingSender.gameObject.SetActive(false);
 	}
 	
@@ -51,28 +80,40 @@ public class RankingManager : MonoBehaviour {
         {
             GameManager.LoadScene(GameScenes.Title);
         }
-		if(Input.GetKeyDown(KeyCode.R))
-        {
-            ShowRankingSender();
-        }
+
 	}
 
-    public void ShowRankingSender()
+    public void SetActiveRankingSender(bool f)
     {
-        GameObject tmp = rankingSender.transform.parent.gameObject;
-        rankingSender.SetScoreText(PresentGameManager.score);
-            tmp.SetActive(!tmp.activeInHierarchy);
+        GameObject tmp = rankingSender.transform.parent.parent.gameObject;
+
+            tmp.SetActive(f);
+        if(f)
+        {
+            rankingSender.GetComponent<Button>().interactable = true;
+        }
     }
 
+    public void OnClickDontSendButton()
+    {
+        SetActiveRankingSender(false);
+        ShowRanking();
+    }
     void SendData()
     {
         Observable.FromCoroutine(ESaveRanking).Subscribe(_ =>
         {
+            Debug.Log("asd:fjop");
+            hasSendRanking = true;
+            RankingEntity entity = new RankingEntity();
+            entity.name = nameText.text;
+            entity.score = PresentGameManager.score;
+            entities.Add(entity);
+            SortAndCutRankingRow();
             ShowRanking();
         });
 
-        GameObject tmp = rankingSender.transform.parent.gameObject;
-        tmp.SetActive(false);
+        SetActiveRankingSender(false);
     }
 
 
@@ -82,7 +123,7 @@ public class RankingManager : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("sql", sql);
         WWW www = new WWW(PresentGameConsts.execute, form.data);
-
+                    SortAndCutRankingRow();
         yield return www;
 
         var resultJson = JSON.Parse(www.text);
@@ -97,6 +138,11 @@ public class RankingManager : MonoBehaviour {
 
     void SetRankingData(JSONNode resultJson)
     {
+        foreach(Transform row in rankingWindow.transform)
+        {
+            Destroy(row.gameObject);
+        }
+            entities.Clear();
 
         for (int i = 0; i < resultJson.Count; i++)
         {
@@ -116,28 +162,35 @@ public class RankingManager : MonoBehaviour {
 
     public void ShowRanking()
     {
-        foreach(Transform row in rankingWindow.transform)
+
+            rankingWindow.SetActive(true);
+
+    }
+
+    public void SortAndCutRankingRow()
+    {
+
+        foreach (Transform row in rankingWindow.transform)
         {
             Destroy(row.gameObject);
-            entities.Clear();
-        } 
-        Observable.FromCoroutine(GetRanking).Subscribe(_ =>
-        {
-            rankingWindow.SetActive(true);
+        }
             entities.Sort((a, b) => b.score - a.score);
             for (int i = 0; i < entities.Count; i++)
             {
-                if (i < 8)
+                if (i < rankingRowMax)
                 {
                     AddRankingRow(i, entities[i]);
+                    if(i == rankingRowMax - 1)
+                    {
+                        minRankingScore = entities[i].score;
+
+                    }
                 } else
                 {
                     DeleteRowData(entities[i].id);
                 }
             }
-        });
     }
-
     public void HideRanking()
     {
         rankingWindow.SetActive(false);

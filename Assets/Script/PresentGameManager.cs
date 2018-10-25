@@ -50,6 +50,7 @@ public class PresentGameManager : MonoBehaviour {
         soundManager.PlayBGM("Main");
         StartCountDown();
         playerController = PlayerController.GetController();
+        RankingManager.hasSendRanking = false;
     }
 
     void StartCountDown()
