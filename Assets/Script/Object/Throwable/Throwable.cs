@@ -13,7 +13,7 @@ public class Throwable : MonoBehaviour
     Rigidbody2D rigid;
     Collider2D collider2D;
     GameObject playerObj;
-    GameObject holdObj = null;
+    [SerializeField]GameObject holdObj = null;
 
     public bool hasBeThrew = false;
     GameObject outlineObj;
@@ -39,12 +39,12 @@ public class Throwable : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
     }
 
     void Start()
     {
         gameObject.AddComponent<Pauser>();
-        Initialize();
     }
 
     void Initialize()

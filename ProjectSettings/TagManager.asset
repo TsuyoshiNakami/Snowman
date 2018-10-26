@@ -16,6 +16,7 @@ TagManager:
   - Item
   - InputInterrupter
   - TransitionManager
+  - PresentDestroyCollision
   layers:
   - Default
   - TransparentFX
