@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PresentEmitterManager : MonoBehaviour {
     [SerializeField] bool beltEmit = true;
+    [SerializeField]float beltInterval = 3;
     [SerializeField] bool generatePresent = true;
+    [SerializeField]float generateInterval = 3;
     [SerializeField] GameObject presentDelivererObj;
     [SerializeField] Transform presentDelivererPoint;
     [SerializeField] Transform presentDelivererPoint2;
@@ -12,8 +14,7 @@ public class PresentEmitterManager : MonoBehaviour {
     [SerializeField] List<GameObject> presentEmitPoints;
     float generateTimer = 0;
     float beltTimer = 0;
-    [SerializeField]float generateInterval = 3;
-    [SerializeField]float beltInterval = 3;
+
 
     [SerializeField] Vector2 emitRangeMin;
     [SerializeField] Vector2 emitRangeMax;
