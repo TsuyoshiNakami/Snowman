@@ -10,7 +10,7 @@ public class PresentGameManager : MonoBehaviour {
 
     [SerializeField] ResultManager resultWindow;
     [SerializeField] TextMeshProUGUI startText;
-
+    [SerializeField] int initScore = 0;
     Subject<Unit> timerSubject = new Subject<Unit>();
     SoundManager soundManager;
     public bool enablePresentEmit = false;
@@ -44,7 +44,7 @@ public class PresentGameManager : MonoBehaviour {
     private void Start()
     {
         startText.gameObject.SetActive(false);
-        score = 0;
+        score = initScore;
         presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         soundManager.PlayBGM("Main");

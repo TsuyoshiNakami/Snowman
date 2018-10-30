@@ -43,13 +43,15 @@ public class TutorialManager : MonoBehaviour {
     int actionCount = -1;
     List<TutorialCommand> commands = new List<TutorialCommand>();
 
-	// Use this for initialization
-	void Start () {
+    public void StartTutorial () {
         List<string> messages = new List<string>();
                 messages.Add("@Face Tim");
-                messages.Add("ねえトーブ、大変だよ！マスターがいなくなっちゃったんだ！");
+                messages.Add("マスター！ねえ、マスターってば！");
+                
+                messages.Add("あれー、ほんとどこいっちゃったんだろう…");
                 messages.Add("クリスマスは明日だっていうのに…プレゼントどうしよう？？" +
-                            "ボク、プレゼントなんて作ったことないよ…！");
+                            "こんな不器用なボクがプレゼントなんて作れるわけないよ…！");
+                messages.Add("雪だるまだって作るのこんな下手くそなのに！");
                 List<string> messages2 = new List<string>();
         messages2.Add("@Face Tim");
         messages2.Add("あれ？キミ、プレゼントを投げられるのかい？");

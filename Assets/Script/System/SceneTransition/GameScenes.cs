@@ -4,5 +4,6 @@
     Game,
     Recipes,
     Ranking,
+    RankingAdditive,
     Tutorial
 }

@@ -1073,6 +1073,7 @@ GameObject:
   - component: {fileID: 1803593252}
   - component: {fileID: 1803593251}
   - component: {fileID: 1803593250}
+  - component: {fileID: 1803593253}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1111,7 +1112,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8.04
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1140,6 +1141,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1803593253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1803593249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c675443d076f6e94eac82758b761dfb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1804827384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,8 +1445,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1859036395}
-        m_MethodName: OnClick
+      - m_Target: {fileID: 1959202080}
+        m_MethodName: OnGameStartButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1522,6 +1534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pressStartText: {fileID: 1593594491}
   buttons: {fileID: 1858332180}
+  titleUI: {fileID: 1804827384}
 --- !u!4 &1959202081
 Transform:
   m_ObjectHideFlags: 0

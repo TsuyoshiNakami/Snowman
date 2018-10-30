@@ -464,6 +464,11 @@ Prefab:
       propertyPath: m_Text
       value: "\u30E9\u30F3\u30AD\u30F3\u30B0\u3092\u898B\u308B"
       objectReference: {fileID: 0}
+    - target: {fileID: 114643873933910102, guid: 55627bf37cbd3ff44b21039fe85c7b16,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114035365814165102, guid: 55627bf37cbd3ff44b21039fe85c7b16, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 55627bf37cbd3ff44b21039fe85c7b16, type: 2}
@@ -567,6 +572,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1176824860640252, guid: 65a179204178a8440ad43f231c7ed852, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114989347025890052, guid: 65a179204178a8440ad43f231c7ed852,
+        type: 2}
+      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

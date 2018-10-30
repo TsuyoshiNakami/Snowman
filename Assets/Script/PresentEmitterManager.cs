@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PresentEmitterManager : MonoBehaviour {
-    [SerializeField] bool newEmitSystem = true;
+    [SerializeField] bool beltEmit = true;
+    [SerializeField] bool generatePresent = true;
     [SerializeField] GameObject presentDelivererObj;
     [SerializeField] Transform presentDelivererPoint;
     [SerializeField] Transform presentDelivererPoint2;
     [SerializeField] List<GameObject> presents;
     [SerializeField] List<GameObject> presentEmitPoints;
-    float timer = 0;
-    [SerializeField]float interval = 3;
+    float generateTimer = 0;
+    float beltTimer = 0;
+    [SerializeField]float generateInterval = 3;
+    [SerializeField]float beltInterval = 3;
 
     [SerializeField] Vector2 emitRangeMin;
     [SerializeField] Vector2 emitRangeMax;
@@ -31,9 +34,10 @@ public class PresentEmitterManager : MonoBehaviour {
         {
             return;
         }
-        timer += Time.deltaTime;
+        beltTimer += Time.deltaTime;
+        generateTimer += Time.deltaTime;
 
-        if (timer > interval)
+        if (beltTimer > beltInterval)
         {
             if (presentManager.NumberOfPresentInView >= maxPresentInView)
             {
@@ -43,23 +47,40 @@ public class PresentEmitterManager : MonoBehaviour {
             int point = Random.Range(0, presentEmitPoints.Count);
 
 
-            GameObject newPresentObj = presentManager.EmitPresentRandom(presentEmitPoints[point].transform.position);
-            timer = 0;
+            beltTimer = 0;
 
-            if (newEmitSystem)
+            if (beltEmit)
             {
+            GameObject newPresentObj = presentManager.EmitPresentRandom(presentDelivererPoint.position);
                 GameObject newDeliverer = Instantiate(presentDelivererObj, presentDelivererPoint.position, Quaternion.identity);
                 newPresentObj.GetComponent<Throwable>().OnHeld(newDeliverer);
                 newDeliverer.GetComponent<PresentDeliverer>().moveDir = -1;
                  GameObject newDeliverer2 = Instantiate(presentDelivererObj, presentDelivererPoint2.position, Quaternion.identity);
-            GameObject newPresentObj2 = presentManager.EmitPresentRandom(presentEmitPoints[point].transform.position);
+            GameObject newPresentObj2 = presentManager.EmitPresentRandom(presentDelivererPoint2.position);
                 newPresentObj2.GetComponent<Throwable>().OnHeld(newDeliverer2);
 
                 newDeliverer2.GetComponent<PresentDeliverer>().moveDir = 1;
             }
-            else
+
+        }
+
+        if (generateTimer > generateInterval)
+        {
+            if (presentManager.NumberOfPresentInView >= maxPresentInView)
             {
-                newPresentObj.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(emitRangeMin.x, emitRangeMax.x), Random.Range(emitRangeMin.y, emitRangeMax.y));
+                return;
+            }
+            int index = Random.Range(0, presents.Count);
+            int point = Random.Range(0, presentEmitPoints.Count);
+
+
+            generateTimer = 0;
+
+
+            if(generatePresent)
+            {
+                GameObject newPresentObj = presentManager.EmitPresentRandom(presentEmitPoints[point].transform.position);
+                //newPresentObj.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(emitRangeMin.x, emitRangeMax.x), Random.Range(emitRangeMin.y, emitRangeMax.y));
             }
         }
 	}

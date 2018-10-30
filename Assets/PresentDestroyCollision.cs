@@ -16,5 +16,10 @@ public class PresentDestroyCollision : MonoBehaviour {
         {
             presentManager.DeletePresent(collision.gameObject);
         }
+
+        if(collision.GetComponent<PresentDeliverer>() != null)
+        {
+            Destroy(gameObject);
+        }
     }
 }

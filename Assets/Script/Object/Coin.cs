@@ -15,17 +15,17 @@ public class Coin : Item {
 
 	void Update() {
 	//	iTween.ShakeRotation (this.gameObject, iTween.Hash ("z", 10, "time", 1.0f));
-		if (GameManager.getCoins [number]) {
-			Destroy (this.gameObject);
-		}
+		//if (GameManager.getCoins [number]) {
+		//	Destroy (this.gameObject);
+		//}
 	}
-	protected override void ActEnter() {
-		if (!GameManager.firstCoinGet) {
-			GameManager.firstCoinGet = true;
-		}
-		pc.CoinGet();
-		GameManager.getCoins [number] = true;
-		Destroy (gameObject);
-	}
+	//protected override void ActEnter() {
+	//	if (!GameManager.firstCoinGet) {
+	//		GameManager.firstCoinGet = true;
+	//	}
+	//	pc.CoinGet();
+	//	GameManager.getCoins [number] = true;
+	//	Destroy (gameObject);
+	//}
 
 }

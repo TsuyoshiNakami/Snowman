@@ -13,10 +13,13 @@ public class TitleManager : MonoBehaviour {
     TitleState state = TitleState.PressStart;
     [SerializeField] GameObject pressStartText;
     [SerializeField] GameObject buttons;
+    [SerializeField] GameObject titleUI;
     SoundManager soundManager; 
 	// Use this for initialization
 	void Start () {
         soundManager = GameObject.Find("SoundManager"). GetComponent<SoundManager>();
+
+        SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
 	}
 	
 	// Update is called once per frame
@@ -39,4 +42,10 @@ public class TitleManager : MonoBehaviour {
         }
 
 	}
+
+    public void OnGameStartButtonClicked()
+    {
+        titleUI.SetActive(false);
+        GameObject.Find("TutorialManager").GetComponent<TutorialManager>().StartTutorial();
+    }
 }

@@ -17,20 +17,13 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 	public static string currentSceneName = "Stage1";
 	static PlayerController playerController;
 	static bool isLoad = false;
-	public int maxCoin = 6;
-	public static bool[] getCoins;
-	public static bool enableAllWarp;
-	public bool enableAllWarpDebug = false;
-	public int animeCount = -2;
-	[SerializeField] string sceneNameSerial = "Stage1";
+
+    [SerializeField] string sceneNameSerial = "Stage1";
     [SerializeField] GameObject playerObj;
     [SerializeField] MessageWindowController messageWindowController;
 	public bool ReloadStage = false;
 	CameraFol cameraFol;
-	public static bool firstCheckPoint = false;
-	public static bool firstCoinGet = false;
 	SoundManager soundManager;
-	static AsyncOperation ao;
 	public static bool isTitle = true;
 
 
@@ -38,29 +31,9 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
 
     
 	void Start () {
-
-        //Invoke("ShowTestMsg", 5);
-
-        //if (GameObject.Find("Player") == null)
-        //{
-        //    AddPlayer();
-        //}
-        //SetCamera();
-
-		enableAllWarp = enableAllWarpDebug;
-		getCoins = new bool[maxCoin];
-		for (int i = 0; i < maxCoin; i++) {
-			getCoins [i] = false;
-		}
 		currentSceneName = sceneNameSerial;
 		DontDestroyOnLoad (gameObject);
 		soundManager = GameObject.Find ("SoundManager").GetComponent<SoundManager>();
-
-        //if (playerController == null)
-        //{
-        //    playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        //    cameraFol = GameObject.FindWithTag("MainCamera").GetComponent<CameraFol>();
-        //}
     }
 
     public void PlaySE(string name)
@@ -99,29 +72,10 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
     public static void LoadScene(GameScenes scene)
     {
         SceneLoader.LoadScene(scene);
-        //loadingSceneName = name;
-        //StartCoroutine(ILoadScene());
+
     }
 
-    IEnumerator ILoadScene()
-    {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(loadingSceneName);
-
-        // Wait until the asynchronous scene fully loads
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-        if (loadingSceneName == PresentGameConsts.sceneGame)
-        {
-            SetCamera();
-        }
-    }
 
     void AddPlayer()
     {

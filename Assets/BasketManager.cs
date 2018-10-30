@@ -35,7 +35,7 @@ public class BasketManager : MonoBehaviour {
         {
             GenerateBasket(basket);
         }
-        OnPresentCompleted();
+           GenerateBasket(basket);        OnPresentCompleted();
     }
 	
 	// Update is called once per frame
