@@ -93,7 +93,7 @@ public class PlayerController : BaseCharacterController
     [SerializeField, Header("雪玉投げられるか")] bool canThrowSnowBall = false;
 
     public bool IsPreThrow {
-        get { return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
+        get { return anime.GetBool("ReadyToThrow"); }//return IsCurrentAnimation("Base Layer.Player_PreThrow"); }
     }
 
     public bool IsThrow
@@ -103,23 +103,26 @@ public class PlayerController : BaseCharacterController
 
     public bool IsJump
     {
-        get { return IsCurrentAnimation("Base Layer.Player_Jump") || IsCurrentAnimation("Base Layer.Player_JumpNoPreparation")  ; }
+        get { return IsCurrentAnimation("Base Layer.Player_JumpNoPreparation_ReadyToThrow") || IsCurrentAnimation("Base Layer.Player_JumpNoPreparation")  ; }
     }
 
     public bool IsJumpFall
     {
-        get { return IsCurrentAnimation("Base Layer.Player_JumpFall"); }
+        get { return IsCurrentAnimation("Base Layer.Player_JumpFall") || IsCurrentAnimation("Base Layer.Player_JumpFall_ReadyToThrow"); }
     }
 
     public bool IsJumpLanding
     {
-        get { return IsCurrentAnimation("Base Layer.Player_JumpLanding"); }
+        get { return IsCurrentAnimation("Base Layer.Player_JumpLanding") || IsCurrentAnimation("Base Layer.Player_JumpLanding_ReadyToThrow");}
     }
 
     public bool IsWalk
     {
-        get { return IsCurrentAnimation("Base Layer.Player_Walk"); }
+        get { return IsCurrentAnimation("Base Layer.Player_Walk") || IsCurrentAnimation("Base Layer.Player_Walk_ReadyToThrow"); }
     }
+
+    bool isReadyToThrow;
+
     //効果音
     SoundManager soundManager;
     [System.NonSerialized] public Transform targetTalkTo;
@@ -202,7 +205,7 @@ public class PlayerController : BaseCharacterController
     Throwable lastThrowable = null;
     protected override void FixedUpdateCharacter()
     {
-
+        anime.SetBool("IsGrounded", grounded);
         // Throwableのアウトライン表示
         if(lastThrowable != null)
         {
@@ -241,7 +244,7 @@ public class PlayerController : BaseCharacterController
             orbits.SetOrbitsActive(true);
 
             ShowOrbit();
-            ThrowRotate();
+            //ThrowRotate();
 
             if (!Input.GetButton(KeyConfig.Fire1))
             {
@@ -596,7 +599,7 @@ public class PlayerController : BaseCharacterController
         if (grounded)
         {
 
-            if (!IsPreThrow && !Input.GetButtonDown(KeyConfig.Fire1))
+            if (!Input.GetButtonDown(KeyConfig.Fire1))
             {
                 spriteObj.transform.rotation = transform.rotation;
                 if(preparationToJump)
@@ -746,7 +749,8 @@ public class PlayerController : BaseCharacterController
         {
             return;
         }
-
+                isReadyToThrow = true;
+        anime.SetBool("ReadyToThrow", true);
         anime.ResetTrigger("ThrowCancel");
         anime.SetTrigger("PreThrow");
         anime.ResetTrigger("Throw");
@@ -800,6 +804,9 @@ public class PlayerController : BaseCharacterController
         anime.ResetTrigger("PreThrow");
         if (IsPreThrow)
         {
+            Debug.Log("Start Throw");
+            isReadyToThrow = false;
+            anime.SetBool("ReadyToThrow", false);
             anime.SetTrigger("Throw");
         }
     }
