@@ -5,10 +5,11 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
 using TMPro;
+using Zenject;
 
 public class YakuTextPro : MonoBehaviour
 {
-
+    [Inject]
     PresentManager presentManager;
 
     [SerializeField]TextMeshProUGUI text;
@@ -17,7 +18,6 @@ public class YakuTextPro : MonoBehaviour
     {
         text = GetComponent<TextMeshProUGUI>();
         text.text = "";
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
         presentManager.OnMakeYaku.Subscribe(madeYaku =>
         {
             switch (madeYaku.basketType) {

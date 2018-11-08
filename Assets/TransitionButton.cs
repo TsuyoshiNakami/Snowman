@@ -15,7 +15,10 @@ public class TransitionButton : MonoBehaviour {
         soundManager = GameObject.Find("SoundManager"). GetComponent<SoundManager>();
         if (focused)
         {
-            EventSystem.current.SetSelectedGameObject(this.gameObject);
+            Debug.Log(this.name + " : focus");
+            //EventSystem.current.SetSelectedGameObject(this.gameObject);
+            this.GetComponent<Button>().Select();
+            this.GetComponent<Button>().OnSelect(null);
         }
 	}
 	

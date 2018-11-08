@@ -1,27 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class Bakeable : MonoBehaviour {
+public class Bakeable : MonoBehaviour
+{
 
     public float minBakeTime = 1;
     public float maxBakeTime = 3;
     [SerializeField] GameObject bakedObj;
     [SerializeField] GameObject burntObj;
+
+    [Inject]
     PresentManager presentManager;
 
-    void Start()
-    {
-
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
-    }
     public void Bake(float bakeTime)
     {
-        if(bakeTime < minBakeTime)
+        if (bakeTime < minBakeTime)
         {
             //生焼け
 
-        } else if(bakeTime <= maxBakeTime)
+        }
+        else if (bakeTime <= maxBakeTime)
         {
             //完成\
             if (bakedObj)
@@ -34,7 +34,8 @@ public class Bakeable : MonoBehaviour {
             {
                 GetComponent<SpriteRenderer>().color = Color.yellow;
             }
-        } else
+        }
+        else
         {
             //焦げた
             if (burntObj)

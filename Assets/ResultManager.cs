@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class ResultManager : MonoBehaviour {
     [SerializeField] GameObject resultWindow;
@@ -12,6 +13,7 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] Transform resultTransform;
     [SerializeField] TextMeshProUGUI sumText;
     [SerializeField] Button[] buttons;
+    [Inject]
     PresentManager presentManager;
 
 
@@ -27,7 +29,6 @@ public class ResultManager : MonoBehaviour {
     public void ShowResult()
     {
 
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
         foreach (YakuResult result in presentManager.yakuResults) {
             GameObject newResult = Instantiate(resultElement, resultTransform);
             newResult.GetComponent<ResultElement>().SetUI(result);

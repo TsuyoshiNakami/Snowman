@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Zenject;
 
 public enum TimerState {
 	NONE,
@@ -11,12 +12,12 @@ public enum TimerState {
 }
 
 public class TimerText : MonoBehaviour {
+    [Inject]
     PresentGameManager presentGameManager;
 	TextMeshProUGUI text;
 	// Use this for initialization
 	void Start () {
 		text = GetComponent<TextMeshProUGUI> ();
-        presentGameManager = GameObject.Find("PresentGameManager").GetComponent<PresentGameManager>();
 	}
 
 	// Update is called once per frame

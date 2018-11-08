@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Zenject;
 
 public enum BasketType
 {
@@ -18,6 +19,7 @@ public class BasketPresentViewer : MonoBehaviour {
     List<GameObject> presentObjs;
     BasketCollider basketCollider;
     List<Present> presents = new List<Present>();
+    [Inject]
     PresentManager presentManager;
     GameManager gameManager;
     [SerializeField] BasketType basketType;
@@ -48,7 +50,6 @@ public class BasketPresentViewer : MonoBehaviour {
         });
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
     }
 	
 

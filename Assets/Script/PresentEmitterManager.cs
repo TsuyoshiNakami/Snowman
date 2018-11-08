@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class PresentEmitterManager : MonoBehaviour {
     [SerializeField] bool beltEmit = true;
@@ -19,14 +20,15 @@ public class PresentEmitterManager : MonoBehaviour {
     [SerializeField] Vector2 emitRangeMin;
     [SerializeField] Vector2 emitRangeMax;
     [SerializeField] int maxPresentInView = 20;
+
+    [Inject]
     PresentManager presentManager;
+
+    [Inject]
     PresentGameManager presentGameManager;
     
 	// Use this for initialization
 	void Start () {
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
-
-        presentGameManager = GameObject.Find("PresentGameManager").GetComponent<PresentGameManager>();
     }
 	
 	// Update is called once per frame

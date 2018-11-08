@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Zenject;
 
 public class BasketManager : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class BasketManager : MonoBehaviour {
     List<Transform> generatePositions = new List<Transform>();
     List<bool> basketExistence = new List<bool>();
 
+    [Inject]
+    private DiContainer container;
     int generateCount = 0;
     int x2appearTiming = 0;
 	// Use this for initialization
@@ -80,7 +83,8 @@ public class BasketManager : MonoBehaviour {
             }
         }
         basketExistence[i] = true;
-        GameObject newObj = Instantiate(basket, generatePositions[i].position, generatePositions[i].rotation);
+        GameObject newObj = container.InstantiatePrefab(basket, generatePositions[i].position, generatePositions[i].rotation, null);
+        //GameObject newObj = Instantiate(basket, generatePositions[i].position, generatePositions[i].rotation);
         newObj.GetComponentInChildren<BasketPresentViewer>().OnMakeYaku.Subscribe(yaku => {
             basketExistence[i] = false;
             OnPresentCompleted();

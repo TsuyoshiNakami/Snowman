@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class PauseWindow : MonoBehaviour {
     [SerializeField] GameObject pauseWindowObj;
+    [Inject]
     PresentGameManager presentGameManager;
     GameManager gameManager;
     SoundManager soundManager;
 
 	// Use this for initialization
 	void Start () {
-        presentGameManager = GameObject.Find("PresentGameManager").GetComponent<PresentGameManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         pauseWindowObj.SetActive(false);
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class FoodEaterEmitter : MonoBehaviour {
 
@@ -9,7 +10,8 @@ public class FoodEaterEmitter : MonoBehaviour {
     [SerializeField] public float emitStartTime = 10;
 
     public bool isStartedEmit = false;
-
+    [Inject]
+    DiContainer container;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +22,7 @@ public class FoodEaterEmitter : MonoBehaviour {
 	void Update () {
 		if(emitFoodEater && isStartedEmit && Random.Range(0, 1000) < 1)
         {
-            Instantiate(Resources.Load<GameObject>("Prefabs/Enemy/Mouse"), presentEaterPosition.position, Quaternion.identity);
+            container.InstantiatePrefab(Resources.Load<GameObject>("Prefabs/Enemy/Mouse"), presentEaterPosition.position, Quaternion.identity, null);
         }
 	}
 }

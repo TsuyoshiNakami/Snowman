@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Zenject;
 
 public class PresentEater : MonoBehaviour {
 
+    [Inject]
     PresentManager presentManager;
     Present targetFood;
     bool closeToTarget = false;
     float eatingTime = 0;
 	// Use this for initialization
 	void Start () {
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
+
         InvokeRepeating("FindFood", 0, 1);
         GetComponent<Throwable>().OnThrewEvent.Subscribe(_ => {
             Destroy(gameObject);
@@ -46,7 +48,7 @@ public class PresentEater : MonoBehaviour {
         {
             // ターゲットの食べ物に近づいているか？
             closeToTarget = Vector3.Distance(targetFood.transform.position, transform.position) < 1 ? true : false;
-            Debug.Log("Distance : " + Vector3.Distance(targetFood.transform.position, transform.position));
+
             bool canEat =Vector3.Distance(targetFood.transform.position, transform.position) < 2 ? true : false ;
 
             if (canEat)

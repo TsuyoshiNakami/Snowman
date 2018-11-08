@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class PresentGameManager : MonoBehaviour {
     public static int score = 0;
@@ -33,6 +34,7 @@ public class PresentGameManager : MonoBehaviour {
     [System.NonSerialized]public bool isTimerAvailable = false;
 
     [SerializeField, Header("制限時間")] float initialTimeLimit = 90;
+    [Inject]
     PresentManager presentManager;
     PlayerController playerController;
 
@@ -45,7 +47,6 @@ public class PresentGameManager : MonoBehaviour {
     {
         startText.gameObject.SetActive(false);
         score = initScore;
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         soundManager.PlayBGM("Main");
         StartCountDown();

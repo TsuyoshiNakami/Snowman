@@ -1535,6 +1535,7 @@ MonoBehaviour:
   pressStartText: {fileID: 1593594491}
   buttons: {fileID: 1858332180}
   titleUI: {fileID: 1804827384}
+  startButton: {fileID: 1859036390}
 --- !u!4 &1959202081
 Transform:
   m_ObjectHideFlags: 0

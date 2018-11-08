@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class PresentDestroyCollision : MonoBehaviour {
-
+    [Inject]
     PresentManager presentManager;
-	// Use this for initialization
-	void Start () {
-        presentManager = GameObject.Find("PresentManager").GetComponent<PresentManager>();
-	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
