@@ -42,6 +42,7 @@ public struct YakuResult
 public class PresentManager : MonoBehaviour {
     public bool autoDisappearPresent;
     public float presentDisappearTime = 6;
+    public float flashTime = 3;
     [SerializeField] List<GameObject> kindOfPresents;
     public List<YakuResult> yakuResults = new List<YakuResult>();
     List<GameObject> presentsInView = new List<GameObject>();

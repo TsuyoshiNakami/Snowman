@@ -453,6 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoDisappearPresent: 0
   presentDisappearTime: 6
+  flashTime: 3
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 1b9da472ed66f9445b9a4a5d3effb9dd, type: 2}
   - {fileID: 1882362309303510, guid: df1426c9123e2964a96686c73cfc9155, type: 2}
@@ -1885,6 +1886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoDisappearPresent: 0
   presentDisappearTime: 6
+  flashTime: 3
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 3330af47035570f4bbf62b08c6fd5a36, type: 2}
   - {fileID: 1882362309303510, guid: f9fa522fc2790c14bab0588eb5e46163, type: 2}
@@ -2159,7 +2161,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 494706965}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.13, y: 3.6799998, z: -0.15234375}
+  m_LocalPosition: {x: -9.13, y: 4.96, z: -0.15234375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1234560216}
@@ -2643,7 +2645,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 823329866}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.46, y: 3.7, z: -0.15234375}
+  m_LocalPosition: {x: -19.46, y: 0.2, z: -0.15234375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1234560216}
@@ -3068,7 +3070,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoDisappearPresent: 1
-  presentDisappearTime: 6
+  presentDisappearTime: 8
+  flashTime: 3
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 1b9da472ed66f9445b9a4a5d3effb9dd, type: 2}
   - {fileID: 1882362309303510, guid: df1426c9123e2964a96686c73cfc9155, type: 2}
@@ -6137,7 +6140,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1571710954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.41, y: 3.6799998, z: -0.15234375}
+  m_LocalPosition: {x: 2.67, y: 1.84, z: -0.15234375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1234560216}
@@ -6566,6 +6569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoDisappearPresent: 0
   presentDisappearTime: 6
+  flashTime: 3
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 741be2fbb08c62c4cba6fc0b6d6068d4, type: 2}
   - {fileID: 1882362309303510, guid: e3a1ddda974184b4ca187a6a088e3de5, type: 2}

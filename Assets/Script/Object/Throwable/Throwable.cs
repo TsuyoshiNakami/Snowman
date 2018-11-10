@@ -16,6 +16,7 @@ public class Throwable : MonoBehaviour
     GameObject playerObj;
     [SerializeField]GameObject holdObj = null;
 
+    float flashTime;
     float disappearTime;
     float leftTime = 0;
     float gravity;
@@ -70,7 +71,9 @@ public class Throwable : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
         rigid.gravityScale = initialGravity;
-        disappearTime = presentManager.presentDisappearTime;
+        disappearTime   = presentManager.presentDisappearTime;
+        flashTime       = presentManager.flashTime;
+
         foreach (string attribute in attributes)
         {
             string[] elements = attribute.Split(' ');
@@ -159,7 +162,7 @@ public class Throwable : MonoBehaviour
 
         if (presentManager.autoDisappearPresent)
         {
-            if (leftTime >= disappearTime / 2)
+            if (leftTime >= disappearTime - flashTime)
             {
                 if (flashCorutine == null)
                 {
