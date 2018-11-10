@@ -759,7 +759,7 @@ public class PlayerController : BaseCharacterController
 
     GameObject FindThrowObj()
     {
-        RaycastHit2D[] hit2D = new RaycastHit2D[5];
+        RaycastHit2D[] hit2D = new RaycastHit2D[10];
         int num = Physics2D.BoxCastNonAlloc(throwPoint.transform.position, new Vector2(2f, 2f), 0, Vector2.right * dir, hit2D, 0.1f);
         GameObject tmpObj = null;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Zenject;
 
 [RequireComponent(typeof(Pauser))]
 public class Throwable : MonoBehaviour
@@ -15,10 +16,18 @@ public class Throwable : MonoBehaviour
     GameObject playerObj;
     [SerializeField]GameObject holdObj = null;
 
+    float disappearTime;
+    float leftTime = 0;
     public bool hasBeThrew = false;
     GameObject outlineObj;
 
+    [Inject]
+    PresentManager presentManager;
+
+    Coroutine flashCorutine;
+    bool isFlashing = false;
     bool isTaken = false;
+
     public bool IsTaken {
         get {
             return holdObj != null;
@@ -57,7 +66,7 @@ public class Throwable : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
         rigid.gravityScale = gravity;
-
+        disappearTime = presentManager.presentDisappearTime;
         foreach (string attribute in attributes)
         {
             string[] elements = attribute.Split(' ');
@@ -128,8 +137,39 @@ public class Throwable : MonoBehaviour
 
             rigid.velocity = Vector2.zero;
             transform.position = holdObj.transform.position + Vector3.up * 0.8f;
+        } else
+        {
+            leftTime += Time.deltaTime;
         }
 
+        if (presentManager.autoDisappearPresent)
+        {
+            if (leftTime >= disappearTime / 2)
+            {
+                if (flashCorutine == null)
+                {
+                    flashCorutine = StartCoroutine(Flash());
+                }
+            }
+            if (leftTime >= disappearTime)
+            {
+                presentManager.GetComponent<PresentManager>().HidePresentFromView(gameObject);
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    IEnumerator Flash()
+    {
+        isFlashing = true;
+        float flashTime = 0.1f;
+        while(true)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.2f);
+            yield return new WaitForSeconds(flashTime);
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            yield return new WaitForSeconds(flashTime);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D c)
@@ -172,7 +212,14 @@ public class Throwable : MonoBehaviour
     public void OnHeld(GameObject holdObj)
     {
         this.holdObj = holdObj;
-
+        leftTime = 0;
+        if (flashCorutine != null)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            StopCoroutine(flashCorutine);
+            flashCorutine = null;
+        }
+        isFlashing = false;
         rigid.Sleep();
     }
 

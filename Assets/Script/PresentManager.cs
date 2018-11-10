@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System.Linq;
+using Zenject;
 
 public class MadeYaku
 {
@@ -22,6 +23,7 @@ public struct YakuResult
     public List<Present> presents;
     public int count;
 
+
     public YakuResult(Yaku yaku, List<Present> presents)
     {
         this.yaku = yaku;
@@ -38,10 +40,13 @@ public struct YakuResult
     }
 }
 public class PresentManager : MonoBehaviour {
+    public bool autoDisappearPresent;
+    public float presentDisappearTime = 6;
     [SerializeField] List<GameObject> kindOfPresents;
     public List<YakuResult> yakuResults = new List<YakuResult>();
     List<GameObject> presentsInView = new List<GameObject>();
-
+        [Inject]
+    DiContainer diContainer;
     Subject<MadeYaku> makeYakuSubject = new Subject<MadeYaku>();
     public IObservable<MadeYaku> OnMakeYaku
     {
@@ -63,8 +68,12 @@ public class PresentManager : MonoBehaviour {
     public GameObject EmitPresentRandom(Vector2 pos)
     {
 
+            
         int index = Random.Range(0, kindOfPresents.Count);
-        GameObject newPresentObj = Instantiate(kindOfPresents[index], pos, transform.rotation);
+        GameObject newPresentObj = diContainer.InstantiatePrefab(kindOfPresents[index]);
+        newPresentObj.transform.position = pos;
+
+        //Instantiate(, pos, transform.rotation);
 
         presentsInView.Add(newPresentObj);
         return newPresentObj;

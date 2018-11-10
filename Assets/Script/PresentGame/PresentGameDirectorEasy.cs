@@ -12,6 +12,8 @@ public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
     [Inject]
     PresentManager presentManager;
 
+
+
     [SerializeField] GameObject TimObj;
 
     public IObservable<Unit> OnGeneratePresent

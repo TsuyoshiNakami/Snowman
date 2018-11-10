@@ -272,7 +272,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4500451252318158, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.1299996
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4512450738474074, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
       propertyPath: m_LocalPosition.x
@@ -281,6 +281,10 @@ Prefab:
     - target: {fileID: 4512450738474074, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500451252318158, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
@@ -468,6 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393f95852ae33d8429190394a385c86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoDisappearPresent: 0
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 1b9da472ed66f9445b9a4a5d3effb9dd, type: 2}
   - {fileID: 1882362309303510, guid: df1426c9123e2964a96686c73cfc9155, type: 2}
@@ -1898,6 +1903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393f95852ae33d8429190394a385c86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoDisappearPresent: 0
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 3330af47035570f4bbf62b08c6fd5a36, type: 2}
   - {fileID: 1882362309303510, guid: f9fa522fc2790c14bab0588eb5e46163, type: 2}
@@ -2970,6 +2976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393f95852ae33d8429190394a385c86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoDisappearPresent: 1
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 1b9da472ed66f9445b9a4a5d3effb9dd, type: 2}
   - {fileID: 1882362309303510, guid: df1426c9123e2964a96686c73cfc9155, type: 2}
@@ -6286,6 +6293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393f95852ae33d8429190394a385c86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoDisappearPresent: 0
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 741be2fbb08c62c4cba6fc0b6d6068d4, type: 2}
   - {fileID: 1882362309303510, guid: e3a1ddda974184b4ca187a6a088e3de5, type: 2}
@@ -6317,7 +6325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1906968513
 MonoBehaviour:
   m_ObjectHideFlags: 0
