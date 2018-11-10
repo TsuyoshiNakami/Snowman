@@ -55,6 +55,7 @@ public class BasketPresentViewer : MonoBehaviour {
 
     public void ViewPresent(GameObject item)
     {
+        GetComponent<Animator>().SetTrigger("EnterPresent");
         presentManager.HidePresentFromView(item);
         presentEnterSubject.OnNext(item);
         Present present = item.GetComponent<Present>();
@@ -73,6 +74,7 @@ public class BasketPresentViewer : MonoBehaviour {
         presents.Add(newPresent);
         Sprite sprite = item.GetComponent<SpriteRenderer>().sprite;
         spriteRenderer.sprite = sprite;
+        spriteRenderer.sortingLayerName = "Object";
         spriteRenderer.sortingOrder = 100;
         presentObjs.Add(newObj);
 
@@ -80,6 +82,7 @@ public class BasketPresentViewer : MonoBehaviour {
         for(int i = 0; i < presentObjs.Count; i++)
         {
             presentObjs[i].transform.position = (Vector2)viewStart.transform.position + viewLine / (presentObjs.Count + 1) * (i + 1);
+            presentObjs[i].transform.localScale = Vector3.one / 3;
         }
         if(presentObjs.Count == 1)
         {
