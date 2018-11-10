@@ -116,12 +116,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86333f54b8fb304da645d4217ca1293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnorePlayer: 0
-  gravity: 6.15
+  initialGravity: 6.15
   attributes:
   - Fragile
   carryMultiplier: 1
+  holdObj: {fileID: 0}
   hasBeThrew: 0
+  isInParachute: 1
 --- !u!114 &114938973979665916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,11 +136,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Cake
   attributes: 020000001000000000100000
+  sprite: {fileID: 0}
   completeYaku:
     yakuName: "\u30AB\u30ED\u30EA\u30FC\u306E\u304A\u5316\u3051"
     yakuEnum: 0
     presents: []
     score: 500
+    presentNames: []
 --- !u!212 &212318156457080292
 SpriteRenderer:
   m_ObjectHideFlags: 1

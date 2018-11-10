@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4500451252318158}
   - component: {fileID: 58430612588623466}
   - component: {fileID: 114880444862105532}
+  - component: {fileID: 58416929491200136}
+  - component: {fileID: 114282270483645006}
   m_Layer: 11
   m_Name: ThrowPoint
   m_TagString: Untagged
@@ -277,7 +279,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121546460646324}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4399951, y: 1.1299996, z: 0}
+  m_LocalPosition: {x: 0.4, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4512450738474074}
@@ -291,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 1179641112711232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.18, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4500451252318158}
   m_Father: {fileID: 4776894288482520}
@@ -304,7 +306,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1674221623693864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.22, y: -0.4219045, z: 0}
+  m_LocalPosition: {x: 13.73, y: 0.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4011520399456598}
@@ -353,6 +355,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
+--- !u!58 &58416929491200136
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121546460646324}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
 --- !u!58 &58430612588623466
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -453,6 +470,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseType: 0
+--- !u!114 &114282270483645006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121546460646324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42e3946e75075547be0923ef40d2a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114387854825342574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -528,7 +556,7 @@ MonoBehaviour:
   snowParticle: {fileID: 0}
   maxThrowPower: 30
   initHpMax: 8
-  initSpeed: 8
+  initSpeed: 11
   defaultThrowObj: {fileID: 1788969347490714, guid: 0fd3d6fed763c1b42bd1c25137c8b5d6,
     type: 2}
   cameraOffset: {x: 0, y: 0}

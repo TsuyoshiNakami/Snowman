@@ -92,11 +92,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: BaseBall
   attributes: 0002000000040000
+  sprite: {fileID: 0}
   completeYaku:
     yakuName: "\u786C\u7403\u30C7\u30D3\u30E5\u30FC"
     yakuEnum: 0
     presents: []
     score: 450
+    presentNames: []
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,10 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86333f54b8fb304da645d4217ca1293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnorePlayer: 0
-  gravity: 6.15
+  initialGravity: 6.15
   attributes: []
   carryMultiplier: 2
+  holdObj: {fileID: 0}
   hasBeThrew: 0
 --- !u!212 &212318156457080292
 SpriteRenderer:

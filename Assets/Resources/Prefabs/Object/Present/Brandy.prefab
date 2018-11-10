@@ -102,11 +102,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Brandy
   attributes: 0800000000010000
+  sprite: {fileID: 0}
   completeYaku:
     yakuName: "\u5408\u308F\u305B\u3066\u30A2\u30EB\u30B3\u30FC\u30EB100%"
     yakuEnum: 0
     presents: []
     score: 300
+    presentNames: []
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86333f54b8fb304da645d4217ca1293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnorePlayer: 0
-  gravity: 6.15
+  initialGravity: 6.15
   attributes:
   - Fragile
   carryMultiplier: 1
+  holdObj: {fileID: 0}
   hasBeThrew: 0
 --- !u!212 &212318156457080292
 SpriteRenderer:

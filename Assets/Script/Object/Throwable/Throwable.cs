@@ -7,7 +7,7 @@ using Zenject;
 [RequireComponent(typeof(Pauser))]
 public class Throwable : MonoBehaviour
 {
-    [SerializeField] float gravity = 4;
+    [SerializeField] float initialGravity = 6.15f;
     [SerializeField] List<string> attributes;
 
     public float carryMultiplier = 1;
@@ -18,6 +18,7 @@ public class Throwable : MonoBehaviour
 
     float disappearTime;
     float leftTime = 0;
+    float gravity;
     public bool hasBeThrew = false;
     GameObject outlineObj;
 
@@ -27,6 +28,8 @@ public class Throwable : MonoBehaviour
     Coroutine flashCorutine;
     bool isFlashing = false;
     bool isTaken = false;
+    [SerializeField]bool isInParachute = false;
+    
 
     public bool IsTaken {
         get {
@@ -58,6 +61,7 @@ public class Throwable : MonoBehaviour
 
     void Initialize()
     {
+        gravity = initialGravity;
         outlineObj = Resources.Load<GameObject>("PresentOutline");
         GameObject obj = Instantiate(outlineObj, transform);
         obj.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
@@ -65,7 +69,7 @@ public class Throwable : MonoBehaviour
         outlineObj = obj;
         collider2D = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
-        rigid.gravityScale = gravity;
+        rigid.gravityScale = initialGravity;
         disappearTime = presentManager.presentDisappearTime;
         foreach (string attribute in attributes)
         {
@@ -104,7 +108,18 @@ public class Throwable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isInParachute)
+        {
+            GetComponent<SpriteRenderer>().color = Color.blue;
 
+            float y = Mathf.Clamp(rigid.velocity.y, -1f, 2f);
+            rigid.velocity = new Vector2(rigid.velocity.x, y);
+
+        }
+        else
+        {
+            gravity = initialGravity;
+        }
         if (attributes.Contains("Bound"))
         {
             Debug.Log("bounciness : " + GetComponent<Collider2D>().sharedMaterial.bounciness);
@@ -134,10 +149,10 @@ public class Throwable : MonoBehaviour
         }
         if (holdObj != null)
         {
-
+                        GetComponent<SpriteRenderer>().color = Color.white;
             rigid.velocity = Vector2.zero;
             transform.position = holdObj.transform.position + Vector3.up * 0.8f;
-        } else
+        } else if(!isInParachute)
         {
             leftTime += Time.deltaTime;
         }
@@ -197,6 +212,11 @@ public class Throwable : MonoBehaviour
             }
         }
 
+        if(c.transform.CompareTag("Road") && isInParachute)
+        {
+            GetComponent<SpriteRenderer>().color = Color.white;
+            isInParachute = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D c)
@@ -212,6 +232,7 @@ public class Throwable : MonoBehaviour
     public void OnHeld(GameObject holdObj)
     {
         this.holdObj = holdObj;
+        isInParachute = false;
         leftTime = 0;
         if (flashCorutine != null)
         {

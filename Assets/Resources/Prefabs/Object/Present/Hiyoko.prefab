@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: Hiyoko
   attributes: 0008000000000100
+  sprite: {fileID: 0}
   completeYaku:
     yakuName: "\u82E5\u3044\u8846"
     yakuEnum: 0
@@ -132,10 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86333f54b8fb304da645d4217ca1293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnorePlayer: 0
-  gravity: 3.12
+  initialGravity: 6.15
   attributes: []
   carryMultiplier: 1
+  holdObj: {fileID: 0}
   hasBeThrew: 0
 --- !u!212 &212318156457080292
 SpriteRenderer:

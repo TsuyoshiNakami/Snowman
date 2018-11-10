@@ -198,11 +198,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   presentName: AmericanFootBall
   attributes: 0004000000000000
+  sprite: {fileID: 0}
   completeYaku:
     yakuName: "\u30BF\u30C3\u30C1\u30C0\u30A6\u30F3"
     yakuEnum: 0
     presents: []
     score: 300
+    presentNames: []
 --- !u!114 &114870087322011438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,10 +216,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86333f54b8fb304da645d4217ca1293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnorePlayer: 0
-  gravity: 6.15
+  initialGravity: 6.15
   attributes: []
   carryMultiplier: 1
+  holdObj: {fileID: 0}
   hasBeThrew: 0
 --- !u!212 &212318156457080292
 SpriteRenderer:
