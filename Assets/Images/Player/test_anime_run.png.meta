@@ -94,9 +94,9 @@ TextureImporter:
       name: test_anime_run_0
       rect:
         serializedVersion: 2
-        x: 58
+        x: 56
         y: 299
-        width: 147
+        width: 148
         height: 165
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -105,7 +105,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 831ed33ff0534ac4790f78f7e610d36b
+      spriteID: a195f9089797caa4b9d666e5d49f581a
       vertices: []
       indices: 
       edges: []
@@ -114,9 +114,9 @@ TextureImporter:
       name: test_anime_run_1
       rect:
         serializedVersion: 2
-        x: 327
+        x: 310
         y: 288
-        width: 138
+        width: 136
         height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -125,7 +125,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21540f8f97d623349ae10a0a3315e4a8
+      spriteID: 9a79b8ab452e6c3499bfa8ef157833f5
       vertices: []
       indices: 
       edges: []
@@ -134,9 +134,9 @@ TextureImporter:
       name: test_anime_run_2
       rect:
         serializedVersion: 2
-        x: 548
+        x: 559
         y: 288
-        width: 176
+        width: 174
         height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -145,7 +145,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 381f56064ebba3746b62fcdb23fa0503
+      spriteID: 6a2c877bbe0b47f48b921c3bc0af876b
       vertices: []
       indices: 
       edges: []
@@ -165,7 +165,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 321d67b9fbf9a874298a8390e5361c00
+      spriteID: fd19261dc96ae7f4481ea0e17b23c956
       vertices: []
       indices: 
       edges: []
@@ -174,9 +174,9 @@ TextureImporter:
       name: test_anime_run_4
       rect:
         serializedVersion: 2
-        x: 326
+        x: 308
         y: 32
-        width: 138
+        width: 137
         height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -185,7 +185,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b20573416c7ed544a39f2ca953050c1
+      spriteID: 63866b9e111cd3048b4531837d4918c4
       vertices: []
       indices: 
       edges: []
@@ -194,7 +194,7 @@ TextureImporter:
       name: test_anime_run_5
       rect:
         serializedVersion: 2
-        x: 557
+        x: 546
         y: 87
         width: 4
         height: 4
@@ -205,7 +205,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc1376a7cc6f2f44ba4a7b466469688a
+      spriteID: 747e13ca72394f64cb4e05699ce6a053
       vertices: []
       indices: 
       edges: []
@@ -214,9 +214,9 @@ TextureImporter:
       name: test_anime_run_6
       rect:
         serializedVersion: 2
-        x: 561
+        x: 548
         y: 32
-        width: 159
+        width: 160
         height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -225,7 +225,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 988e682ca5c1b9c4890cecf1f5716bdd
+      spriteID: 145f53e3201ad8d4baf674a87d9dc2dd
       vertices: []
       indices: 
       edges: []

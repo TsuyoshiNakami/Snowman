@@ -713,7 +713,6 @@ public class PlayerController : BaseCharacterController
 
     public void PreThrow()
     {
-
         GameObject throwObj = FindThrowObj();
 
         //  オーブン
