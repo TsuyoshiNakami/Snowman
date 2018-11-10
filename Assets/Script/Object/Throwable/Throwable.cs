@@ -192,7 +192,7 @@ public class Throwable : MonoBehaviour
             if(c.transform.CompareTag("Road")  && hasBeThrew && !IsTaken)
             {
                 Debug.Log("Fragile Destroy");
-                GameObject.Find("PresentManager").GetComponent<PresentManager>().HidePresentFromView(gameObject);
+                presentManager.HidePresentFromView(gameObject);
                 Destroy(gameObject);
             }
         }

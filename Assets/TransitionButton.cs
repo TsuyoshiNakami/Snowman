@@ -36,7 +36,7 @@ public class TransitionButton : MonoBehaviour {
             case GameScenes.Tutorial:
                 if (ES3.Load<bool>("Tutorial", false))
                 {
-                   SceneLoader.LoadScene(GameScenes.GameBase, null, new GameScenes[] { GameScenes.GameEasy });
+                    SceneLoader.LoadScene(GameScenes.GameEasy);
                 }
                 else
                 {

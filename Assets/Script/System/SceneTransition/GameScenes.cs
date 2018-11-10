@@ -2,7 +2,6 @@
 {
     Title,
     StageSelect,
-    GameBase,
     GameEasy,
     GameHard,
     Recipes,

@@ -246,10 +246,10 @@ public class PlayerController : BaseCharacterController
             ShowOrbit();
             //ThrowRotate();
 
-            if (!Input.GetButton(KeyConfig.Fire1))
-            {
-                Throw();
-            }
+            //if (!Input.GetButton(KeyConfig.Fire1))
+            //{
+            //    Throw();
+            //}
         }
         else
         {
@@ -802,9 +802,9 @@ public class PlayerController : BaseCharacterController
     public void Throw()
     {
         anime.ResetTrigger("PreThrow");
+            Debug.Log("Start Throw");
         if (IsPreThrow)
         {
-            Debug.Log("Start Throw");
             isReadyToThrow = false;
             anime.SetBool("ReadyToThrow", false);
             anime.SetTrigger("Throw");
