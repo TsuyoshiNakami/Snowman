@@ -1,7 +1,10 @@
 ﻿public enum GameScenes
 {
     Title,
-    Game,
+    StageSelect,
+    GameBase,
+    GameEasy,
+    GameHard,
     Recipes,
     Ranking,
     RankingAdditive,

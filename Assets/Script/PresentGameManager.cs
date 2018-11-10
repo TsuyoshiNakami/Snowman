@@ -5,8 +5,10 @@ using UniRx;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Zenject;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
-public class PresentGameManager : MonoBehaviour {
+public class PresentGameManager : MonoBehaviour
+{
     public static int score = 0;
 
     [SerializeField] ResultManager resultWindow;
@@ -15,7 +17,7 @@ public class PresentGameManager : MonoBehaviour {
     Subject<Unit> timerSubject = new Subject<Unit>();
     SoundManager soundManager;
     public bool enablePresentEmit = false;
-    [SerializeField] FoodEaterEmitter foodEaterEmitter;
+
 
     public IObservable<Unit> OnTimeUp
     {
@@ -31,20 +33,31 @@ public class PresentGameManager : MonoBehaviour {
     float timeLimit = 0;
     bool isRankingOpen = false;
     public bool gameFinished = false;
-    [System.NonSerialized]public bool isTimerAvailable = false;
+    [System.NonSerialized] public bool isTimerAvailable = false;
 
     [SerializeField, Header("制限時間")] float initialTimeLimit = 90;
     [Inject]
     PresentManager presentManager;
     PlayerController playerController;
 
+    [Inject]
+    IPresentGameDirector gameDirector;
+
     public float TimeLimit
     {
         get { return timeLimit; }
     }
 
+    private void Awake()
+    {
+                if (ExistSubScene)
+        {
+            //SceneManager.LoadScene(GameScenes.GameEasy.ToString(), LoadSceneMode.Additive);
+        }
+    }
     private void Start()
     {
+
         startText.gameObject.SetActive(false);
         score = initScore;
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -54,6 +67,13 @@ public class PresentGameManager : MonoBehaviour {
         RankingManager.hasSendRanking = false;
     }
 
+    bool ExistSubScene
+    {
+        get
+        {
+            return SceneManager.GetSceneByName("GameEasy") != null || SceneManager.GetSceneByName("GameHard") != null;
+        }
+    }
     void StartCountDown()
     {
         startText.gameObject.SetActive(true);
@@ -87,19 +107,19 @@ public class PresentGameManager : MonoBehaviour {
 
     private void Update()
     {
-        if(isRankingOpen)
+        if (isRankingOpen)
         {
-            if(Input.GetButtonDown(KeyConfig.Jump))
+            if (Input.GetButtonDown(KeyConfig.Jump))
             {
                 CloseRanking();
             }
         }
-        if(!isTimerAvailable)
+        if (!isTimerAvailable)
         {
             return;
         }
 
-        if(Pauser.isPausing)
+        if (Pauser.isPausing)
         {
             return;
         }
@@ -110,11 +130,8 @@ public class PresentGameManager : MonoBehaviour {
             isTimerAvailable = false;
             OnTimerEnd();
         }
-        
-        if(foodEaterEmitter.emitStartTime <= initialTimeLimit - timeLimit)
-        {
-            foodEaterEmitter.isStartedEmit = true;
-        }
+        gameDirector.GameUpdate(timeLimit);
+
     }
 
     void OnTimerEnd()
@@ -125,7 +142,7 @@ public class PresentGameManager : MonoBehaviour {
         resultWindow.gameObject.SetActive(true);
         resultWindow.ShowResult();
         enablePresentEmit = true;
-        foodEaterEmitter.isStartedEmit = false;
+        gameDirector.OnTimerEnd();
     }
 
     public void OpenRanking()

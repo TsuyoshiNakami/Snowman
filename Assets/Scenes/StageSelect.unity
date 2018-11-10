@@ -586,7 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ccdec1c958c44c4aaed436b3e9afc82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 1
+  scene: 2
   focused: 0
 --- !u!1 &1950000427
 GameObject:
@@ -723,5 +723,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ccdec1c958c44c4aaed436b3e9afc82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 1
+  scene: 2
   focused: 1

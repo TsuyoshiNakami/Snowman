@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
 public class RecipesManager : MonoBehaviour {
     List<Yaku> yakus = new List<Yaku>();
@@ -18,7 +19,7 @@ public class RecipesManager : MonoBehaviour {
 	void Update () {
         if(Input.GetButtonDown(KeyConfig.Cancel))
         {
-            GameManager.LoadScene(GameScenes.Title);
+            SceneLoader.LoadScene(GameScenes.Title);
         }
 	}
 }

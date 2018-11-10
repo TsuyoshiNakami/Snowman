@@ -69,11 +69,6 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
         ShowMessage(a);
     }
 
-    public static void LoadScene(GameScenes scene)
-    {
-        SceneLoader.LoadScene(scene);
-
-    }
 
 
 

@@ -6,6 +6,7 @@ using UniRx;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
 public class RankingEntity
 {
@@ -78,7 +79,7 @@ public class RankingManager : MonoBehaviour {
         if (!enableKeyInput) return;
         if(Input.GetButtonDown(KeyConfig.Cancel))
         {
-            GameManager.LoadScene(GameScenes.Title);
+            SceneLoader.LoadScene(GameScenes.Title);
         }
 
 	}

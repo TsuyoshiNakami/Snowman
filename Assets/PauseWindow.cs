@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using Zenject;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
 public class PauseWindow : MonoBehaviour {
     [SerializeField] GameObject pauseWindowObj;
@@ -49,7 +47,7 @@ public class PauseWindow : MonoBehaviour {
             if (pauseWindowObj.activeInHierarchy)
             {
 
-                GameManager.LoadScene(GameScenes.Title);
+                SceneLoader.LoadScene(GameScenes.Title);
             }
         }
 	}

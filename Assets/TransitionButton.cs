@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
 public class TransitionButton : MonoBehaviour {
 
@@ -35,15 +36,15 @@ public class TransitionButton : MonoBehaviour {
             case GameScenes.Tutorial:
                 if (ES3.Load<bool>("Tutorial", false))
                 {
-                    GameManager.LoadScene(GameScenes.Game);
+                   SceneLoader.LoadScene(GameScenes.GameBase, null, new GameScenes[] { GameScenes.GameEasy });
                 }
                 else
                 {
-                    GameManager.LoadScene(GameScenes.Tutorial);
+                   SceneLoader.LoadScene(GameScenes.Tutorial);
                 }
                 break;
             default:
-                GameManager.LoadScene(scene);
+                    SceneLoader.LoadScene(scene);
                 break;
         }
     }

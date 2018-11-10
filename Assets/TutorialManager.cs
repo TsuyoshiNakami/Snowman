@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UniRx;
 using System;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
 enum TutorialCommandType{
     Message,
@@ -106,7 +107,8 @@ public class TutorialManager : MonoBehaviour {
                 break;
             case TutorialCommandType.ToGame:
                 ES3.Save<bool>("Tutorial", true, PresentGameConsts.saveSetting);
-                GameManager.LoadScene(GameScenes.Game);
+                SceneLoader.LoadScene(GameScenes.GameBase, null, new GameScenes[] { GameScenes.GameEasy});
+
                 break;
         }
     }
