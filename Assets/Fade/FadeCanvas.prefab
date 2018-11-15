@@ -3,9 +3,9 @@
 --- !u!1 &141186
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 22424616}
   - component: {fileID: 22333946}
@@ -22,7 +22,7 @@ GameObject:
 --- !u!114 &11486218
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141186}
   m_Enabled: 0
@@ -32,13 +32,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: d9d88d72d65d92d409606deefe2646d6, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  maskTexture: {fileID: 2800000, guid: f56b3d529d22d184dbc46ac81f777207, type: 3}
+  m_RaycastTarget: 0
+  maskTexture: {fileID: 2800000, guid: 16edaedb423c1ee43a21225623e7c829, type: 3}
   cutoutRange: 0
 --- !u!114 &11491604
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141186}
   m_Enabled: 1
@@ -49,13 +49,14 @@ MonoBehaviour:
 --- !u!222 &22291984
 CanvasRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141186}
+  m_CullTransparentMesh: 0
 --- !u!223 &22333946
 Canvas:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141186}
   m_Enabled: 1
@@ -75,7 +76,7 @@ Canvas:
 --- !u!224 &22424616
 RectTransform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -98,6 +99,6 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 141186}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1

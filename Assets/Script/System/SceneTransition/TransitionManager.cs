@@ -17,6 +17,7 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities.Transition
 
         public bool IsRunning { get { return _isRunning; } }
 
+        Fade fade = null;
 
         private GameScenes _currentGameScene;
 
@@ -69,7 +70,9 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities.Transition
         private IEnumerator TransitionCoroutine(GameScenes nextScene, SceneDataPack data, GameScenes[] additiveLoadScenes, bool autoMove)
         {
             _isRunning = true;
-
+            fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+            fade.FadeIn(1, null);
+            yield return new WaitForSeconds(1);
             yield return SceneManager.LoadSceneAsync(nextScene.ToString(), LoadSceneMode.Single);
 
             if(additiveLoadScenes != null)
@@ -85,6 +88,8 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities.Transition
             yield return null;
 
             _currentGameScene = nextScene;
+            fade.FadeOut(1, null);
+            yield return new WaitForSeconds(1);
 
             onAllSceneLoaded.OnNext(Unit.Default);
 

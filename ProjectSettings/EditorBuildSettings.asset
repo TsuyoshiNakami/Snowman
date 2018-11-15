@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 9c0992671750fa64981d38ae16b8f948
   - enabled: 1
-    path: Assets/Scenes/GameBase.unity
+    path: Assets/Scenes/SceneTest1110/GameEasy_old.unity
     guid: f2e479168ff05a34796f24fa4c75b518
   - enabled: 1
     path: Assets/Scenes/Recipes.unity
@@ -32,9 +32,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RankingAdditive.unity
     guid: e8e2ef4674078c040a0ec896e71fce2c
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/GameEasy.unity
-    guid: b3cac84432c843f41ad62a502ceb62c8
+    path: Assets/Scenes/SceneTest1110/GameEasy.unity
+    guid: e91c029bd811cb34c8d055ddbc1957a1
   - enabled: 1
     path: Assets/Scenes/GameHard.unity
     guid: f7e328af033162940891eb668087fb93

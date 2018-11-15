@@ -47,6 +47,13 @@ public class PlayerInputManager : MonoBehaviour {
             plyCtrl.Throw();
         }
 		float joyMv = Input.GetAxis ("Horizontal");
+        if(joyMv > 0)
+        {
+            joyMv = 1;
+        } else if (joyMv < 0)
+        {
+            joyMv = -1;
+        }
 		plyCtrl.Move (joyMv);
 
 		if (Input.GetButtonDown (KeyConfig.Jump)) {

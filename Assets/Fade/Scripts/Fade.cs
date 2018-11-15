@@ -27,9 +27,20 @@ using UnityEngine.Assertions;
 public class Fade : MonoBehaviour
 {
 	IFade fade;
+    static Fade Instance;
 
-	void Start ()
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this);
+        Instance = this;
+    }
+    void Start ()
 	{
+
 		Init ();
 		fade.Range = cutoutRange;
 	}
