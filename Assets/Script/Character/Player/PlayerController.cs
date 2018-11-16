@@ -58,16 +58,17 @@ public class PlayerController : BaseCharacterController
     //内部パラメータ
     Transform frontPoint;
     [System.NonSerialized] public float throwPower = 0;
-    bool breakEnabled = true;
-    float groundFriction = 0.0f;
+    [SerializeField] float freeVectorCursorSpeed = 15;
     [SerializeField]float jumpUpPower = 0;
-    bool canJumpUp = true;
+    float groundFriction = 0.0f;
     float invincibleStartTime;
     float invincibleTime;
-    bool throwReservation = false;
     float touchGroundAndJumpingTime = 0;
     float autoCursorTime = 0;
-    [SerializeField] float freeVectorCursorSpeed = 15;
+    float idleTime = 0;
+    bool throwReservation = false;
+    bool canJumpUp = true;
+    bool breakEnabled = true;
     bool IsAutoCursorUp = true;
     int jumpCount = 0;
     PlayerThrowPointCollider throwPointCollider;
@@ -119,6 +120,11 @@ public class PlayerController : BaseCharacterController
     public bool IsWalk
     {
         get { return IsCurrentAnimation("Base Layer.Player_Walk") || IsCurrentAnimation("Base Layer.Player_Walk_ReadyToThrow"); }
+    }
+
+    public bool IsIdle
+    {
+        get { return IsCurrentAnimation("Base Layer.Player_Idle"); }
     }
 
     bool isReadyToThrow;
@@ -206,6 +212,16 @@ public class PlayerController : BaseCharacterController
     protected override void FixedUpdateCharacter()
     {
         anime.SetBool("IsGrounded", grounded);
+
+        if(IsIdle)
+        {
+
+            UpdateIdleAnimation();
+        }
+        else
+        {
+            idleTime = 0;
+        }
         // Throwableのアウトライン表示
         if(lastThrowable != null)
         {
@@ -349,7 +365,18 @@ public class PlayerController : BaseCharacterController
 
         oldVelocity = rbody2D.velocity;
     }
+    private void UpdateIdleAnimation()
+    {
+        idleTime += Time.deltaTime;
+        if(idleTime > 3)
+        {
+            anime.SetFloat("IdleParam", 1);
+        } else
+        {
+            anime.SetFloat("IdleParam", 0);
 
+        }
+    }
 
     // 投げる方向に鼻が向く
     private void ThrowRotate()
