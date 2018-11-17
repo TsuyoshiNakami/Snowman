@@ -24,6 +24,7 @@ public class BasketPresentViewer : MonoBehaviour {
     GameManager gameManager;
     [SerializeField] BasketType basketType;
 
+    [SerializeField] float viewPresentSizeDivider = 3;
     Subject<string> makeYakuSubject = new Subject<string>();
     public IObservable<string> OnMakeYaku
     {
@@ -62,7 +63,6 @@ public class BasketPresentViewer : MonoBehaviour {
 
         GameObject newObj = new GameObject();
         newObj.transform.parent = transform;
-        newObj.transform.localScale = Vector3.one / 2;
 
         SpriteRenderer spriteRenderer = newObj.AddComponent<SpriteRenderer>();
 
@@ -82,7 +82,7 @@ public class BasketPresentViewer : MonoBehaviour {
         for(int i = 0; i < presentObjs.Count; i++)
         {
             presentObjs[i].transform.position = (Vector2)viewStart.transform.position + viewLine / (presentObjs.Count + 1) * (i + 1);
-            presentObjs[i].transform.localScale = Vector3.one / 3;
+            presentObjs[i].transform.localScale = Vector3.one / viewPresentSizeDivider;
         }
         if(presentObjs.Count == 1)
         {

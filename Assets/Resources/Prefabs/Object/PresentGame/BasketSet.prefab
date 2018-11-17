@@ -395,6 +395,7 @@ MonoBehaviour:
   viewStart: {fileID: 1818167495904316}
   viewEnd: {fileID: 1881363399749956}
   basketType: 0
+  viewPresentSizeDivider: 5
 --- !u!212 &212570327713874320
 SpriteRenderer:
   m_ObjectHideFlags: 1
