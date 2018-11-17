@@ -31,12 +31,15 @@ public class Fade : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance != null)
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(this);
-        Instance = this;
+        else
+        {
+            DontDestroyOnLoad(this);
+            Instance = this;
+        }
     }
     void Start ()
 	{

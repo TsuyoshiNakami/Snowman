@@ -70,15 +70,19 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities.Transition
         private IEnumerator TransitionCoroutine(GameScenes nextScene, SceneDataPack data, GameScenes[] additiveLoadScenes, bool autoMove)
         {
             _isRunning = true;
-            fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+            if (fade == null)
+            {
+                fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+            }
             fade.FadeIn(1, null);
             yield return new WaitForSeconds(1);
             yield return SceneManager.LoadSceneAsync(nextScene.ToString(), LoadSceneMode.Single);
 
-            if(additiveLoadScenes != null)
+            if (additiveLoadScenes != null)
             {
                 yield return additiveLoadScenes.Select(scene => SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive).AsObservable()).WhenAll().ToYieldInstruction();
             }
+            fade.GetComponent<FadeImage>().UpdateMaskCutout(1);
 
             yield return null;
 
