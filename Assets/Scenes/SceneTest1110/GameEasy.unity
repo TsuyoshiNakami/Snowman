@@ -3295,6 +3295,7 @@ MonoBehaviour:
   presentEmitPoints:
   - {fileID: 612611249}
   - {fileID: 1509197242}
+  tim: {fileID: 2082616034}
   TimObj: {fileID: 2082616030}
   maxPresentInView: 20
 --- !u!1 &974369337
@@ -7612,8 +7613,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2082616032}
   - component: {fileID: 2082616031}
+  - component: {fileID: 2082616033}
+  - component: {fileID: 2082616034}
   m_Layer: 0
-  m_Name: test_tim
+  m_Name: Tim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7654,7 +7657,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a3d0a73869d872a468495f560972c7ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 209ed1d6c73be594d91305d38a3d2d12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7672,9 +7675,39 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2082616030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.22, y: -14.65, z: 0}
+  m_LocalPosition: {x: 10.1, y: 14.1, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2082616033
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2082616030}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27ef7848ac9fad04199518dc8aa6d8e7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2082616034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2082616030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de89996b00cf934429139ab24374ee10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cookTime: 1

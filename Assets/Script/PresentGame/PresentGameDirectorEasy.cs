@@ -12,6 +12,7 @@ public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
     [Inject]
     PresentManager presentManager;
 
+    [SerializeField] TimPresentGame tim;
 
 
     [SerializeField] GameObject TimObj;
@@ -43,12 +44,22 @@ public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
             }
         if (generateTimer > generateInterval)
         {
-               GameObject newPresentObj = presentManager.EmitPresentRandom(presentEmitPoints[point].transform.position);
+            tim.OnToss.First().Subscribe(_ =>
+            {
+                TossPresent(point);
+            });
+            tim.Cook();
             TimObj.transform.position = presentEmitPoints[point].transform.position;
             generateTimer = 0;
         }
     }
 
+    public void TossPresent(int point)
+    {
+               GameObject newPresentObj = presentManager.EmitPresentRandom(presentEmitPoints[point].transform.position);
+            generateTimer = 0;
+
+    }
     public void OnTimerEnd()
     {
 
