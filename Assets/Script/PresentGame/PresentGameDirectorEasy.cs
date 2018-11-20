@@ -36,29 +36,35 @@ public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
     public void PresentEmitUpdate()
     {
         int point = Random.Range(0, presentEmitPoints.Count);
-        generateTimer += Time.deltaTime;
+        if (tim.state == TimPresentGame.State.Run)
+        {
+            generateTimer += Time.deltaTime;
+            if (tim.runDest == null)
+            {
+                tim.OnTossEvent.First().Subscribe(_ =>
+                {
+                    TossPresent(point);
+                });
+                tim.OnTossAnimeEndEvent.First().Subscribe(_ =>
+                {
+                    tim.StartRun();
+                });
+                    if (tim.runDest == null)
+                    {
+                        tim.runDest = presentEmitPoints[point].transform;
+                    }
+            }
+        }
 
         if (presentManager.NumberOfPresentInView >= maxPresentInView)
             {
                 return;
             }
-        if (generateTimer > generateInterval)
-        {
-            tim.OnToss.First().Subscribe(_ =>
-            {
-                TossPresent(point);
-            });
-            tim.Cook();
-            TimObj.transform.position = presentEmitPoints[point].transform.position;
-            generateTimer = 0;
-        }
     }
 
     public void TossPresent(int point)
     {
-               GameObject newPresentObj = presentManager.EmitPresentRandom(presentEmitPoints[point].transform.position);
-            generateTimer = 0;
-
+           GameObject newPresentObj = presentManager.EmitPresentRandom(tim.transform.position);
     }
     public void OnTimerEnd()
     {
