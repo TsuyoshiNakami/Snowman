@@ -23,6 +23,7 @@ public class BasketPresentViewer : MonoBehaviour {
     PresentManager presentManager;
     GameManager gameManager;
     [SerializeField] BasketType basketType;
+    [SerializeField] GameObject presentMemoObj;
 
     [SerializeField] float viewPresentSizeDivider = 3;
     Subject<string> makeYakuSubject = new Subject<string>();
@@ -61,28 +62,21 @@ public class BasketPresentViewer : MonoBehaviour {
         presentEnterSubject.OnNext(item);
         Present present = item.GetComponent<Present>();
 
-        GameObject newObj = new GameObject();
-        newObj.transform.parent = transform;
+        GameObject newObj = Instantiate(presentMemoObj, transform);
 
-        SpriteRenderer spriteRenderer = newObj.AddComponent<SpriteRenderer>();
-
-        newObj.name = "EnterItem";
         Present newPresent = newObj.AddComponent<Present>();
         newPresent.presentName = present.presentName;
         newPresent.attributes = present.attributes;
         newPresent.completeYaku = present.completeYaku;
         presents.Add(newPresent);
-        Sprite sprite = item.GetComponent<SpriteRenderer>().sprite;
-        spriteRenderer.sprite = sprite;
-        spriteRenderer.sortingLayerName = "Object";
-        spriteRenderer.sortingOrder = 100;
+        newObj.GetComponent<PresentMemo>().SetPresentContent(item.GetComponent<SpriteRenderer>().sprite);
         presentObjs.Add(newObj);
 
         Vector2 viewLine = viewEnd.transform.position - viewStart.transform.position;
         for(int i = 0; i < presentObjs.Count; i++)
         {
             presentObjs[i].transform.position = (Vector2)viewStart.transform.position + viewLine / (presentObjs.Count + 1) * (i + 1);
-            presentObjs[i].transform.localScale = Vector3.one / viewPresentSizeDivider;
+            //presentObjs[i].transform.localScale = Vector3.one / viewPresentSizeDivider;
         }
         if(presentObjs.Count == 1)
         {
