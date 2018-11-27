@@ -148,8 +148,10 @@ public class PresentGameManager : MonoBehaviour
     public void OpenRanking()
     {
         resultWindow.SetButtonsInteractive(false);
-        SceneManager.LoadScene("RankingAdditive", LoadSceneMode.Additive);
         isRankingOpen = true;
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(score);
+
+        //SceneManager.LoadScene("RankingAdditive", LoadSceneMode.Additive);
     }
 
     public void CloseRanking()

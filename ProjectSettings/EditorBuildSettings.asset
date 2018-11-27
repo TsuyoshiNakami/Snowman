@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Recipes.unity
     guid: b9155a5c90f61c04fa61d342a10bb484
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Ranking.unity
     guid: 33307818ed13d03439099ed234b44c6b
   - enabled: 1
@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RankingAdditive.unity
     guid: e8e2ef4674078c040a0ec896e71fce2c
+  - enabled: 1
+    path: Assets/naichilab/unity-simple-ranking/Scenes/Ranking.unity
+    guid: 152244f5855414ac4a3874f14efa583c
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
