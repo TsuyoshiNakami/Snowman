@@ -35,7 +35,7 @@ public class PresentGameManager : MonoBehaviour
     public bool gameFinished = false;
     [System.NonSerialized] public bool isTimerAvailable = false;
 
-    [SerializeField, Header("制限時間")] float initialTimeLimit = 90;
+    [SerializeField, Header("制限時間")] public  float initialTimeLimit = 90;
     [Inject]
     PresentManager presentManager;
     PlayerController playerController;

@@ -7,7 +7,7 @@ using Zenject;
 public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
 {
     Subject<Unit> generatePresentSubject = new Subject<Unit>();
-    [SerializeField]float generateInterval;
+    [SerializeField]public float generateInterval;
     [SerializeField] List<GameObject> presentEmitPoints;
     [Inject]
     PresentManager presentManager;
