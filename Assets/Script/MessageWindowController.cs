@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 [System.Serializable]
 public class MessageWindowImage
@@ -11,7 +12,8 @@ public class MessageWindowImage
     public string id;
     public Sprite faceSprite;
 }
-public class MessageWindowController : MonoBehaviour {
+public class MessageWindowController : MonoBehaviour
+{
 
     MessageWindow messageWindow;
     [SerializeField] List<MessageWindowImage> messageWindowImages;
@@ -23,6 +25,7 @@ public class MessageWindowController : MonoBehaviour {
     int messageNum = 0;
     bool allMessageShown = false;
     public bool isShowing = false;
+    public bool autoScroll = false;
 
     Subject<Unit> messageFinishedSubject = new Subject<Unit>();
     public IObservable<Unit> OnMessageFinished
@@ -33,30 +36,43 @@ public class MessageWindowController : MonoBehaviour {
         }
     }
 
-	// Use this for initialization
-	void Awake () {
+    Subject<List<string>> receiveCommandSubject = new Subject<List<string>>();
+    public IObservable<List<string>> OnReceiveCommand
+    {
+        get { return receiveCommandSubject; }
+    }
+
+
+    // Use this for initialization
+    void Awake()
+    {
 
         messageWindow = GetComponent<MessageWindow>();
         messages = new List<string>();
         hideWindow();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (!isShowing)
         {
             return;
         }
 
         UpdateText();
-        if(Input.GetButtonDown(KeyConfig.NextMessage))
+        if (Input.GetButtonDown(KeyConfig.NextMessage))
         {
             OnMessageButtonDown();
         }
-	}
+    }
 
     void OnMessageButtonDown()
     {
+        if(autoScroll)
+        {
+            return;
+        }
         if (allMessageShown)
         {
             ShowNextMessage();
@@ -69,30 +85,51 @@ public class MessageWindowController : MonoBehaviour {
 
     void ShowNextMessage()
     {
+        hasInovkedNextMessage = false;
+        Debug.Log("ShowNextMessage");
         messageNum++;
         timer = 0;
         allMessageShown = false;
-        if (messages.Count - 1 < messageNum)
+
+        // ===========================　コマンド検出  =======================================
+        if (messages[messageNum].IndexOf("@") > -1)
+        {
+
+            string[] command = messages[messageNum].Split('@')[1].Split(' ');
+            if (command[0] == "Face")
+            {
+                foreach (MessageWindowImage image in messageWindowImages)
+                {
+                    if (image.id == command[1])
+                    {
+                        ChangeImage(image.faceSprite);
+                    }
+                }
+            } else
+            {
+                List<string> cmds = new List<string>(command);
+                
+                receiveCommandSubject.OnNext(cmds);
+            }
+
+            messageNum++;
+        }
+                if (messages.Count - 1 < messageNum)
         {
             hideWindow();
             messageFinishedSubject.OnNext(Unit.Default);
             return;
         }
-        if (messages[messageNum].IndexOf("@") > -1)
+
+        // ===========================　タグ検出  =======================================
+        if (messages[messageNum].IndexOf("<") > -1)
         {
-            
-            string[] command = messages[messageNum].Split('@')[1].Split(' ');
-            if(command[0] == "Face")
+
+            string[] tag = messages[messageNum].Split('<')[1].Split('>');
+            if (tag[0] == "Shake")
             {
-                foreach(MessageWindowImage image in messageWindowImages)
-                {
-                    if(image.id == command[1])
-                    {
-                        ChangeImage(image.faceSprite);
-                    }
-                }
+
             }
-            messageNum++;
         }
     }
 
@@ -105,6 +142,8 @@ public class MessageWindowController : MonoBehaviour {
         timer = charTime * messages[messageNum].Length;
     }
 
+
+    bool hasInovkedNextMessage = false;
     public void UpdateText()
     {
 
@@ -115,10 +154,16 @@ public class MessageWindowController : MonoBehaviour {
             charNum = (int)(timer / charTime);
         }
 
-        if(charNum > messages[messageNum].Length)
+        if (charNum > messages[messageNum].Length)
         {
             allMessageShown = true;
             charNum = messages[messageNum].Length;
+
+            if(autoScroll && !hasInovkedNextMessage)
+            {
+                hasInovkedNextMessage = true;
+                Invoke("ShowNextMessage", 2f);
+            }
         }
 
         string newMessage = messages[messageNum].Substring(0, charNum);

@@ -80,9 +80,9 @@ public class TimPresentGame : MonoBehaviour {
     public void Move()
     {
         float dir = transform.position.x < runDest.position.x ? 1 : -1;
-        transform.localScale = new Vector3(dir, 1, 1) * 2;
+        transform.localScale = new Vector3(-dir, 1, 1) * 2;
         transform.Translate(Vector3.right * dir * moveSpeed * Time.deltaTime);
-
+        
         if(Mathf.Abs(transform.position.x - runDest.position.x) < 0.6f)
         {
             runDest = null;

@@ -781,12 +781,12 @@ Prefab:
     - target: {fileID: 114512770948420068, guid: 79688446755c3864fb8b61e647fbe49d,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114512770948420068, guid: 79688446755c3864fb8b61e647fbe49d,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224363019424994610, guid: 79688446755c3864fb8b61e647fbe49d,
         type: 2}
@@ -828,6 +828,18 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114512770948420068, guid: 79688446755c3864fb8b61e647fbe49d,
+        type: 2}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b72b530b84595e54f9d0c13a729e45c1,
+        type: 2}
+    - target: {fileID: 114512770948420068, guid: 79688446755c3864fb8b61e647fbe49d,
+        type: 2}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 21053471976900214, guid: b72b530b84595e54f9d0c13a729e45c1,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79688446755c3864fb8b61e647fbe49d, type: 2}
   m_IsPrefabAsset: 0
@@ -1358,6 +1370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393f95852ae33d8429190394a385c86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoDisappearPresent: 0
+  presentDisappearTime: 6
+  flashTime: 3
   kindOfPresents: []
 --- !u!114 &1124644649
 MonoBehaviour:

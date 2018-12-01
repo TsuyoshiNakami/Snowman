@@ -17,7 +17,7 @@ public class YukihuruSettings : EditorWindow
     static PresentGameManager presentGameManager;
     static PresentGameDirectorEasy presentGameDirector;
     string sql = "";
-    [MenuItem("Window/PresentGame/YukihuruSettings #s")]
+    [MenuItem("Window/PresentGame/YukihuruSettings #&s")]
     static void Open()
     {
         if(yukihuruSettings == null)

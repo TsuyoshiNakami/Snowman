@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class MessageWindow : MonoBehaviour {
 
-    [SerializeField] TextMeshProUGUI text;
+    //[SerializeField] TextMeshProUGUI text;
+    [SerializeField] TMP_Text text;
 
 	// Use this for initialization
-	void Start () {
+	void Start () { 
+
 	}
 	
 	// Update is called once per frame
@@ -19,5 +22,6 @@ public class MessageWindow : MonoBehaviour {
     public void SetText(string _text)
     {
         text.text = _text;
+
     }
 }
