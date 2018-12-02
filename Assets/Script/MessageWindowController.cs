@@ -86,11 +86,19 @@ public class MessageWindowController : MonoBehaviour
     void ShowNextMessage()
     {
         hasInovkedNextMessage = false;
-        Debug.Log("ShowNextMessage");
         messageNum++;
         timer = 0;
         allMessageShown = false;
 
+
+        // =========================== メッセージ終了チェック
+        if (messages.Count - 1 < messageNum)
+        {
+            Debug.Log("Message Finish");
+            hideWindow();
+            messageFinishedSubject.OnNext(Unit.Default);
+            return;
+        }
         // ===========================　コマンド検出  =======================================
         if (messages[messageNum].IndexOf("@") > -1)
         {
@@ -112,14 +120,10 @@ public class MessageWindowController : MonoBehaviour
                 receiveCommandSubject.OnNext(cmds);
             }
 
-            messageNum++;
-        }
-                if (messages.Count - 1 < messageNum)
-        {
-            hideWindow();
-            messageFinishedSubject.OnNext(Unit.Default);
+            ShowNextMessage();
             return;
         }
+
 
         // ===========================　タグ検出  =======================================
         if (messages[messageNum].IndexOf("<") > -1)

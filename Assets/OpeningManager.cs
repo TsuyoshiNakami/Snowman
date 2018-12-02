@@ -15,16 +15,30 @@ enum OpeningCommandType
     Wait
 }
 
+enum OpeningCommandMode
+{
+    Wait,
+    Through
+}
 struct OpeningCommand
 {
     public OpeningCommandType type;
     public List<string> msg;
+    public OpeningCommandMode mode;
 
     public OpeningCommand(OpeningCommandType _type, List<string> _msg)
     {
         type = _type;
         msg = _msg;
+        mode = OpeningCommandMode.Wait;
     }
+    public OpeningCommand(OpeningCommandType _type, List<string> _msg, OpeningCommandMode _mode)
+    {
+        type = _type;
+        msg = _msg;
+        mode = _mode;
+    }
+
 
     public OpeningCommand(OpeningCommandType _type, string _msg)
     {
@@ -32,12 +46,21 @@ struct OpeningCommand
         List<string> tmp = new List<string>();
         tmp.Add(_msg);
         msg = tmp;
+        mode = OpeningCommandMode.Wait;
     }
-
+    public OpeningCommand(OpeningCommandType _type, string _msg, OpeningCommandMode _mode)
+    {
+        type = _type;
+        List<string> tmp = new List<string>();
+        tmp.Add(_msg);
+        msg = tmp;
+        mode = _mode;
+    }
     public OpeningCommand(OpeningCommandType _type)
     {
         type = _type;
         msg = new List<string>();
+        mode = OpeningCommandMode.Wait;
     }
 }
 
@@ -58,14 +81,18 @@ public class OpeningManager : MonoBehaviour
         {
             if(cmd[0] == "Anim")
             {
-                if(cmd[1] == "Tim")
+                switch(cmd[1])
                 {
-                    switch(cmd[2])
-                    {
-                        case "LookUp":
-                            timAnim.SetTrigger("LookUp");
-                            break;
-                    }
+                    case "Tim":
+                    timAnim.SetTrigger(cmd[2]);
+                        break;
+                    case "SnowmanOp":
+                        Debug.Log("Anime SnowmanOP ");
+                        GameObject.Find("SnowmanOp").GetComponent<Animator>().SetTrigger(cmd[2]);
+                        break;
+                    case "Signboard":
+                        GameObject.Find("Signboard").GetComponent<Animator>().SetTrigger(cmd[2]);
+                        break;
                 }
             }
         });
@@ -80,23 +107,39 @@ public class OpeningManager : MonoBehaviour
         messages.Add("@Anim Tim LookUp");
 
         List<string> messages2 = new List<string>();
+        messages2.Add("@Anim Tim LookUpSpeak");
         messages2.Add("クリスマスは明日だっていうのに、僕だけじゃプレゼントなんて作れないよ…！");
 
-        messages2.Add("@Face Tim");
 
         List<string> messages3 = new List<string>();
-        messages3.Add("@Face Tim");
+        messages3.Add("@Anim Tim Worry");
+        messages3.Add("はあ・・・もうどうしよう・・・？");
+
+        List<string> messages4 = new List<string>();
+        messages4.Add("@Anim Tim RunAway");
+        messages4.Add("うわあああ！");
 
 
         Pauser.Pause();
-        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimHitsSnowman"));
+        //commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimHitsSnowman"));
 
+        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "0.5"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
 
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages2));
 
-        //commands.Add(new OpeningCommand(OpeningCommandType.Message, messages3));
+        commands.Add(new OpeningCommand(OpeningCommandType.Message, messages3));
+        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Tim Surprised"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim SnowmanOp Flyout"));
+
+        commands.Add(new OpeningCommand(OpeningCommandType.Input, "TimSuprisedBySnowman"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Message, messages4, OpeningCommandMode.Through));
+        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
+
         NextAction();
     }
 
@@ -108,16 +151,30 @@ public class OpeningManager : MonoBehaviour
                 DetectInputCommand(command.msg);
                 break;
             case OpeningCommandType.Message:
-                messageWindowController.StartMessage(command.msg);
-                messageWindowController.OnMessageFinished.First().Subscribe(_ =>
+                if (command.mode == OpeningCommandMode.Through)
                 {
                     NextAction();
-                });
+                }
+                else
+                {
+                    messageWindowController.OnMessageFinished.First().Subscribe(_ =>
+                    {
+                        NextAction();
+                    });
+                }
+                messageWindowController.StartMessage(command.msg);
                 break;
             case OpeningCommandType.Timeline:
                 PlayableDirector playableDirector = GameObject.Find(command.msg[0]).GetComponent<PlayableDirector>();
-                playableDirector.stopped += OnTimelineStopped;
                 playableDirector.Play();
+                if (command.mode == OpeningCommandMode.Through)
+                {
+                    NextAction();
+                }
+                else
+                {
+                    playableDirector.stopped += OnTimelineStopped;
+                }
                 break;
             case OpeningCommandType.ToGame:
                 ES3.Save<bool>("Opening", true, PresentGameConsts.saveSetting);
@@ -169,6 +226,17 @@ public class OpeningManager : MonoBehaviour
                    });
                 });
                 break;
+            case "TimSuprisedBySnowman":
+                GameObject.Find("SnowmanOp").GetComponent<OpeningSnowman>().OnTaubeAppear.First().Subscribe(_ =>
+                {
+
+                    Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(a =>
+                   {
+                       NextAction();
+
+                   });
+                });
+                break;
         }
     }
 
@@ -177,6 +245,7 @@ public class OpeningManager : MonoBehaviour
         actionCount++;
         if (commands.Count - 1 >= actionCount)
         {
+            Debug.Log("PlayAction : " + commands[actionCount].type.ToString() + ", " + commands[actionCount].msg[0]);
             PlayCommand(commands[actionCount]);
         }
     }
