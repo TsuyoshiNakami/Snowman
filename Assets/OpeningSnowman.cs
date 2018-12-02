@@ -19,6 +19,7 @@ public class OpeningSnowman : MonoBehaviour {
     {
         GameObject taubeObj = Instantiate(taube, generatePoint.transform.position, Quaternion.identity);
         taubeObjGlobal = taubeObj;
+        taubeObj.GetComponent<PlayerController>().activeSts = false;
         taubeObjGlobal.GetComponent<Animator>().SetTrigger("Flyout");
         Invoke("SetAnime", 0.5f);
         taubeAppearSubject.OnNext(Unit.Default);

@@ -104,12 +104,12 @@ public class OpeningManager : MonoBehaviour
                 }
             }
         });
-
-        StartOpening();
+        InitializeCommands();
+        //StartOpening();
     }
-    public void StartOpening()
+    void InitializeCommands()
     {
-        List<string> messages = new List<string>();
+                List<string> messages = new List<string>();
         messages.Add("@Face Tim");
         messages.Add("マスター、どこいっちゃったの…");
         messages.Add("@Anim Tim LookUp");
@@ -130,7 +130,8 @@ public class OpeningManager : MonoBehaviour
 
         Pauser.Pause();
         //commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimHitsSnowman"));
-        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "0.5"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "OpeningCamera"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
 
@@ -139,6 +140,7 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages3));
         commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TaubeFallAnime"));  
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "HideTaubeStar"));  
+        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "1"));
         
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Tim Surprised"));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "3"));
@@ -151,6 +153,10 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));  
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "StartSignboardAnime"));
+    }
+    public void StartOpening()
+    {
+
 
         NextAction();
     }
@@ -205,7 +211,7 @@ public class OpeningManager : MonoBehaviour
         float v = 0.01f;
         while(true)
         {
-            v += 0.01f;
+            v += 0.015f;
             anime.speed -= v;
             if(anime.speed < 0.5f)
             {
@@ -215,7 +221,9 @@ public class OpeningManager : MonoBehaviour
         }
         anime.speed = 1;
         anime.SetTrigger("Stop");
-        yield return new WaitForSeconds(1f);
+        GameObject taubeObj = GameObject.FindGameObjectWithTag("Player");
+        taubeObj.GetComponent<PlayerController>().activeSts = true;
+        yield return new WaitForSeconds(0.5f);
                 NextAction();
     }
 
@@ -308,7 +316,7 @@ public class OpeningManager : MonoBehaviour
                 GameObject.Find("SnowmanOp").GetComponent<OpeningSnowman>().OnTaubeAppear.First().Subscribe(_ =>
                 {
 
-                    Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(a =>
+                    Observable.Timer(TimeSpan.FromSeconds(0.1f)).Subscribe(a =>
                    {
                        NextAction();
 

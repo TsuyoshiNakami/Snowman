@@ -26,7 +26,8 @@ public class TitleManager : MonoBehaviour {
 
         if (!ES3.KeyExists("Tutorial"))
         {
-            SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
+            Destroy(GameObject.Find("Main Camera"));
+            SceneManager.LoadScene("Opening", LoadSceneMode.Additive);
         }
 	}
 	
@@ -76,7 +77,7 @@ public class TitleManager : MonoBehaviour {
         else
         {
             titleUI.SetActive(false);
-            GameObject.Find("TutorialManager").GetComponent<TutorialManager>().StartTutorial();
+            GameObject.Find("OpeningManager").GetComponent<OpeningManager>().StartOpening();
         }
     }
 }
