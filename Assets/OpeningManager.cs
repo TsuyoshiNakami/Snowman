@@ -140,15 +140,16 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TaubeFallAnime"));  
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "HideTaubeStar"));  
         
-        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Tim Surprised"));
-        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "3"));
+
+        commands.Add(new OpeningCommand(OpeningCommandType.Method, "ShakeTaube"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim SnowmanOp Flyout"));
 
         commands.Add(new OpeningCommand(OpeningCommandType.Input, "TimSuprisedBySnowman"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages4, OpeningCommandMode.Through));
         commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));  
-    commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "StartSignboardAnime"));
 
         NextAction();
@@ -157,6 +158,7 @@ public class OpeningManager : MonoBehaviour
     void HideTaubeStar()
     {
         GameObject.Find("TaubeStar").SetActive(false);
+                NextAction();
     }
     public void StartTaubeFallAnime()
     {
@@ -165,6 +167,27 @@ public class OpeningManager : MonoBehaviour
     IEnumerator TaubeFallAnime()
     {
         yield return null;
+    }
+
+    void ShakeTaube()
+    {
+        StartCoroutine(IShakeTaube());
+    }
+
+    IEnumerator IShakeTaube()
+    {
+        GameObject taubeObj = GameObject.Find("SnowmanOp");
+        Vector3 initPos = taubeObj.transform.position;
+        float shakeRange = 0.1f;
+        float interval = 0.05f;
+        for(int i = 0; i < 1 / interval; i++)
+        {
+            taubeObj.transform.position = 
+                initPos + new Vector3(UnityEngine.Random.Range(-shakeRange, shakeRange),
+                                        UnityEngine.Random.Range(-shakeRange, shakeRange));
+            yield return new WaitForSeconds(interval);
+        }
+        NextAction();
     }
 
 
@@ -192,6 +215,8 @@ public class OpeningManager : MonoBehaviour
         }
         anime.speed = 1;
         anime.SetTrigger("Stop");
+        yield return new WaitForSeconds(1f);
+                NextAction();
     }
 
     void PlayCommand(OpeningCommand command)
@@ -237,7 +262,6 @@ public class OpeningManager : MonoBehaviour
                 break;
             case OpeningCommandType.Method:
                 Invoke(command.msg[0], 0);
-                NextAction();
                 break;
         }
     }
