@@ -12,7 +12,8 @@ enum OpeningCommandType
     Timeline,
     Input,
     ToGame,
-    Wait
+    Wait,
+    Method
 }
 
 enum OpeningCommandMode
@@ -88,7 +89,14 @@ public class OpeningManager : MonoBehaviour
                         break;
                     case "SnowmanOp":
                         Debug.Log("Anime SnowmanOP ");
-                        GameObject.Find("SnowmanOp").GetComponent<Animator>().SetTrigger(cmd[2]);
+                        float a;
+                        if (float.TryParse(cmd[2], out a)) {
+                            GameObject.Find("SnowmanOp").GetComponent<Animator>().speed = float.Parse(cmd[2]);
+
+                        } else
+                        {
+                            GameObject.Find("SnowmanOp").GetComponent<Animator>().SetTrigger(cmd[2]);
+                        }
                         break;
                     case "Signboard":
                         GameObject.Find("Signboard").GetComponent<Animator>().SetTrigger(cmd[2]);
@@ -122,7 +130,6 @@ public class OpeningManager : MonoBehaviour
 
         Pauser.Pause();
         //commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimHitsSnowman"));
-
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "0.5"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
@@ -137,10 +144,36 @@ public class OpeningManager : MonoBehaviour
 
         commands.Add(new OpeningCommand(OpeningCommandType.Input, "TimSuprisedBySnowman"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages4, OpeningCommandMode.Through));
-        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));
-        commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));  
+    commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Method, "StartSignboardAnime"));
 
         NextAction();
+    }
+
+    public void StartSignboardAnime()
+    {
+        StartCoroutine(SignboardAnime());
+    }
+    IEnumerator SignboardAnime()
+    {
+        Animator anime = GameObject.Find("Signboard").GetComponent<Animator>();
+        
+        anime.speed = 3;
+        yield return new WaitForSeconds(1);
+        float v = 0.01f;
+        while(true)
+        {
+            v += 0.01f;
+            anime.speed -= v;
+            if(anime.speed < 0.5f)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+        anime.speed = 1;
+        anime.SetTrigger("Stop");
     }
 
     void PlayCommand(OpeningCommand command)
@@ -184,7 +217,9 @@ public class OpeningManager : MonoBehaviour
             case OpeningCommandType.Wait:
                 Invoke("NextAction", float.Parse(command.msg[0]));
                 break;
-                
+            case OpeningCommandType.Method:
+                Invoke(command.msg[0], 0);
+                break;
         }
     }
 
