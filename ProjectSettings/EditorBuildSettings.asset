@@ -18,19 +18,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 9c0992671750fa64981d38ae16b8f948
   - enabled: 1
-    path: Assets/Scenes/SceneTest1110/GameEasy_old.unity
-    guid: f2e479168ff05a34796f24fa4c75b518
-  - enabled: 1
     path: Assets/Scenes/Recipes.unity
     guid: b9155a5c90f61c04fa61d342a10bb484
   - enabled: 0
-    path: Assets/Scenes/Ranking.unity
+    path: Assets/Scenes/old/Ranking.unity
     guid: 33307818ed13d03439099ed234b44c6b
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 66744699e3bbd3645ac79bf9b6b49307
   - enabled: 1
-    path: Assets/Scenes/RankingAdditive.unity
+    path: Assets/Scenes/old/RankingAdditive.unity
     guid: e8e2ef4674078c040a0ec896e71fce2c
   - enabled: 1
     path: Assets/naichilab/unity-simple-ranking/Scenes/Ranking.unity
@@ -39,7 +36,7 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SceneTest1110/GameEasy.unity
+    path: Assets/Scenes/GameEasy.unity
     guid: e91c029bd811cb34c8d055ddbc1957a1
   - enabled: 1
     path: Assets/Scenes/GameHard.unity

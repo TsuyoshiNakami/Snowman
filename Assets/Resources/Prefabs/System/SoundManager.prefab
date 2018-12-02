@@ -23,7 +23,7 @@ GameObject:
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -476,7 +476,7 @@ MonoBehaviour:
     introLength: 0
     canBeInterrupted: 0
     loop: 0
-  BGM_ON: 0
+  BGM_ON: 1
   SE:
   - soundName: ThrowSnowBall
     clip: {fileID: 8300000, guid: a6981e955cb16f94d8d8a15fc3ad6604, type: 3}

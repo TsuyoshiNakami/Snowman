@@ -70,7 +70,7 @@ public class TutorialManager : MonoBehaviour
         messages3.Add("この調子でプレゼント作っていけば、クリスマスに間に合うよ！");
 
         Pauser.Pause();
-        commands.Add(new TutorialCommand(TutorialCommandType.Timeline, messages));
+        //commands.Add(new TutorialCommand(TutorialCommandType.Timeline, messages));
 
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages));
         commands.Add(new TutorialCommand(TutorialCommandType.Input, "EnterPresent"));
