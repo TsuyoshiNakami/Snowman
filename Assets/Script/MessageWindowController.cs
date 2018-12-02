@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using DG.Tweening;
 
 [System.Serializable]
 public class MessageWindowImage
