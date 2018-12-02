@@ -137,6 +137,9 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages2));
 
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages3));
+        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TaubeFallAnime"));  
+        commands.Add(new OpeningCommand(OpeningCommandType.Method, "HideTaubeStar"));  
+        
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Tim Surprised"));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
@@ -150,6 +153,21 @@ public class OpeningManager : MonoBehaviour
 
         NextAction();
     }
+
+    void HideTaubeStar()
+    {
+        GameObject.Find("TaubeStar").SetActive(false);
+    }
+    public void StartTaubeFallAnime()
+    {
+        StartCoroutine(TaubeFallAnime());
+    }
+    IEnumerator TaubeFallAnime()
+    {
+        yield return null;
+    }
+
+
 
     public void StartSignboardAnime()
     {
@@ -219,6 +237,7 @@ public class OpeningManager : MonoBehaviour
                 break;
             case OpeningCommandType.Method:
                 Invoke(command.msg[0], 0);
+                NextAction();
                 break;
         }
     }
