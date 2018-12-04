@@ -126,6 +126,7 @@ MonoBehaviour:
   carryMultiplier: 1
   holdObj: {fileID: 0}
   hasBeThrew: 0
+  isInParachute: 0
 --- !u!114 &114969378744043348
 MonoBehaviour:
   m_ObjectHideFlags: 1

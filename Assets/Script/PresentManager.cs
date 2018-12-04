@@ -73,6 +73,7 @@ public class PresentManager : MonoBehaviour {
         int index = Random.Range(0, kindOfPresents.Count);
         GameObject newPresentObj = diContainer.InstantiatePrefab(kindOfPresents[index]);
         newPresentObj.transform.position = pos;
+        newPresentObj.transform.localScale = Vector3.one / 2;
 
         //Instantiate(, pos, transform.rotation);
 

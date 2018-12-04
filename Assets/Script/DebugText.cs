@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum DebugTextType
 {
@@ -13,7 +14,7 @@ public enum DebugTextType
 }
 
 public class DebugText : MonoBehaviour {
-    Text text;
+    TextMeshProUGUI text;
     PlayerController playerController;
     [SerializeField] SnowBallNormal snowBall;
     [SerializeField] DebugTextType type = DebugTextType.ThrowPower;
@@ -21,7 +22,7 @@ public class DebugText : MonoBehaviour {
     void Start()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        text = GetComponent<Text>();
+        text = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
