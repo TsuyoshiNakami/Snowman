@@ -428,35 +428,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGM:
   - soundName: Main
-    clip: {fileID: 8300000, guid: 6701fd02ed0437643a9f21ae03e14fba, type: 3}
+    clip: {fileID: 8300000, guid: 0f1ebff4631e70a4e9ed4d562837c985, type: 3}
     volume: 0.443
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 1
-  - soundName: BossBattle
-    clip: {fileID: 8300000, guid: d33cd20c8156c7443b8b854e25ef3461, type: 3}
+  - soundName: Op1
+    clip: {fileID: 8300000, guid: e4f7843896458de46bdc0314d770b33e, type: 3}
     volume: 0.455
     intro: 1
     introLength: 4
     canBeInterrupted: 0
     loop: 0
-  - soundName: BossBattleIntro
-    clip: {fileID: 8300000, guid: 24b1690a7204ee642be78b87838e92b2, type: 3}
+  - soundName: Op2
+    clip: {fileID: 8300000, guid: 8324ccdcd1e18204db4096fd82966495, type: 3}
     volume: 0.651
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
-  - soundName: FirePlace01
-    clip: {fileID: 8300000, guid: 0cbe244a724150844aecaa1db641f585, type: 3}
+  - soundName: Op3
+    clip: {fileID: 8300000, guid: 0393c6a12ca7e944f9fc84e349fba436, type: 3}
     volume: 0.651
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
-  - soundName: FirePlace02
-    clip: {fileID: 8300000, guid: 232f8043a0d628a46b87b1c33957060e, type: 3}
+  - soundName: Op4
+    clip: {fileID: 8300000, guid: 85b33575ec66337488f1f6dce9def749, type: 3}
     volume: 0.651
     intro: 0
     introLength: 0

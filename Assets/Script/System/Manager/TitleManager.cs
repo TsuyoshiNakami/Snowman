@@ -19,6 +19,8 @@ public class TitleManager : MonoBehaviour {
     [SerializeField] GameObject titleUI;
 
     [SerializeField]GameObject startButton;
+    [SerializeField] GameObject titleImage;
+
     SoundManager soundManager; 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +30,9 @@ public class TitleManager : MonoBehaviour {
         {
             Destroy(GameObject.Find("Main Camera"));
             SceneManager.LoadScene("Opening", LoadSceneMode.Additive);
+        } else
+        {
+            titleImage.SetActive(true);
         }
 	}
 	

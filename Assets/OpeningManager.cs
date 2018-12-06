@@ -13,7 +13,8 @@ enum OpeningCommandType
     Input,
     ToGame,
     Wait,
-    Method
+    Method,
+    PlaySound,
 }
 
 enum OpeningCommandMode
@@ -76,24 +77,27 @@ public class OpeningManager : MonoBehaviour
     private void Start()
     {
         timAnim = GameObject.Find("Tim").GetComponent<Animator>();
+        timAnim.SetTrigger("Pat");
         messageWindowController.autoScroll = true;
 
         messageWindowController.OnReceiveCommand.Subscribe(cmd =>
         {
-            if(cmd[0] == "Anim")
+            if (cmd[0] == "Anim")
             {
-                switch(cmd[1])
+                switch (cmd[1])
                 {
                     case "Tim":
-                    timAnim.SetTrigger(cmd[2]);
+                        timAnim.SetTrigger(cmd[2]);
                         break;
                     case "SnowmanOp":
                         Debug.Log("Anime SnowmanOP ");
                         float a;
-                        if (float.TryParse(cmd[2], out a)) {
+                        if (float.TryParse(cmd[2], out a))
+                        {
                             GameObject.Find("SnowmanOp").GetComponent<Animator>().speed = float.Parse(cmd[2]);
 
-                        } else
+                        }
+                        else
                         {
                             GameObject.Find("SnowmanOp").GetComponent<Animator>().SetTrigger(cmd[2]);
                         }
@@ -109,7 +113,7 @@ public class OpeningManager : MonoBehaviour
     }
     void InitializeCommands()
     {
-                List<string> messages = new List<string>();
+        List<string> messages = new List<string>();
         messages.Add("@Face Tim");
         messages.Add("マスター、どこいっちゃったの…");
         messages.Add("@Anim Tim LookUp");
@@ -133,38 +137,49 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "OpeningCamera"));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages));
+        commands.Add(new OpeningCommand(OpeningCommandType.PlaySound, "Op2"));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
-
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages2));
 
+
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages3));
-        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TaubeFallAnime"));  
-        commands.Add(new OpeningCommand(OpeningCommandType.Method, "HideTaubeStar"));  
-        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "1"));
-        
+        //commands.Add(new OpeningCommand(OpeningCommandType.PlaySound, "Op3"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TaubeFallAnime"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Method, "HideTaubeStar"));
+
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Tim Surprised"));
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "3"));
+        commands.Add(new OpeningCommand(OpeningCommandType.PlaySound, "Op4"));
 
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "ShakeTaube"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim SnowmanOp Flyout"));
 
         commands.Add(new OpeningCommand(OpeningCommandType.Input, "TimSuprisedBySnowman"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages4, OpeningCommandMode.Through));
-        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));  
+        commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "StartSignboardAnime"));
     }
     public void StartOpening()
     {
 
+        TimOpening tim = GameObject.Find("Tim").GetComponent<TimOpening>();
 
-        NextAction();
+        tim.patSound = false;
+        tim.OnHitSnowman.First().Subscribe(_ =>
+        {
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayBGM("Op1");
+            tim.OnHitSnowman.First().Subscribe(_2 =>
+           {
+               NextAction();
+           });
+        });
     }
 
     void HideTaubeStar()
     {
         GameObject.Find("TaubeStar").SetActive(false);
-                NextAction();
+        NextAction();
     }
     public void StartTaubeFallAnime()
     {
@@ -186,9 +201,9 @@ public class OpeningManager : MonoBehaviour
         Vector3 initPos = taubeObj.transform.position;
         float shakeRange = 0.1f;
         float interval = 0.05f;
-        for(int i = 0; i < 1 / interval; i++)
+        for (int i = 0; i < 1 / interval; i++)
         {
-            taubeObj.transform.position = 
+            taubeObj.transform.position =
                 initPos + new Vector3(UnityEngine.Random.Range(-shakeRange, shakeRange),
                                         UnityEngine.Random.Range(-shakeRange, shakeRange));
             yield return new WaitForSeconds(interval);
@@ -205,15 +220,15 @@ public class OpeningManager : MonoBehaviour
     IEnumerator SignboardAnime()
     {
         Animator anime = GameObject.Find("Signboard").GetComponent<Animator>();
-        
+
         anime.speed = 3;
         yield return new WaitForSeconds(1);
         float v = 0.01f;
-        while(true)
+        while (true)
         {
             v += 0.015f;
             anime.speed -= v;
-            if(anime.speed < 0.5f)
+            if (anime.speed < 0.5f)
             {
                 break;
             }
@@ -224,7 +239,7 @@ public class OpeningManager : MonoBehaviour
         GameObject taubeObj = GameObject.FindGameObjectWithTag("Player");
         taubeObj.GetComponent<PlayerController>().activeSts = true;
         yield return new WaitForSeconds(0.5f);
-                NextAction();
+        NextAction();
     }
 
     void PlayCommand(OpeningCommand command)
@@ -270,6 +285,10 @@ public class OpeningManager : MonoBehaviour
                 break;
             case OpeningCommandType.Method:
                 Invoke(command.msg[0], 0);
+                break;
+            case OpeningCommandType.PlaySound:
+                GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayBGM(command.msg[0]);
+                NextAction();
                 break;
         }
     }

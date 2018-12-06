@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UniRx;
 
 namespace naichilab
 {
@@ -15,9 +16,15 @@ namespace naichilab
 		[NonSerialized]
 		public IScore Score;
 
-		#region singleton
+        Subject<Unit> closeRankingSubject = new Subject<Unit>();
+        public IObservable<Unit> OnCloseRanking
+        {
+            get { return closeRankingSubject; }
+        }
 
-		private static RankingLoader instance;
+        #region singleton
+
+        private static RankingLoader instance;
 
 		public static RankingLoader Instance {
 			get {
@@ -57,7 +64,20 @@ namespace naichilab
 		private void LoadRankingScene ()
 		{			
 			SceneManager.LoadScene ("Ranking", LoadSceneMode.Additive);
+            SceneManager.sceneLoaded += OnRankingLoaded;
 		}
+        
+        void OnRankingLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "Ranking")
+            {
+                GameObject.Find("RankingSceneManager").GetComponent<RankingSceneManager>().OnCloseRanking.Subscribe(_ =>
+                {
+                    closeRankingSubject.OnNext(Unit.Default);
+                });
+            }
+
+        }
 
 		public IScore BuildScore (string scoreText)
 		{

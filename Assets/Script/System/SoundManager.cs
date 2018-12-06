@@ -44,16 +44,12 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		if (!BGM_ON) {
 			return;
 		}
-		PlayBGM ("Title");
-		//Aus2.volume = 0;
 	}
 	public void Init() {
 		if (!BGM_ON) {
 			return;
 		}
-		if (Aus.clip.name != "Stage1" && Aus.clip.name != "PreEnding") {
-			PlayBGM ("Stage1Only");
-		}
+
 		pitchDown = 0;
 		Aus.pitch = 1;
 		//Aus2.pitch = 1;
@@ -80,6 +76,7 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		AusIntro = transform.Find("BGMIntro").gameObject.GetComponent<AudioSource>();
 		Aus.timeSamples = 0;
 		bool isIntro = false;
+        bool isLoop = false;
 		float introTime = 0f;
 		foreach (SoundInfo si in BGM) {
 
@@ -87,10 +84,10 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 				Aus.clip = si.clip;
 				Aus.volume = si.volume;
 				initBGMVolume = Aus.volume;
+                    isLoop = si.loop;
 				if (si.intro) {
 					introTime = si.introLength;
 					isIntro = true;
-
 					foreach (SoundInfo siIntro in BGM) {
 						//	Debug.Log (soundName + "Intro");
 						if (siIntro.soundName == soundName + "Intro") {
@@ -106,9 +103,13 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		if (isIntro) {
 			Play (AusIntro, false);
 			Invoke ("PlayBGMAfterIntro", introTime);
-		} else	if(Aus) {
-			Play (Aus, true);
-		}
+		} else	if(Aus.clip != null) {
+			Play (Aus, isLoop);
+            Debug.Log("Play BGM :" + Aus.clip);
+		} else
+        {
+            Debug.LogAssertion(soundName + " is null.");
+        }
 	}
 	public void PlayBGM(string soundName, bool isLoop) {
 		fadeOut = 0;

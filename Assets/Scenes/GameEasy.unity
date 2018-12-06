@@ -5162,7 +5162,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1906968513}
-        m_MethodName: OpenRanking
+        m_MethodName: OnOpenRanking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5913,7 +5913,7 @@ MonoBehaviour:
   initScore: 0
   enablePresentEmit: 0
   gameFinished: 0
-  initialTimeLimit: 90
+  initialTimeLimit: 30
 --- !u!114 &948654915
 MonoBehaviour:
   m_ObjectHideFlags: 0

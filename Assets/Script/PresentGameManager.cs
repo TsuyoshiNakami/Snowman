@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using Zenject;
 using Tsuyomi.Yukihuru.Scripts.Utilities;
+using naichilab;
 
 public class PresentGameManager : MonoBehaviour
 {
@@ -111,7 +112,7 @@ public class PresentGameManager : MonoBehaviour
         {
             if (Input.GetButtonDown(KeyConfig.Jump))
             {
-                CloseRanking();
+                OnCloseRanking();
             }
         }
         if (!isTimerAvailable)
@@ -143,9 +144,12 @@ public class PresentGameManager : MonoBehaviour
         resultWindow.ShowResult();
         enablePresentEmit = true;
         gameDirector.OnTimerEnd();
+        GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking.Subscribe(_ => {
+            OnCloseRanking();
+        });
     }
 
-    public void OpenRanking()
+    public void OnOpenRanking()
     {
         resultWindow.SetButtonsInteractive(false);
         isRankingOpen = true;
@@ -154,10 +158,10 @@ public class PresentGameManager : MonoBehaviour
         //SceneManager.LoadScene("RankingAdditive", LoadSceneMode.Additive);
     }
 
-    public void CloseRanking()
+    public void OnCloseRanking()
     {
         resultWindow.SetButtonsInteractive(true);
-        SceneManager.UnloadSceneAsync("RankingAdditive");
+        //SceneManager.UnloadSceneAsync("RankingAdditive");
         isRankingOpen = false;
         resultWindow.InitButtonFocus();
     }

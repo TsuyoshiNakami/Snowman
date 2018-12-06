@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Linq;
 using NCMB;
 using NCMB.Extensions;
+using UniRx;
 
 namespace naichilab
 {
@@ -35,6 +36,13 @@ namespace naichilab
 
 		private const string RankingDataClassName = "RankingData";
 		private NCMBObject highScoreSpreadSheetObject;
+
+
+        Subject<Unit> closeRankingSubject = new Subject<Unit>();
+        public IObservable<Unit> OnCloseRanking
+        {
+            get { return closeRankingSubject; }
+        }
 
 		/// <summary>
 		/// 入力した名前
@@ -192,6 +200,7 @@ namespace naichilab
 		public void OnCloseButtonClick ()
 		{
 			this.closeButton.interactable = false;
+            closeRankingSubject.OnNext(Unit.Default);
 			UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync ("Ranking");
 		}
 

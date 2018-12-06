@@ -190,7 +190,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1876383948184458}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.85, z: 0}
+  m_LocalPosition: {x: 0, y: -0.23, z: 0}
   m_LocalScale: {x: 0.75, y: 1.11, z: 1}
   m_Children: []
   m_Father: {fileID: 4776894288482520}
@@ -217,7 +217,7 @@ Transform:
   m_GameObject: {fileID: 1594243796774828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.08, y: -0.1, z: 0}
-  m_LocalScale: {x: 0.75, y: 1.11, z: 1}
+  m_LocalScale: {x: 0.38, y: 0.66, z: 1}
   m_Children: []
   m_Father: {fileID: 4776894288482520}
   m_RootOrder: 4
@@ -294,8 +294,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1179641112711232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18, y: -0.03, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0.18, y: 0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children:
   - {fileID: 4500451252318158}
   m_Father: {fileID: 4776894288482520}
@@ -308,7 +308,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1674221623693864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.76, y: -1.15, z: 0}
+  m_LocalPosition: {x: 4.73, y: -4.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4011520399456598}
@@ -429,7 +429,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.2, y: -0.2}
+  m_Offset: {x: 0.2, y: 0.31}
   serializedVersion: 2
   m_Radius: 0.66
 --- !u!61 &61500504858740464
@@ -571,31 +571,31 @@ MonoBehaviour:
   isStarted: 1
   slidePower: 1
   snowParticle: {fileID: 0}
-  maxThrowPower: 30
+  maxThrowPower: 15
   initHpMax: 8
-  initSpeed: 11
+  initSpeed: 6.5
   defaultThrowObj: {fileID: 1788969347490714, guid: 0fd3d6fed763c1b42bd1c25137c8b5d6,
     type: 2}
   cameraOffset: {x: 0, y: 0}
   msgWindow: {fileID: 0}
   damageEffect: {fileID: 0}
   throwPoint: {fileID: 0}
-  jumpUpPower: 105
   freeVectorCursorSpeed: 15
+  jumpUpPower: 52.5
   preparationToJump: 0
   jumpPower: 22
   jumpTimeMax: 0.2
   jumpPowers:
   - 1
-  - 7
-  - 7
+  - 3.5
+  - 3.5
   - 0
   - 0
   throwType: 3
   autoCursorTimeToVertical: 1
   autoCursorBothWays: 1
   autoCursorSpeedAdjust: 1
-  maxThrowHeight: 10
+  maxThrowHeight: 5
   canThrowSnowBall: 0
 --- !u!114 &114667737013636522
 MonoBehaviour:
