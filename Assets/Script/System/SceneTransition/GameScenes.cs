@@ -7,5 +7,7 @@
     Recipes,
     Ranking,
     RankingAdditive,
-    Tutorial
+    Tutorial,
+    Opening,
+    OpeningBase
 }

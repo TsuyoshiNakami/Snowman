@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Tsuyomi.Yukihuru.Scripts.Utilities;
 
 public enum TitleState
 {
@@ -20,6 +21,7 @@ public class TitleManager : MonoBehaviour {
 
     [SerializeField]GameObject startButton;
     [SerializeField] GameObject titleImage;
+    [SerializeField] GameObject openingButton;
 
     SoundManager soundManager; 
 	// Use this for initialization
@@ -30,8 +32,10 @@ public class TitleManager : MonoBehaviour {
         {
             Destroy(GameObject.Find("Main Camera"));
             SceneManager.LoadScene("Opening", LoadSceneMode.Additive);
+            openingButton.SetActive(false);
         } else
         {
+            openingButton.SetActive(true);
             titleImage.SetActive(true);
         }
 	}
@@ -84,5 +88,13 @@ public class TitleManager : MonoBehaviour {
             titleUI.SetActive(false);
             GameObject.Find("OpeningManager").GetComponent<OpeningManager>().StartOpening();
         }
+    }
+
+
+    public void OnOpeningButtonClicked()
+    {
+            titleUI.SetActive(false);
+            SceneLoader.LoadScene(GameScenes.OpeningBase,additiveLoadScenes: new GameScenes[] { GameScenes.Opening });
+
     }
 }

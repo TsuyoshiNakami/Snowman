@@ -38,6 +38,7 @@ public class PlayerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (!plyCtrl.isStarted)
             return;
 
@@ -53,6 +54,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             return;
         }
+        Debug.Log("Enable Move");
         //上下入力で話しかける
         if (Input.GetButtonDown("Vertical") && false)
         {

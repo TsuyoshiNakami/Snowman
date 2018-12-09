@@ -21,6 +21,9 @@ public class PresentGameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI startText;
     [SerializeField] int initScore = 0;
     [SerializeField] PauseWindow pauseWindow;
+    [SerializeField] NumberDisplay scoreDisplay;
+    [SerializeField] NumberDisplay timerDisplay;
+
 #if Engineer
     Player player;
 #endif
@@ -129,6 +132,8 @@ public class PresentGameManager : MonoBehaviour
             }
         }
 
+        scoreDisplay.SetNumber(score);
+        timerDisplay.SetNumber((int)Mathf.Ceil(TimeLimit));
         if (gameFinished)
         {
             return;

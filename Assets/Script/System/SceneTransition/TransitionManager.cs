@@ -76,6 +76,7 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities.Transition
             }
             fade.FadeIn(1, null);
             yield return new WaitForSeconds(1);
+            Pauser.Resume();
             yield return SceneManager.LoadSceneAsync(nextScene.ToString(), LoadSceneMode.Single);
 
             if (additiveLoadScenes != null)
@@ -86,7 +87,6 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities.Transition
 
             yield return null;
 
-            Pauser.Resume();
             Resources.UnloadUnusedAssets();
             GC.Collect();
 

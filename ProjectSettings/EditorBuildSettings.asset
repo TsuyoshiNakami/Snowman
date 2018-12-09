@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Recipes.unity
     guid: b9155a5c90f61c04fa61d342a10bb484
+  - enabled: 1
+    path: Assets/Scenes/OpeningBase.unity
+    guid: 09e802da0b7c2ff4f93ab882cb0f6d7e
   - enabled: 0
     path: Assets/Scenes/old/Ranking.unity
     guid: 33307818ed13d03439099ed234b44c6b

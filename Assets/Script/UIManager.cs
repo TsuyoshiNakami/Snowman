@@ -7,14 +7,25 @@ using UniRx;
 public class UIManager : MonoBehaviour {
 
     static List<Text> texts;
+    static List<NumberDisplay> numberDisplays;
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("uimanager");
         texts = new List<Text>();
+        numberDisplays = new List<NumberDisplay>();
+
         GameObject[] uis = GameObject.FindGameObjectsWithTag("ui");
         foreach(GameObject ui in uis)
         {
-            texts.Add(ui.GetComponent<Text>());
+            if (ui.GetComponent<Text>() != null)
+            {
+                texts.Add(ui.GetComponent<Text>());
+            }
+            if(ui.GetComponent<NumberDisplay>() != null)
+            {
+                numberDisplays.Add(ui.GetComponent<NumberDisplay>());
+            }
         }
 
         this.ObserveEveryValueChanged(score => PresentGameManager.score)

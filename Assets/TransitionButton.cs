@@ -33,6 +33,10 @@ public class TransitionButton : MonoBehaviour {
         soundManager.PlaySEOneShot("Decide");
         switch (scene)
         {
+            case GameScenes.Title:
+                soundManager.FadeOut(1);
+                    SceneLoader.LoadScene(scene);
+                break;
             case GameScenes.Tutorial:
                 if (ES3.Load<bool>("Tutorial", false))
                 {

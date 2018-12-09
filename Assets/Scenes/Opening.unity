@@ -721,6 +721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844e9f1ffbfaad345a39d7e83e9ba346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patSound: 1
 --- !u!1001 &173672975
 Prefab:
   m_ObjectHideFlags: 0
@@ -1871,12 +1872,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 212710558329197618, guid: 52f7ace6197286b4da6dce7f784dc9bd,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 427e6430adad2f049a8f14a8e2ceac89,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
   m_IsPrefabAsset: 0

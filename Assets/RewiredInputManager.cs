@@ -12,16 +12,21 @@ public class RewiredInputManager : MonoBehaviour
     void Start()
     {
 #if Engineer
+        if(eventSystemRewired != null) {
         eventSystemRewired.SetActive(true);
+        }
         if (rewiredInputManager == null)
         {
-            rewiredInputManager = gameObject;
+        //    rewiredInputManager = gameObject;
         }else
         {
             Destroy(gameObject);
         }
 #else
-        eventSystemDefault.SetActive(true);
+        if (eventSystemDefault != null)
+        {
+            eventSystemDefault.SetActive(true);
+        }
         Destroy(gameObject);
 #endif
     }
