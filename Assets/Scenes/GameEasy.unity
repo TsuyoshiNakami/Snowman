@@ -5419,12 +5419,12 @@ Prefab:
     - target: {fileID: 224493773114622174, guid: 65074cce0cdf7e6448eb31e8a65f2ef6,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -318
+      value: -425
       objectReference: {fileID: 0}
     - target: {fileID: 224493773114622174, guid: 65074cce0cdf7e6448eb31e8a65f2ef6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 35
+      value: 129
       objectReference: {fileID: 0}
     - target: {fileID: 224493773114622174, guid: 65074cce0cdf7e6448eb31e8a65f2ef6,
         type: 2}
@@ -5469,6 +5469,16 @@ Prefab:
     - target: {fileID: 1329013457168792, guid: 65074cce0cdf7e6448eb31e8a65f2ef6, type: 2}
       propertyPath: m_Name
       value: ScoreDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 224493773114622174, guid: 65074cce0cdf7e6448eb31e8a65f2ef6,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 224493773114622174, guid: 65074cce0cdf7e6448eb31e8a65f2ef6,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65074cce0cdf7e6448eb31e8a65f2ef6, type: 2}
