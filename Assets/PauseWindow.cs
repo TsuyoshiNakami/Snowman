@@ -16,16 +16,11 @@ public class PauseWindow : MonoBehaviour {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        if(presentGameManager.gameFinished)
-        {
-            return;
-        }
-		if(Input.GetButtonDown(KeyConfig.Home))
-        {
-            
-            if (pauseWindowObj.activeInHierarchy)
+
+
+    public void OnHomeButtonPressed()
+    {
+        if (pauseWindowObj.activeInHierarchy)
             {
                 Pauser.Resume();
                 soundManager.PlayBGM();
@@ -39,16 +34,13 @@ public class PauseWindow : MonoBehaviour {
                     pauseWindowObj.SetActive(true);
                 }
             }
-        }
+    }
 
-
-        if(Input.GetButtonDown(KeyConfig.Decide))
-        {
+    public void OnDecideButtonPressed()
+    {
             if (pauseWindowObj.activeInHierarchy)
             {
-
                 SceneLoader.LoadScene(GameScenes.Title);
             }
-        }
-	}
+    }
 }

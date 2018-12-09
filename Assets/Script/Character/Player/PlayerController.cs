@@ -619,14 +619,14 @@ public class PlayerController : BaseCharacterController
     }
 
     //ジャンプ
-    public void JumpButtonDown()
+    public void JumpButtonDown(bool fireButtonDown)
     {
         //if (rbody2D.velocity.y > 0) return;
 
         if (grounded)
         {
 
-            if (!Input.GetButtonDown(KeyConfig.Fire1))
+            if (!fireButtonDown)
             {
                 spriteObj.transform.rotation = transform.rotation;
                 if(preparationToJump)

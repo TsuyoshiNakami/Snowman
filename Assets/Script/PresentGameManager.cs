@@ -8,6 +8,11 @@ using Zenject;
 using Tsuyomi.Yukihuru.Scripts.Utilities;
 using naichilab;
 
+#if Engineer
+using Rewired;
+#endif
+
+
 public class PresentGameManager : MonoBehaviour
 {
     public static int score = 0;
@@ -15,6 +20,11 @@ public class PresentGameManager : MonoBehaviour
     [SerializeField] ResultManager resultWindow;
     [SerializeField] TextMeshProUGUI startText;
     [SerializeField] int initScore = 0;
+    [SerializeField] PauseWindow pauseWindow;
+#if Engineer
+    Player player;
+#endif
+
     Subject<Unit> timerSubject = new Subject<Unit>();
     SoundManager soundManager;
     public bool enablePresentEmit = false;
@@ -63,6 +73,9 @@ public class PresentGameManager : MonoBehaviour
         score = initScore;
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         soundManager.PlayBGM("Main");
+#if Engineer
+        player = ReInput.players.GetPlayer(0);
+#endif
         StartCountDown();
         playerController = PlayerController.GetController();
         RankingManager.hasSendRanking = false;
@@ -115,10 +128,43 @@ public class PresentGameManager : MonoBehaviour
                 OnCloseRanking();
             }
         }
+
+        if (gameFinished)
+        {
+            return;
+        }
+
+
+#if Engineer
+        if (player.GetButtonDown("Decide"))
+        {
+            pauseWindow.OnDecideButtonPressed();
+        }
+
+        if(player.GetButtonDown("Home"))
+        {
+            pauseWindow.OnHomeButtonPressed();
+        }
+#else
+        if (Input.GetButtonDown(KeyConfig.Decide))
+        {
+            pauseWindow.OnDecideButtonPressed();
+        }
+
+        if (Input.GetButtonDown(KeyConfig.Home))
+        {
+            pauseWindow.OnHomeButtonPressed();
+        }
+#endif
+
+
         if (!isTimerAvailable)
         {
             return;
         }
+
+        
+
 
         if (Pauser.isPausing)
         {
