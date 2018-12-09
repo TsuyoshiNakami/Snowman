@@ -86,6 +86,7 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities.Transition
 
             yield return null;
 
+            Pauser.Resume();
             Resources.UnloadUnusedAssets();
             GC.Collect();
 

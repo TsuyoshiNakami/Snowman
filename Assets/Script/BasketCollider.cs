@@ -4,7 +4,8 @@ using UnityEngine;
 using System.Linq;
 using UniRx;
 
-public class BasketCollider : MonoBehaviour {
+public class BasketCollider : MonoBehaviour
+{
 
     Collider2D collider;
     Collider2D entranceCollider;
@@ -12,7 +13,8 @@ public class BasketCollider : MonoBehaviour {
     Collider2D[] oldCollider = new Collider2D[6];
 
     Subject<GameObject> ItemEnterSubject = new Subject<GameObject>();
-    public IObservable<GameObject> OnItemEnter {
+    public IObservable<GameObject> OnItemEnter
+    {
         get { return ItemEnterSubject; }
     }
 
@@ -20,14 +22,15 @@ public class BasketCollider : MonoBehaviour {
 
     int ballCount = 0;
     [SerializeField] int score = 1;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Awake()
+    {
 
         collider = GetComponent<BoxCollider2D>();
         entranceCollider = transform.Find("Entrance").GetComponentInChildren<BoxCollider2D>();
 
-	}
-	
+    }
+
 
     public void CheckCollision()
     {
@@ -76,6 +79,10 @@ public class BasketCollider : MonoBehaviour {
 
     void GetCollider()
     {
+        if (entranceCollider == null)
+        {
+            entranceCollider = transform.Find("Entrance").GetComponentInChildren<BoxCollider2D>();
+        }
         ContactFilter2D filter;
         Collider2D[] results = new Collider2D[6];
         filter = new ContactFilter2D();
@@ -86,7 +93,7 @@ public class BasketCollider : MonoBehaviour {
         {
             if (c == null) continue;
 
-            if(c.tag == "Throwable" && c.gameObject.GetComponent<Throwable>().hasBeThrew && !c.gameObject.GetComponent<Throwable>().IsTaken)
+            if (c.tag == "Throwable" && c.gameObject.GetComponent<Throwable>().hasBeThrew && !c.gameObject.GetComponent<Throwable>().IsTaken)
             {
                 nowCollider[count] = c;
                 count++;
@@ -95,6 +102,6 @@ public class BasketCollider : MonoBehaviour {
     }
     private void OnTriggerEnter2D(Collider2D c)
     {
-        
+
     }
 }
