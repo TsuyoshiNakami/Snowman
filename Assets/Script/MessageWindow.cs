@@ -10,8 +10,7 @@ public class MessageWindow : MonoBehaviour {
     [SerializeField] TMP_Text text;
 
 	// Use this for initialization
-	void Start () { 
-
+	void Start () {
 	}
 	
 	// Update is called once per frame

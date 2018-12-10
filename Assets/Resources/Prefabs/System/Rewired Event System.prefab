@@ -79,7 +79,7 @@ MonoBehaviour:
   submitActionId: -1
   cancelActionId: -1
   m_HorizontalAxis: Horizontal
-  m_VerticalAxis: UIVertical
+  m_VerticalAxis: Vertical
   m_SubmitButton: Decide
   m_CancelButton: Canel
   m_InputActionsPerSecond: 4.5

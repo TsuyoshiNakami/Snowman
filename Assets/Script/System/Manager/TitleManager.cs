@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Tsuyomi.Yukihuru.Scripts.Utilities;
+using naichilab;
+using UniRx;
+using Rewired;
 
 public enum TitleState
 {
@@ -12,48 +15,63 @@ public enum TitleState
     Menu,
     StageSelect
 }
-public class TitleManager : MonoBehaviour {
+public class TitleManager : MonoBehaviour
+{
 
     TitleState state = TitleState.PressStart;
     [SerializeField] GameObject pressStartText;
     [SerializeField] GameObject buttons;
     [SerializeField] GameObject titleUI;
 
-    [SerializeField]GameObject startButton;
+    [SerializeField] GameObject startButton;
     [SerializeField] GameObject titleImage;
+    [SerializeField] GameObject logoImage;
     [SerializeField] GameObject openingButton;
 
-    SoundManager soundManager; 
-	// Use this for initialization
-	void Start () {
-        soundManager = GameObject.Find("SoundManager"). GetComponent<SoundManager>();
+    bool isRankingOpen;
+    SoundManager soundManager;
+    Player player;
 
+    // Use this for initialization
+    void Start()
+    {
+        player = ReInput.players.GetPlayer(0);
+
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking.Subscribe(_ => {
+            OnCloseRanking();
+        });
         if (!ES3.KeyExists("Tutorial"))
         {
             Destroy(GameObject.Find("Main Camera"));
             SceneManager.LoadScene("Opening", LoadSceneMode.Additive);
             openingButton.SetActive(false);
-        } else
+        }
+        else
         {
             openingButton.SetActive(true);
             titleImage.SetActive(true);
+            logoImage.SetActive(true);
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
-        if (Input.GetButtonDown("Home") && state == TitleState.PressStart)
+    // Update is called once per frame
+    void Update()
+    {
+        if (isRankingOpen)
+            return;
+
+        if (player.GetButtonDown("Home") && state == TitleState.PressStart)
         {
             state = TitleState.Menu;
             pressStartText.SetActive(false);
             buttons.SetActive(true);
             soundManager.PlaySEOneShot("Decide");
-                 EventSystem.current.SetSelectedGameObject(startButton);
-                startButton.GetComponent<Button>().OnSelect(null);           
+            EventSystem.current.SetSelectedGameObject(startButton);
+            startButton.GetComponent<Button>().OnSelect(null);
         }
 
-        if(Input.GetButtonDown(KeyConfig.Cancel))
+        if (player.GetButtonDown("Jump"))
         {
             if (state == TitleState.Menu)
             {
@@ -62,8 +80,8 @@ public class TitleManager : MonoBehaviour {
                 buttons.SetActive(false);
 
             }
-            
-            if(state == TitleState.StageSelect)
+
+            if (state == TitleState.StageSelect)
             {
                 state = TitleState.Menu;
                 buttons.SetActive(true);
@@ -72,8 +90,7 @@ public class TitleManager : MonoBehaviour {
                 SceneManager.UnloadSceneAsync("StageSelect");
             }
         }
-
-	}
+    }
 
     public void OnGameStartButtonClicked()
     {
@@ -90,11 +107,25 @@ public class TitleManager : MonoBehaviour {
         }
     }
 
+    public void OnClickRankingButton()
+    {
+        isRankingOpen = true;
+        buttons.SetActive(false);
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(0);
+    }
+
+    void OnCloseRanking()
+    {
+        buttons.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(startButton);
+                startButton.GetComponent<Button>().OnSelect(null);
+        isRankingOpen = false;
+    }
 
     public void OnOpeningButtonClicked()
     {
-            titleUI.SetActive(false);
-            SceneLoader.LoadScene(GameScenes.OpeningBase,additiveLoadScenes: new GameScenes[] { GameScenes.Opening });
+        titleUI.SetActive(false);
+        SceneLoader.LoadScene(GameScenes.OpeningBase, additiveLoadScenes: new GameScenes[] { GameScenes.Opening });
 
     }
 }

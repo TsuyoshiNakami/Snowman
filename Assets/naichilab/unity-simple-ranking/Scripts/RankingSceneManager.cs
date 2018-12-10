@@ -5,6 +5,7 @@ using System.Linq;
 using NCMB;
 using NCMB.Extensions;
 using UniRx;
+using Rewired;
 
 namespace naichilab
 {
@@ -57,14 +58,25 @@ namespace naichilab
 			}
 		}
 
+        Player player;
+
 		void Start ()
 		{
+            player = ReInput.players.GetPlayer(0);
 			this.sendScoreButton.interactable = false;
 
 			StartCoroutine (GetHighScoreAndRankingBoard ());
 		}
 
-		IEnumerator GetHighScoreAndRankingBoard ()
+        private void Update()
+        {
+            if(player.GetButtonDown("Jump") || player.GetButtonDown("Home"))
+            {
+                OnCloseButtonClick();
+            }
+        }
+
+        IEnumerator GetHighScoreAndRankingBoard ()
 		{
 			this.scoreLabel.text = RankingLoader.Instance.Score.TextForDisplay;
 				

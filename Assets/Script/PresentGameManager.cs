@@ -126,7 +126,11 @@ public class PresentGameManager : MonoBehaviour
     {
         if (isRankingOpen)
         {
+#if Engineer
+            if (player.GetButtonDown("Jump"))
+#else
             if (Input.GetButtonDown(KeyConfig.Jump))
+#endif
             {
                 OnCloseRanking();
             }
@@ -191,13 +195,23 @@ public class PresentGameManager : MonoBehaviour
         gameFinished = true;
         playerController.activeSts = false;
         presentManager.DeleteAllPresents();
-        resultWindow.gameObject.SetActive(true);
-        resultWindow.ShowResult();
+
         enablePresentEmit = true;
         gameDirector.OnTimerEnd();
         GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking.Subscribe(_ => {
             OnCloseRanking();
         });
+        startText.text = "終了！";
+        startText.gameObject.SetActive(true);
+        Invoke("ShowResult", 2f);
+    }
+
+    void ShowResult()
+    {
+        startText.gameObject.SetActive(false);
+        resultWindow.gameObject.SetActive(true);
+        resultWindow.ShowResult();
+
     }
 
     public void OnOpenRanking()

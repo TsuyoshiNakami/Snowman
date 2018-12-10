@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: New Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300060, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300068, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300064, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300066, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300050, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300048, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300054, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300062, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300052, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300042, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300040, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300046, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300044, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300058, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300056, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300036, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300038, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300028, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300030, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300032, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300034, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300020, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300022, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300024, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300026, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300010, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300008, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300014, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300012, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300002, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300000, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300006, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300004, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300018, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  - {fileID: 21300016, guid: ab4c4eb239c2b77469faed7250f79373, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - bgset_01_32
+  - bgset_01_33
+  - bgset_01_30
+  - bgset_01_31
+  - bgset_01_25
+  - bgset_01_24
+  - bgset_01_27
+  - bgset_01_34
+  - bgset_01_26
+  - bgset_01_21
+  - bgset_01_20
+  - bgset_01_23
+  - bgset_01_22
+  - bgset_01_29
+  - bgset_01_28
+  - bgset_01_18
+  - bgset_01_19
+  - bgset_01_14
+  - bgset_01_15
+  - bgset_01_16
+  - bgset_01_17
+  - bgset_01_10
+  - bgset_01_11
+  - bgset_01_12
+  - bgset_01_13
+  - bgset_01_5
+  - bgset_01_4
+  - bgset_01_7
+  - bgset_01_6
+  - bgset_01_1
+  - bgset_01_0
+  - bgset_01_3
+  - bgset_01_2
+  - bgset_01_9
+  - bgset_01_8
+  m_Tag: New Sprite Atlas
+  m_IsVariant: 0

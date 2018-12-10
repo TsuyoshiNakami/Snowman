@@ -429,7 +429,7 @@ MonoBehaviour:
   BGM:
   - soundName: Main
     clip: {fileID: 8300000, guid: 0f1ebff4631e70a4e9ed4d562837c985, type: 3}
-    volume: 0.443
+    volume: 0.18
     intro: 0
     introLength: 0
     canBeInterrupted: 0

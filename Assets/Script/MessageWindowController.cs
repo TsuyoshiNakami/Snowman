@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using Rewired;
 
 [System.Serializable]
 public class MessageWindowImage
@@ -23,8 +24,11 @@ public class MessageWindowController : MonoBehaviour
     List<string> messages;
     int messageNum = 0;
     bool allMessageShown = false;
+    Player player;
+
     public bool isShowing = false;
     public bool autoScroll = false;
+
 
     Subject<Unit> messageFinishedSubject = new Subject<Unit>();
     public IObservable<Unit> OnMessageFinished
@@ -45,7 +49,7 @@ public class MessageWindowController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-
+        player = ReInput.players.GetPlayer(0);
         messageWindow = GetComponent<MessageWindow>();
         messages = new List<string>();
         hideWindow();
@@ -60,7 +64,7 @@ public class MessageWindowController : MonoBehaviour
         }
 
         UpdateText();
-        if (Input.GetButtonDown(KeyConfig.NextMessage))
+        if (player.GetButtonDown("Fire"))
         {
             OnMessageButtonDown();
         }
