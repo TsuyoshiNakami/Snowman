@@ -193,14 +193,14 @@ public class PresentGameManager : MonoBehaviour
     void OnTimerEnd()
     {
         gameFinished = true;
-        playerController.activeSts = false;
+        playerController.InitializeMotion();
+        Pauser.Pause();
+        //playerController.activeSts = false;
         presentManager.DeleteAllPresents();
 
         enablePresentEmit = true;
         gameDirector.OnTimerEnd();
-        GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking.Subscribe(_ => {
-            OnCloseRanking();
-        });
+
         startText.text = "終了！";
         startText.gameObject.SetActive(true);
         Invoke("ShowResult", 2f);
@@ -216,6 +216,13 @@ public class PresentGameManager : MonoBehaviour
 
     public void OnOpenRanking()
     {
+
+        GameObject.Find("RankingLoader").GetComponent<RankingLoader>()
+            .OnCloseRanking
+            .First()
+            .Subscribe(_ => {
+            OnCloseRanking();
+        });
         resultWindow.SetButtonsInteractive(false);
         isRankingOpen = true;
         naichilab.RankingLoader.Instance.SendScoreAndShowRanking(score);

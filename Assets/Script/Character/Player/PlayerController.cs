@@ -207,6 +207,17 @@ public class PlayerController : BaseCharacterController
         return Animator.StringToHash(path) == GetCurrentAnimation();
     }
 
+
+
+    public void InitializeMotion()
+    {
+        Move(0);
+        EndJumpUp();
+        ThrowCancel();
+        orbits.SetOrbitsActive(false);
+    }
+
+
     Vector2 oldVelocity = Vector2.zero;
     Throwable lastThrowable = null;
     protected override void FixedUpdateCharacter()
@@ -215,7 +226,6 @@ public class PlayerController : BaseCharacterController
 
         if(IsIdle)
         {
-
             UpdateIdleAnimation();
         }
         else
@@ -232,7 +242,6 @@ public class PlayerController : BaseCharacterController
             GameObject tmpThrowObj = FindThrowObj();
             if (tmpThrowObj != null)
             {
-
                 Throwable throwable = tmpThrowObj.GetComponent<Throwable>();
                 throwable.SetOutline(true);
                 lastThrowable = throwable;
@@ -418,6 +427,7 @@ public class PlayerController : BaseCharacterController
 
     void ShowOrbit()
     {
+
         if (throwObj == null)
         {
             return;
@@ -838,6 +848,9 @@ public class PlayerController : BaseCharacterController
     }
     public void ThrowCancel()
     {
+        anime.SetBool("ReadyToThrow", false);
+        soundManager.StopSE("ThrowChargeMax");
+        isReadyToThrow = false;
         anime.ResetTrigger("PreThrow");
         anime.SetTrigger("ThrowCancel");
         if (throwObj != null)
@@ -846,6 +859,7 @@ public class PlayerController : BaseCharacterController
             throwObj = null;
         }
         autoCursorTime = 0;
+        orbits.HideCaptureObj();
         spriteObj.transform.eulerAngles = Vector3.zero;
     }
     public void ThrowEnd()

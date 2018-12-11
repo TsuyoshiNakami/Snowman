@@ -44,9 +44,7 @@ public class PlayerInputManager : MonoBehaviour
 
         if (Pauser.isPausing)
         {
-            plyCtrl.Move(0);
-            plyCtrl.EndJumpUp();
-            plyCtrl.ThrowCancel();
+            plyCtrl.InitializeMotion();
             return;
         }
         //操作可能か
@@ -54,7 +52,6 @@ public class PlayerInputManager : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Enable Move");
         //上下入力で話しかける
         if (Input.GetButtonDown("Vertical") && false)
         {

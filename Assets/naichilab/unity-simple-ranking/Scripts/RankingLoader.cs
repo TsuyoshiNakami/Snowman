@@ -71,7 +71,7 @@ namespace naichilab
         {
             if (scene.name == "Ranking")
             {
-                GameObject.Find("RankingSceneManager").GetComponent<RankingSceneManager>().OnCloseRanking.Subscribe(_ =>
+                GameObject.Find("RankingSceneManager").GetComponent<RankingSceneManager>().OnCloseRanking.First().Subscribe(_ =>
                 {
                     closeRankingSubject.OnNext(Unit.Default);
                 });
