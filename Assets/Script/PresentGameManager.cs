@@ -23,6 +23,8 @@ public class PresentGameManager : MonoBehaviour
     [SerializeField] PauseWindow pauseWindow;
     [SerializeField] NumberDisplay scoreDisplay;
     [SerializeField] NumberDisplay timerDisplay;
+    [SerializeField] bool enableHurryUpMode;
+    [SerializeField] float hurryUpTime = 30;
 
 #if Engineer
     Player player;
@@ -44,10 +46,11 @@ public class PresentGameManager : MonoBehaviour
         get { return timerSubject; }
     }
 
-    float timeLimit = 0;
-    bool isRankingOpen = false;
-    public bool gameFinished = false;
-    [System.NonSerialized] public bool isTimerAvailable = false;
+    float timeLimit;
+    bool isRankingOpen;
+    bool isHurryUpMode;
+    public bool gameFinished;
+    [System.NonSerialized] public bool isTimerAvailable;
 
     [SerializeField, Header("制限時間")] public  float initialTimeLimit = 90;
     [Inject]
@@ -69,6 +72,7 @@ public class PresentGameManager : MonoBehaviour
             //SceneManager.LoadScene(GameScenes.GameEasy.ToString(), LoadSceneMode.Additive);
         }
     }
+
     private void Start()
     {
 
@@ -172,14 +176,21 @@ public class PresentGameManager : MonoBehaviour
             return;
         }
 
-        
-
-
         if (Pauser.isPausing)
         {
             return;
         }
         timeLimit -= Time.deltaTime;
+
+        //急いでモード
+        if(enableHurryUpMode && !isHurryUpMode && timeLimit <= hurryUpTime)
+        {
+            isHurryUpMode = true;
+            gameDirector.HurryUp();
+            StartCoroutine(ShowHurryUpText());
+        }
+
+        //時間切れ判定
         if (timeLimit <= 0)
         {
             timerSubject.OnNext(Unit.Default);
@@ -187,9 +198,15 @@ public class PresentGameManager : MonoBehaviour
             OnTimerEnd();
         }
         gameDirector.GameUpdate(timeLimit);
-
     }
 
+    IEnumerator ShowHurryUpText()
+    {
+        startText.text = "あと" + hurryUpTime + "秒！";
+        startText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        startText.gameObject.SetActive(false);
+    }
     void OnTimerEnd()
     {
         gameFinished = true;
@@ -211,7 +228,6 @@ public class PresentGameManager : MonoBehaviour
         startText.gameObject.SetActive(false);
         resultWindow.gameObject.SetActive(true);
         resultWindow.ShowResult();
-
     }
 
     public void OnOpenRanking()

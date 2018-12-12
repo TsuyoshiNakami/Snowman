@@ -75,6 +75,7 @@ public class TimPresentGame : MonoBehaviour {
     public void StartRun()
     {
         state = State.Run;
+        anime.SetTrigger("Run");
 
     }
     public void Move()

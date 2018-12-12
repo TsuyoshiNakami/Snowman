@@ -19,16 +19,25 @@ public class TimOpening : MonoBehaviour {
     }
 
     public bool patSound = true;
+    SoundManager soundManager;
 
+    private void Start()
+    {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    }
     public void HitSnowman()
     {
         if(patSound)
         {
-            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySE("TimPat");
+            soundManager.PlaySE("TimPat");
         }
         hitSnowmanSubject.OnNext(Unit.Default);
     }
 
+    public void OnBlink()
+    {
+            soundManager.PlaySE("TimBlink");
+    }
     public void SuprisedBySnowman()
     {
         suprisedBySnowmanSubject.OnNext(Unit.Default);

@@ -7,7 +7,7 @@ using Zenject;
 public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
 {
     Subject<Unit> generatePresentSubject = new Subject<Unit>();
-    [SerializeField]public float generateInterval;
+    [SerializeField] public float generateInterval;
     [SerializeField] List<GameObject> presentEmitPoints;
     [Inject]
     PresentManager presentManager;
@@ -25,10 +25,15 @@ public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
         }
     }
 
+    Animator timAnime;
     float generateTimer = 0;
-
+    bool hurryUpMode;
     [SerializeField] int maxPresentInView = 20;
 
+    private void Start()
+    {
+        timAnime = tim.GetComponent<Animator>();
+    }
     public void GameUpdate(float timeLimit)
     {
     }
@@ -45,29 +50,78 @@ public class PresentGameDirectorEasy : MonoBehaviour, IPresentGameDirector
                 {
                     TossPresent(point);
                 });
-                tim.OnTossAnimeEndEvent.First().Subscribe(_ =>
+
+                if (tim.runDest == null)
                 {
-                    tim.StartRun();
-                });
-                    if (tim.runDest == null)
-                    {
-                        tim.runDest = presentEmitPoints[point].transform;
-                    }
+                    tim.runDest = presentEmitPoints[point].transform;
+                }
             }
         }
 
         if (presentManager.NumberOfPresentInView >= maxPresentInView)
-            {
-                return;
-            }
+        {
+            return;
+        }
     }
 
     public void TossPresent(int point)
     {
-           GameObject newPresentObj = presentManager.EmitPresentRandom(tim.transform.position);
+
+
+        if (hurryUpMode)
+        {
+            StartCoroutine(TossPresentInHurryUp());
+        }
+        else
+        {
+            StartCoroutine(ITossPresent());
+        }
+    }
+
+    IEnumerator ITossPresent()
+    {
+        GameObject newPresentObj = presentManager.EmitPresentRandom(tim.transform.position);
+
+        tim.OnTossAnimeEndEvent.First().Subscribe(_ =>
+                {
+                    tim.StartRun();
+                });
+        yield return null;
+
+    }
+    IEnumerator TossPresentInHurryUp()
+    {
+        GameObject newPresentObj = presentManager.EmitPresentRandom(tim.transform.position);
+        bool flag = false;
+        tim.OnTossAnimeEndEvent.First().Subscribe(_ =>
+                {
+                    flag = true;
+                });
+        while (!flag)
+        {
+            yield return null;
+        }
+        timAnime.SetTrigger("Toss");
+
+        flag = false;
+        tim.OnTossEvent.First().Subscribe(_ =>
+                {
+                    newPresentObj = presentManager.EmitPresentRandom(tim.transform.position);
+                    tim.OnTossAnimeEndEvent.First().Subscribe(_2 =>
+                            {
+                                tim.StartRun();
+                            });
+                    flag = true;
+                });
+
     }
     public void OnTimerEnd()
     {
 
+    }
+
+    public void HurryUp()
+    {
+        hurryUpMode = true;
     }
 }

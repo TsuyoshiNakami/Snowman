@@ -729,9 +729,9 @@ MonoBehaviour:
     - {fileID: 4311768867037096, guid: 549c387be79fa1949b4d77c59f6678a7, type: 2}
     - {fileID: 1518941588163624, guid: 549c387be79fa1949b4d77c59f6678a7, type: 2}
     - {fileID: 8300000, guid: 8324ccdcd1e18204db4096fd82966495, type: 3}
-    - {fileID: 8300000, guid: 0393c6a12ca7e944f9fc84e349fba436, type: 3}
+    - {fileID: 0}
     - {fileID: 21300022, guid: e9b96b7127003714db8a7a806236aea4, type: 3}
-    - {fileID: 8300000, guid: 85b33575ec66337488f1f6dce9def749, type: 3}
+    - {fileID: 0}
     - {fileID: 8300000, guid: a6981e955cb16f94d8d8a15fc3ad6604, type: 3}
     - {fileID: 8300000, guid: 4d6eb8dab20137140aad0b261b20b6a8, type: 3}
     - {fileID: 21300016, guid: e9b96b7127003714db8a7a806236aea4, type: 3}
@@ -2524,7 +2524,7 @@ Prefab:
     - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
         type: 2}
       propertyPath: SE.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4650601904414684, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2592,7 +2592,7 @@ Prefab:
         type: 2}
       propertyPath: SE.Array.data[7].clip
       value: 
-      objectReference: {fileID: 8300000, guid: e0042b104ff87f441998c9ec6d38d98f, type: 3}
+      objectReference: {fileID: 8300000, guid: 7f5038fa8d40f8a4ab0a1f3f2835c9eb, type: 3}
     - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
         type: 2}
       propertyPath: SE.Array.data[7].volume
@@ -2622,6 +2622,41 @@ Prefab:
         type: 2}
       propertyPath: BGM.Array.data[4].volume
       value: 0.667
+      objectReference: {fileID: 0}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: BGM.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ec87bd043fd99014c9f7abdfcaa653fe, type: 3}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: BGM.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b575ebe53c3963945a471c6f59a94ae3, type: 3}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: BGM.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 54f43f27b677764458968b867c5e6e84, type: 3}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: BGM.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d831c8e273d784409cee3f011892037, type: 3}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: SE.Array.data[8].soundName
+      value: TimBlink
+      objectReference: {fileID: 0}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: SE.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ccf0ef1db10c4b74cb49e22b7bb8cd09, type: 3}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: SE.Array.data[8].volume
+      value: 0.643
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}

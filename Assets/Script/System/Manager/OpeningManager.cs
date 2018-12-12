@@ -6,70 +6,14 @@ using UniRx;
 using System;
 using Tsuyomi.Yukihuru.Scripts.Utilities;
 
-enum OpeningCommandType
-{
-    Message,
-    Timeline,
-    Input,
-    ToGame,
-    Wait,
-    Method,
-    PlaySound,
-}
 
-enum OpeningCommandMode
-{
-    Wait,
-    Through
-}
-struct OpeningCommand
-{
-    public OpeningCommandType type;
-    public List<string> msg;
-    public OpeningCommandMode mode;
-
-    public OpeningCommand(OpeningCommandType _type, List<string> _msg)
-    {
-        type = _type;
-        msg = _msg;
-        mode = OpeningCommandMode.Wait;
-    }
-    public OpeningCommand(OpeningCommandType _type, List<string> _msg, OpeningCommandMode _mode)
-    {
-        type = _type;
-        msg = _msg;
-        mode = _mode;
-    }
-
-
-    public OpeningCommand(OpeningCommandType _type, string _msg)
-    {
-        type = _type;
-        List<string> tmp = new List<string>();
-        tmp.Add(_msg);
-        msg = tmp;
-        mode = OpeningCommandMode.Wait;
-    }
-    public OpeningCommand(OpeningCommandType _type, string _msg, OpeningCommandMode _mode)
-    {
-        type = _type;
-        List<string> tmp = new List<string>();
-        tmp.Add(_msg);
-        msg = tmp;
-        mode = _mode;
-    }
-    public OpeningCommand(OpeningCommandType _type)
-    {
-        type = _type;
-        msg = new List<string>();
-        mode = OpeningCommandMode.Wait;
-    }
-}
 
 public class OpeningManager : MonoBehaviour
 {
     [SerializeField] MessageWindowController messageWindowController;
     [SerializeField] List<Playable> playables;
+    [SerializeField] bool skipOpening;
+    [SerializeField] bool autoStart;
     Animator timAnim;
     int actionCount = -1;
     List<OpeningCommand> commands = new List<OpeningCommand>();
@@ -87,7 +31,14 @@ public class OpeningManager : MonoBehaviour
                 switch (cmd[1])
                 {
                     case "Tim":
-                        timAnim.SetTrigger(cmd[2]);
+                        if (cmd[2] == "Force")
+                        {
+                            timAnim.Play(cmd[3]);
+                        }
+                        else
+                        {
+                            timAnim.SetTrigger(cmd[2]);
+                        }
                         break;
                     case "SnowmanOp":
                         Debug.Log("Anime SnowmanOP ");
@@ -109,7 +60,10 @@ public class OpeningManager : MonoBehaviour
             }
         });
         InitializeCommands();
-        //StartOpening();
+        if (autoStart)
+        {
+            StartOpening();
+        }
     }
     void InitializeCommands()
     {
@@ -131,6 +85,19 @@ public class OpeningManager : MonoBehaviour
         messages4.Add("@Anim Tim RunAway");
         messages4.Add("うわあああ！");
 
+        if(skipOpening)
+        {
+            GameObject.Find("Main Camera").transform.position = new Vector3(0, 1, -10);
+            commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim SnowmanOp Flyout"));
+
+            commands.Add(new OpeningCommand(OpeningCommandType.Input, "TimSuprisedBySnowman"));
+            commands.Add(new OpeningCommand(OpeningCommandType.Message, messages4, OpeningCommandMode.Through));
+            commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));
+            commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
+            commands.Add(new OpeningCommand(OpeningCommandType.Method, "StartSignboardAnime"));
+            StartOpening();
+            return;
+        }
 
         Pauser.Pause();
         //commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimHitsSnowman"));
@@ -147,8 +114,8 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TaubeFallAnime"));
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "HideTaubeStar"));
 
-        commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Tim Surprised"));
-        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "3"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Tim Force Tim_TurnedLoop"));
+        //commands.Add(new OpeningCommand(OpeningCommandType.Wait, "3"));
         commands.Add(new OpeningCommand(OpeningCommandType.PlaySound, "Op4"));
 
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "ShakeTaube"));
@@ -159,6 +126,8 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Timeline, "TimRunAway"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, "@Anim Signboard Rolling"));
         commands.Add(new OpeningCommand(OpeningCommandType.Method, "StartSignboardAnime"));
+
+
     }
     public void StartOpening()
     {
@@ -168,7 +137,7 @@ public class OpeningManager : MonoBehaviour
         tim.patSound = false;
         tim.OnHitSnowman.First().Subscribe(_ =>
         {
-            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayBGM("Op1");
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayBGMOneShot("Op1");
             tim.OnHitSnowman.First().Subscribe(_2 =>
            {
                NextAction();

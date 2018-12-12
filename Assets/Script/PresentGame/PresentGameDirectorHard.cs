@@ -81,4 +81,9 @@ public class PresentGameDirectorHard : MonoBehaviour, IPresentGameDirector
 
         }
     }
+
+    public void HurryUp()
+    {
+        throw new System.NotImplementedException();
+    }
 }

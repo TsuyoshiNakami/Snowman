@@ -165,8 +165,8 @@ public class ThrowOrbitController : MonoBehaviour {
             float time = (i * checkTimeInterval) + orbitAnimTime;
             if (orbitTimer >= orbitAnimInterval)
             {
-             //   orbitAnimTime += orbitAnimSpeed;
-            //    orbitTimer -= orbitAnimInterval;
+                orbitAnimTime += orbitAnimSpeed;
+                orbitTimer -= orbitAnimInterval;
             }
             if (orbitAnimTime >= 0.1f)
             {
@@ -582,14 +582,22 @@ public class ThrowOrbitController : MonoBehaviour {
         Vector2 vec = throwDirection * throwPower;
         float time = 0;
         bool hitToWall = false;
-
+        orbitTimer += Time.deltaTime;
         for (int i = 0; i < orbitsNum; i++)
         {
-            time = i * 0.08f;
+            time = i * 0.08f + orbitAnimTime;
             calculatedPosition.x = vec.x * time;
             //#Progress
             calculatedPosition.y = vec.y * time - 9.8f * throwObjGravityScale * time * time / 2;
-
+            if (orbitTimer >= orbitAnimInterval)
+            {
+                orbitAnimTime += orbitAnimSpeed;
+                orbitTimer -= orbitAnimInterval;
+            }
+            if (orbitAnimTime >= 0.1f)
+            {
+                orbitAnimTime = orbitAnimSpeed;
+            }
 
             if (IsThereCollider(calculatedPosition + startPos))
             {

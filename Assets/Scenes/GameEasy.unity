@@ -236,6 +236,34 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 212710558329197618, guid: 52f7ace6197286b4da6dce7f784dc9bd,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 03e7255e92885d0439a73bdde6211956,
+        type: 3}
+    - target: {fileID: 4011520399456598, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.5599998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116952746318508, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.56000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485564735990664, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 114429224694397210, guid: 52f7ace6197286b4da6dce7f784dc9bd,
+        type: 2}
+      propertyPath: orbitAnimInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114429224694397210, guid: 52f7ace6197286b4da6dce7f784dc9bd,
+        type: 2}
+      propertyPath: orbitsNum
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52f7ace6197286b4da6dce7f784dc9bd, type: 2}
   m_IsPrefabAsset: 0
@@ -2319,9 +2347,11 @@ MonoBehaviour:
   pauseWindow: {fileID: 1061365625}
   scoreDisplay: {fileID: 806891596}
   timerDisplay: {fileID: 1135896508}
+  enableHurryUpMode: 1
+  hurryUpTime: 30
   enablePresentEmit: 0
   gameFinished: 0
-  initialTimeLimit: 0
+  initialTimeLimit: 35
 --- !u!114 &948654915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2389,10 +2419,8 @@ MonoBehaviour:
   kindOfPresents:
   - {fileID: 1882362309303510, guid: 1b9da472ed66f9445b9a4a5d3effb9dd, type: 2}
   - {fileID: 1882362309303510, guid: df1426c9123e2964a96686c73cfc9155, type: 2}
-  - {fileID: 1882362309303510, guid: 36a21839549201e43bf8cc8476841c8b, type: 2}
-  - {fileID: 1882362309303510, guid: 99614aa921ec7e04da69310f4802ad57, type: 2}
-  - {fileID: 1882362309303510, guid: e3a1ddda974184b4ca187a6a088e3de5, type: 2}
   - {fileID: 1882362309303510, guid: f3fcda8b7e3b1cd45aabd2cb5b80cf00, type: 2}
+  - {fileID: 1882362309303510, guid: 99614aa921ec7e04da69310f4802ad57, type: 2}
 --- !u!114 &948654919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2999,29 +3027,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114395221538932602, guid: 4126b2fd5ab1c4a4dae36d0cc7de1e53,
         type: 2}
-      propertyPath: eventSystemRewired
-      value: 
-      objectReference: {fileID: 1895595596}
-    - target: {fileID: 114395221538932602, guid: 4126b2fd5ab1c4a4dae36d0cc7de1e53,
-        type: 2}
       propertyPath: eventSystemDefault
       value: 
       objectReference: {fileID: 13132547}
-    - target: {fileID: 114789262074103446, guid: 4126b2fd5ab1c4a4dae36d0cc7de1e53,
+    - target: {fileID: 114395221538932602, guid: 4126b2fd5ab1c4a4dae36d0cc7de1e53,
         type: 2}
-      propertyPath: _userData.joystickMaps.Array.data[1].actionElementMaps.Array.data[41]._actionId
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114789262074103446, guid: 4126b2fd5ab1c4a4dae36d0cc7de1e53,
-        type: 2}
-      propertyPath: _userData.joystickMaps.Array.data[1].actionElementMaps.Array.data[42]._actionId
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114789262074103446, guid: 4126b2fd5ab1c4a4dae36d0cc7de1e53,
-        type: 2}
-      propertyPath: _userData.joystickMaps.Array.data[1].actionElementMaps.Array.data[43]._actionId
-      value: 4
-      objectReference: {fileID: 0}
+      propertyPath: eventSystemRewired
+      value: 
+      objectReference: {fileID: 1895595596}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4126b2fd5ab1c4a4dae36d0cc7de1e53, type: 2}
   m_IsPrefabAsset: 0
@@ -4543,6 +4556,8 @@ MonoBehaviour:
   pauseWindow: {fileID: 0}
   scoreDisplay: {fileID: 0}
   timerDisplay: {fileID: 0}
+  enableHurryUpMode: 0
+  hurryUpTime: 30
   enablePresentEmit: 0
   gameFinished: 0
   initialTimeLimit: 50

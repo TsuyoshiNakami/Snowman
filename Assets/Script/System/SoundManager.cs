@@ -111,6 +111,55 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
             Debug.LogAssertion(soundName + " is null.");
         }
 	}
+
+
+	public void PlayBGMOneShot(string soundName) {
+		fadeOut = 0;
+		if (!BGM_ON) {
+			return;
+		}
+		Aus = transform.Find("BGM").gameObject.GetComponent<AudioSource>();
+		AusIntro = transform.Find("BGMIntro").gameObject.GetComponent<AudioSource>();
+		Aus.timeSamples = 0;
+		bool isIntro = false;
+        bool isLoop = false;
+		float introTime = 0f;
+		foreach (SoundInfo si in BGM) {
+
+			if (si.soundName == soundName) {
+				Aus.clip = si.clip;
+				Aus.volume = si.volume;
+				initBGMVolume = Aus.volume;
+                    isLoop = si.loop;
+				if (si.intro) {
+					introTime = si.introLength;
+					isIntro = true;
+					foreach (SoundInfo siIntro in BGM) {
+						//	Debug.Log (soundName + "Intro");
+						if (siIntro.soundName == soundName + "Intro") {
+							AusIntro.clip = siIntro.clip;
+
+							break;
+						}
+					}
+				}
+				break;
+			}
+		}
+		if (isIntro) {
+			Play (AusIntro, false);
+			Invoke ("PlayBGMAfterIntro", introTime);
+		} else	if(Aus.clip != null) {
+            Aus.loop = isLoop;
+		Aus.volume = MasterVolume * Aus.volume;
+		Aus.PlayOneShot(Aus.clip);
+            Debug.Log("Play BGM :" + Aus.clip);
+		} else
+        {
+            Debug.LogAssertion(soundName + " is null.");
+        }
+	}
+
 	public void PlayBGM(string soundName, bool isLoop) {
 		fadeOut = 0;
 		if (!BGM_ON) {
