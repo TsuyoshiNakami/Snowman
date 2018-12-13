@@ -30,7 +30,8 @@ public class Throwable : MonoBehaviour
     bool isFlashing = false;
     bool isTaken = false;
     [SerializeField]bool isInParachute = false;
-    
+
+    int thrown;
 
     public bool IsTaken {
         get {
@@ -56,7 +57,7 @@ public class Throwable : MonoBehaviour
     }
 
     void Start()
-    {
+    {thrown = LayerMask.NameToLayer("ThrowableThrown");
         gameObject.AddComponent<Pauser>();
     }
 
@@ -205,21 +206,23 @@ public class Throwable : MonoBehaviour
 
         }
 
-        if(attributes.Contains("Fragile"))
+        if (attributes.Contains("Fragile"))
         {
-            if(c.transform.CompareTag("Road")  && hasBeThrew && !IsTaken)
+            if (c.transform.CompareTag("Road") && hasBeThrew && !IsTaken)
             {
                 Debug.Log("Fragile Destroy");
                 presentManager.HidePresentFromView(gameObject);
                 Destroy(gameObject);
             }
         }
-
-        if(c.transform.CompareTag("Road") && isInParachute)
+        if (c.transform.CompareTag("Road")) { 
+        gameObject.layer = LayerMask.NameToLayer("Throwable");
+        if (isInParachute)
         {
             GetComponent<SpriteRenderer>().color = Color.white;
             isInParachute = false;
         }
+    }
     }
 
     private void OnCollisionExit2D(Collision2D c)
@@ -255,9 +258,15 @@ public class Throwable : MonoBehaviour
         isTaken = false;
         holdObj = null;
     }
+
+    
+
     public void OnThrew(Vector2 destPos, Vector2 throwDirection, float power, float dir)
     {
         hasBeThrew = true;
+
+        gameObject.layer = thrown;
+
         if (attributes.Contains("Bound"))
         {
             GetComponent<Collider2D>().sharedMaterial.bounciness = 1;

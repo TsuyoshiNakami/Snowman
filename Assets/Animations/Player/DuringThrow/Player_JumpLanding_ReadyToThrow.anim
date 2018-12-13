@@ -19,45 +19,27 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.18, y: -0.238, z: 0}
-        inSlope: {x: 0, y: Infinity, z: 0}
-        outSlope: {x: 0, y: Infinity, z: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-      - serializedVersion: 3
-        time: 0.1
-        value: {x: 0.18, y: -0.164, z: 0}
-        inSlope: {x: 0, y: Infinity, z: 0}
-        outSlope: {x: 0, y: Infinity, z: 0}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-      - serializedVersion: 3
-        time: 0.2
-        value: {x: 0.18, y: 0, z: 0}
+        value: {x: -0.57, y: -0.17, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: PlayerSprite
+    path: PlayerSprite/ThrowPoint
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300016, guid: 2d6dd0229db74a142803db63936d0627, type: 3}
+      value: {fileID: 21300010, guid: 5ca6edbe226ae9545a7c69b82da5c999, type: 3}
     - time: 0.1
-      value: {fileID: 21300020, guid: 2d6dd0229db74a142803db63936d0627, type: 3}
+      value: {fileID: 21300012, guid: 5ca6edbe226ae9545a7c69b82da5c999, type: 3}
     - time: 0.2
-      value: {fileID: 21300008, guid: 427e6430adad2f049a8f14a8e2ceac89, type: 3}
+      value: {fileID: 21300014, guid: 5ca6edbe226ae9545a7c69b82da5c999, type: 3}
     attribute: m_Sprite
     path: PlayerSprite
     classID: 212
@@ -71,22 +53,22 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 533382794
-      attribute: 1
-      script: {fileID: 0}
-      typeID: 4
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 533382794
       attribute: 0
       script: {fileID: 0}
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 1959840378
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300016, guid: 2d6dd0229db74a142803db63936d0627, type: 3}
-    - {fileID: 21300020, guid: 2d6dd0229db74a142803db63936d0627, type: 3}
-    - {fileID: 21300008, guid: 427e6430adad2f049a8f14a8e2ceac89, type: 3}
+    - {fileID: 21300010, guid: 5ca6edbe226ae9545a7c69b82da5c999, type: 3}
+    - {fileID: 21300012, guid: 5ca6edbe226ae9545a7c69b82da5c999, type: 3}
+    - {fileID: 21300014, guid: 5ca6edbe226ae9545a7c69b82da5c999, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -113,27 +95,18 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.18
+        value: -0.57
         inSlope: 0
         outSlope: 0
         tangentMode: 136
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.1
-        value: 0.18
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: PlayerSprite
+    path: PlayerSprite/ThrowPoint
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -141,36 +114,18 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.238
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 1
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.1
-        value: -0.164
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.2
-        value: 0
+        value: -0.17
         inSlope: 0
         outSlope: 0
-        tangentMode: 1
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: PlayerSprite
+    path: PlayerSprite/ThrowPoint
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -183,22 +138,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: PlayerSprite
+    path: PlayerSprite/ThrowPoint
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []
