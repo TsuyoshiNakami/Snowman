@@ -98,7 +98,8 @@ public class TitleManager : MonoBehaviour
         {
             buttons.SetActive(false);
             state = TitleState.StageSelect;
-            SceneManager.LoadScene("StageSelect", LoadSceneMode.Additive);
+            SceneLoader.LoadScene(GameScenes.GameEasy);
+            //SceneManager.LoadScene("StageSelect", LoadSceneMode.Additive);
         }
         else
         {

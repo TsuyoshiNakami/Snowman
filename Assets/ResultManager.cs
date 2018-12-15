@@ -5,13 +5,12 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Zenject;
+using naichilab;
+using UniRx;
+using Rewired;
 
 public class ResultManager : MonoBehaviour
 {
-    [SerializeField] GameObject resultWindow;
-
-    [SerializeField] GameObject resultElement;
-    [SerializeField] Transform resultTransform;
     [SerializeField] TextMeshProUGUI sumText;
     [SerializeField] Button[] buttons;
     [SerializeField] NumberDisplay scoreDisplay;
@@ -19,10 +18,13 @@ public class ResultManager : MonoBehaviour
     [Inject]
     PresentManager presentManager;
 
+    Player player;
+    bool isRankingOpen;
 
     // Use this for initialization
     void Start()
     {
+        player = ReInput.players.GetPlayer(0);
         buttonPanel.SetActive(false);
         ShowResult();
     }
@@ -30,6 +32,17 @@ public class ResultManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isRankingOpen)
+        {
+#if Engineer
+            if (player.GetButtonDown("Jump"))
+#else
+            if (Input.GetButtonDown(KeyConfig.Jump))
+#endif
+            {
+                OnCloseRanking();
+            }
+        }
 
     }
 
@@ -69,16 +82,41 @@ public class ResultManager : MonoBehaviour
         InitButtonFocus();
     }
 
-        public void SetButtonsInteractive(bool f)
+    public void SetButtonsInteractive(bool f)
+    {
+        for (int i = 0; i < buttons.Length; i++)
         {
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                buttons[i].interactable = f;
-            }
-        }
-
-        public void InitButtonFocus()
-        {
-            EventSystem.current.SetSelectedGameObject(buttons[1].gameObject);
+            buttons[i].interactable = f;
         }
     }
+
+    public void InitButtonFocus()
+    {
+        EventSystem.current.SetSelectedGameObject(buttons[1].gameObject);
+    }
+
+    public void OnOpenRanking()
+    {
+
+        GameObject.Find("RankingLoader").GetComponent<RankingLoader>()
+            .OnCloseRanking
+            .First()
+            .Subscribe(_ =>
+            {
+                OnCloseRanking();
+            });
+        SetButtonsInteractive(false);
+        isRankingOpen = true;
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(PresentGameManager.score);
+
+        //SceneManager.LoadScene("RankingAdditive", LoadSceneMode.Additive);
+    }
+
+    public void OnCloseRanking()
+    {
+        SetButtonsInteractive(true);
+        //SceneManager.UnloadSceneAsync("RankingAdditive");
+        isRankingOpen = false;
+        InitButtonFocus();
+    }
+}

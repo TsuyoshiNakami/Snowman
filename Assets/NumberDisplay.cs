@@ -34,7 +34,6 @@ public class NumberDisplay : MonoBehaviour
         {
             if (currentNum == destNum)
             {
-                Debug.Log(currentNum);
                 break;
             }
             else
