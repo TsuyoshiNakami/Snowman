@@ -17,6 +17,7 @@ public class ResultManager : MonoBehaviour
     [SerializeField] GameObject buttonPanel;
     [Inject]
     PresentManager presentManager;
+    SoundManager soundManager;
 
     Player player;
     bool isRankingOpen;
@@ -24,6 +25,7 @@ public class ResultManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         player = ReInput.players.GetPlayer(0);
         buttonPanel.SetActive(false);
         ShowResult();
@@ -56,6 +58,9 @@ public class ResultManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         WaitForSeconds wait = new WaitForSeconds(0.02f);
+
+        soundManager.PlayBGM("Result");
+
         float t = Time.time;
         while (true)
         {
@@ -63,7 +68,7 @@ public class ResultManager : MonoBehaviour
             {
                 scoreDisplay.SetNumberImmediately(Random.Range(0, 9999));
             }
-            if (Time.time - t > 1.5f) { break; }
+            if (Time.time - t > 2f) { break; }
             yield return wait;
         }
 

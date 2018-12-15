@@ -443,34 +443,34 @@ MonoBehaviour:
     loop: 0
   - soundName: Op2
     clip: {fileID: 8300000, guid: 8324ccdcd1e18204db4096fd82966495, type: 3}
-    volume: 0.651
+    volume: 0.585
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
   - soundName: Op3
-    clip: {fileID: 8300000, guid: 0393c6a12ca7e944f9fc84e349fba436, type: 3}
-    volume: 0.651
+    clip: {fileID: 8300000, guid: ec87bd043fd99014c9f7abdfcaa653fe, type: 3}
+    volume: 0.579
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
   - soundName: Op4
-    clip: {fileID: 8300000, guid: 85b33575ec66337488f1f6dce9def749, type: 3}
-    volume: 0.651
+    clip: {fileID: 8300000, guid: b575ebe53c3963945a471c6f59a94ae3, type: 3}
+    volume: 0.592
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
-  - soundName: FirePlace03
-    clip: {fileID: 8300000, guid: 21ef22468de93db499631f2be22d06ce, type: 3}
-    volume: 0.651
+  - soundName: HurryUp
+    clip: {fileID: 8300000, guid: 09a7888d7626d264ab636808dea6a97f, type: 3}
+    volume: 0.249
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
-  - soundName: FirePlace04
-    clip: {fileID: 8300000, guid: e7060d563aa7616408dc0879c4eccf99, type: 3}
+  - soundName: Result
+    clip: {fileID: 8300000, guid: 9945374f9a18d694795f60dda7f3e6a6, type: 3}
     volume: 0.651
     intro: 0
     introLength: 0

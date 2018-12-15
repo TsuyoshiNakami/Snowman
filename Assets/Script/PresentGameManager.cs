@@ -128,17 +128,7 @@ public class PresentGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (isRankingOpen)
-        {
-#if Engineer
-            if (player.GetButtonDown("Jump"))
-#else
-            if (Input.GetButtonDown(KeyConfig.Jump))
-#endif
-            {
-                OnCloseRanking();
-            }
-        }
+
 
         scoreDisplay.SetNumber(score);
         timerDisplay.SetNumberImmediately((int)Mathf.Ceil(TimeLimit));
@@ -202,6 +192,7 @@ public class PresentGameManager : MonoBehaviour
 
     IEnumerator ShowHurryUpText()
     {
+        soundManager.PlayBGM("HurryUp");
         startText.text = "あと" + hurryUpTime + "秒！";
         startText.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
@@ -211,9 +202,9 @@ public class PresentGameManager : MonoBehaviour
     {
         gameFinished = true;
         playerController.InitializeMotion();
-        Pauser.Pause();
+        Pauser.PauseWithoutTag("Throwable");
         //playerController.activeSts = false;
-        presentManager.DeleteAllPresents();
+        //presentManager.DeleteAllPresents();
 
         enablePresentEmit = true;
         gameDirector.OnTimerEnd();
@@ -228,27 +219,5 @@ public class PresentGameManager : MonoBehaviour
         SceneLoader.LoadScene(GameScenes.Result);
     }
 
-    public void OnOpenRanking()
-    {
 
-        GameObject.Find("RankingLoader").GetComponent<RankingLoader>()
-            .OnCloseRanking
-            .First()
-            .Subscribe(_ => {
-            OnCloseRanking();
-        });
-        resultWindow.SetButtonsInteractive(false);
-        isRankingOpen = true;
-        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(score);
-
-        //SceneManager.LoadScene("RankingAdditive", LoadSceneMode.Additive);
-    }
-
-    public void OnCloseRanking()
-    {
-        resultWindow.SetButtonsInteractive(true);
-        //SceneManager.UnloadSceneAsync("RankingAdditive");
-        isRankingOpen = false;
-        resultWindow.InitButtonFocus();
-    }
 }

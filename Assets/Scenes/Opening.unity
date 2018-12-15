@@ -1981,61 +1981,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[1].soundName
-      value: Op1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e4f7843896458de46bdc0314d770b33e, type: 3}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[2].soundName
-      value: Op2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8324ccdcd1e18204db4096fd82966495, type: 3}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[3].soundName
-      value: Op3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: ec87bd043fd99014c9f7abdfcaa653fe, type: 3}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[4].soundName
-      value: Op4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: b575ebe53c3963945a471c6f59a94ae3, type: 3}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[4].volume
-      value: 0.592
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[3].volume
-      value: 0.579
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[2].volume
-      value: 0.585
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
   m_IsPrefabAsset: 0

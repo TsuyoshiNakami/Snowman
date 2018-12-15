@@ -20,17 +20,17 @@ public class PlayerInputManager : MonoBehaviour
     {
 #if Engineer
         player = ReInput.players.GetPlayer(0);
-        Debug.Log("Rewired found " + ReInput.controllers.joystickCount + " joysticks attached.");
-        for (int i = 0; i < ReInput.controllers.joystickCount; i++)
-        {
-            Joystick j = ReInput.controllers.Joysticks[i];
-            Debug.Log(
-                "[" + i + "] Joystick: " + j.name + "\n" +
-                "Hardware Name: " + j.hardwareName + "\n" +
-                "Is Recognized: " + (j.hardwareTypeGuid != System.Guid.Empty ? "Yes" : "No") + "\n" +
-                "Is Assigned: " + (ReInput.controllers.IsControllerAssigned(j.type, j) ? "Yes" : "No")
-            );
-        }
+        //Debug.Log("Rewired found " + ReInput.controllers.joystickCount + " joysticks attached.");
+        //for (int i = 0; i < ReInput.controllers.joystickCount; i++)
+        //{
+        //    Joystick j = ReInput.controllers.Joysticks[i];
+        //    Debug.Log(
+        //        "[" + i + "] Joystick: " + j.name + "\n" +
+        //        "Hardware Name: " + j.hardwareName + "\n" +
+        //        "Is Recognized: " + (j.hardwareTypeGuid != System.Guid.Empty ? "Yes" : "No") + "\n" +
+        //        "Is Assigned: " + (ReInput.controllers.IsControllerAssigned(j.type, j) ? "Yes" : "No")
+        //    );
+        //}
 #endif
         plyCtrl = GetComponent<PlayerController>();
     }

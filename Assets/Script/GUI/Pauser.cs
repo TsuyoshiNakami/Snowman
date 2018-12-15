@@ -162,6 +162,20 @@ public class Pauser : MonoBehaviour
             obj.OnPause(mode);
         }
     }
+
+    public static void PauseWithoutTag(string tag, PauseMode mode = PauseMode.Normal)
+    {
+        targets.RemoveAll(item => item == null);
+        isPausing = true;
+
+        foreach (var obj in targets)
+        {
+            if (obj.tag != tag)
+            {
+                obj.OnPause(mode);
+            }
+        }
+    }
     // ポーズ
     public static void PauseWithout(string name)
     {
