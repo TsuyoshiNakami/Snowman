@@ -141,7 +141,7 @@ public class PresentGameManager : MonoBehaviour
         }
 
         scoreDisplay.SetNumber(score);
-        timerDisplay.SetNumber((int)Mathf.Ceil(TimeLimit));
+        timerDisplay.SetNumberImmediately((int)Mathf.Ceil(TimeLimit));
         if (gameFinished)
         {
             return;
@@ -220,14 +220,12 @@ public class PresentGameManager : MonoBehaviour
 
         startText.text = "終了！";
         startText.gameObject.SetActive(true);
-        Invoke("ShowResult", 2f);
+        Invoke("ShowResult", 1f);
     }
 
     void ShowResult()
     {
-        startText.gameObject.SetActive(false);
-        resultWindow.gameObject.SetActive(true);
-        resultWindow.ShowResult();
+        SceneLoader.LoadScene(GameScenes.Result);
     }
 
     public void OnOpenRanking()

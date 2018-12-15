@@ -9,5 +9,6 @@
     RankingAdditive,
     Tutorial,
     Opening,
-    OpeningBase
+    OpeningBase,
+    Result
 }

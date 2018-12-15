@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OpeningBase.unity
     guid: 09e802da0b7c2ff4f93ab882cb0f6d7e
+  - enabled: 1
+    path: Assets/Scenes/Result.unity
+    guid: 466a8fd94d6760a4191b8566c55b403c
   - enabled: 0
     path: Assets/Scenes/old/Ranking.unity
     guid: 33307818ed13d03439099ed234b44c6b
