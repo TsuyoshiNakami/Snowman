@@ -70,7 +70,11 @@ namespace naichilab
 
         private void Update()
         {
+#if engineer
             if(player.GetButtonDown("Jump") || player.GetButtonDown("Home"))
+#else
+            if(Input.GetButtonDown(KeyConfig.Jump) || Input.GetButtonDown(KeyConfig.Home))
+#endif
             {
                 OnCloseButtonClick();
             }

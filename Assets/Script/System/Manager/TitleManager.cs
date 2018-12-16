@@ -60,8 +60,11 @@ public class TitleManager : MonoBehaviour
     {
         if (isRankingOpen)
             return;
-
+#if engineer
         if (player.GetButtonDown("Home") && state == TitleState.PressStart)
+#else
+        if (Input.GetButtonDown(KeyConfig.Home) && state == TitleState.PressStart)
+#endif
         {
             state = TitleState.Menu;
             pressStartText.SetActive(false);
@@ -71,7 +74,11 @@ public class TitleManager : MonoBehaviour
             startButton.GetComponent<Button>().OnSelect(null);
         }
 
-        if (player.GetButtonDown("Jump"))
+#if engineer
+            if (player.GetButtonDown("Jump"))
+#else
+        if (Input.GetButtonDown(KeyConfig.Jump))
+#endif
         {
             if (state == TitleState.Menu)
             {

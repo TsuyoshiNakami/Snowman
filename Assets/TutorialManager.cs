@@ -138,6 +138,8 @@ public class TutorialManager : MonoBehaviour
                 break;
             case TutorialCommandType.ToGame:
                 ES3.Save<bool>("Tutorial", true, PresentGameConsts.saveSetting);
+        SoundManager soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+                soundManager.FadeOut(2);
                 SceneLoader.LoadScene(GameScenes.GameEasy);
 
                 break;

@@ -64,10 +64,18 @@ public class MessageWindowController : MonoBehaviour
         }
 
         UpdateText();
+#if engineer
         if (player.GetButtonDown("Fire"))
         {
             OnMessageButtonDown();
         }
+#else
+        if (Input.GetButtonDown(KeyConfig.Fire1))
+        {
+            OnMessageButtonDown();
+        }
+#endif
+
     }
 
     void OnMessageButtonDown()
