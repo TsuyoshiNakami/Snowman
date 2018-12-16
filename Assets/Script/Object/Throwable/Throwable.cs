@@ -57,8 +57,10 @@ public class Throwable : MonoBehaviour
     }
 
     void Start()
-    {thrown = LayerMask.NameToLayer("ThrowableThrown");
-        gameObject.AddComponent<Pauser>();
+    {
+        thrown = LayerMask.NameToLayer("ThrowableThrown");
+        Pauser pauser = gameObject.AddComponent<Pauser>();
+        pauser.pauseType = PauseType.KeepRigidbody;
     }
 
     void Initialize()

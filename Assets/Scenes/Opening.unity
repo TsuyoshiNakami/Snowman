@@ -2391,8 +2391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageWindowController: {fileID: 1403961206}
-  skipOpening: 0
-  autoStart: 0
+  skipOpening: 1
+  autoStart: 1
 --- !u!4 &666576189
 Transform:
   m_ObjectHideFlags: 0

@@ -54,12 +54,12 @@ public class TutorialManager : MonoBehaviour
     {
         List<string> messages = new List<string>();
         messages.Add("@Face Tim");
-        messages.Add("マスター！ねえ、マスターってば！");
+        messages.Add("ひえええ…あまり近づかないでよ…");
 
-        messages.Add("あれー、ほんとどこいっちゃったんだろう…");
-        messages.Add("クリスマスは明日だっていうのに…プレゼントどうしよう？？" +
-                    "こんな不器用なボクがプレゼントなんて作れるわけないよ…！");
-        messages.Add("雪だるまだって作るのこんな下手くそなのに！");
+        //messages.Add("あれー、ほんとどこいっちゃったんだろう…");
+        //messages.Add("クリスマスは明日だっていうのに…プレゼントどうしよう？？" +
+        //            "こんな不器用なボクがプレゼントなんて作れるわけないよ…！");
+        //messages.Add("雪だるまだって作るのこんな下手くそなのに！");
         List<string> messages2 = new List<string>();
         messages2.Add("@Face Tim");
         messages2.Add("あれ？キミ、プレゼントを投げられるのかい？");
@@ -67,7 +67,11 @@ public class TutorialManager : MonoBehaviour
         List<string> messages3 = new List<string>();
         messages3.Add("@Face Tim");
         messages3.Add("キミ、すごいよ！プレゼントが完成した！");
-        messages3.Add("この調子でプレゼント作っていけば、クリスマスに間に合うよ！");
+        messages3.Add("じゃあ、ボクがお菓子を頑張って作るから、キミはそのお菓子を箱に入れてくれるかな？" +
+            "さっきの調子でやれば大丈夫だから！");
+        messages3.Add("二人で協力して、クリスマスまでにたくさんのプレゼントを作ろう！");
+
+        StartCoroutine(ChangeBGM());
 
         Pauser.Pause();
         //commands.Add(new TutorialCommand(TutorialCommandType.Timeline, messages));
@@ -81,6 +85,36 @@ public class TutorialManager : MonoBehaviour
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages3));
         commands.Add(new TutorialCommand(TutorialCommandType.ToGame));
         NextAction();
+    }
+
+    IEnumerator ChangeBGM()
+    {
+
+        SoundManager soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        AudioSource bgm0 = soundManager.GetAudioSource();
+        AudioSource bgm1 = soundManager.GetAudioSource(1);
+
+        bgm0.timeSamples = bgm1.timeSamples;
+
+        float time = 0;
+        while (true)
+        {
+            time += Time.deltaTime;
+            if (time >= 0.05f)
+            {
+                time -= 0.05f;
+                bgm0.volume += 0.01f;
+                bgm1.volume -= 0.01f;
+            }
+            if(bgm0.volume >= 0.5f)
+            {
+                bgm1.volume = 0;
+                break;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
+
     }
 
     void PlayCommand(TutorialCommand command)

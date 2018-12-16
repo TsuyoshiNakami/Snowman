@@ -33,7 +33,7 @@ public class Pauser : MonoBehaviour
     Vector2[] rg2dBodyVels = null;
     float[] rg2dBodyAVels = null;
 
-    [SerializeField] PauseType pauseType;
+    [SerializeField] public PauseType pauseType;
 
 
     // 初期化

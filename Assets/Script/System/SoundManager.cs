@@ -67,12 +67,12 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 	}
 
 
-	public void PlayBGM(string soundName) {
+	public void PlayBGM(string soundName, int channel = 0) {
 		fadeOut = 0;
 		if (!BGM_ON) {
 			return;
 		}
-		Aus = transform.Find("BGM").gameObject.GetComponent<AudioSource>();
+		Aus = transform.Find("BGM" + channel).gameObject.GetComponent<AudioSource>();
 		AusIntro = transform.Find("BGMIntro").gameObject.GetComponent<AudioSource>();
 		Aus.timeSamples = 0;
 		bool isIntro = false;
@@ -113,12 +113,12 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 	}
 
 
-	public void PlayBGMOneShot(string soundName) {
+	public void PlayBGMOneShot(string soundName, int channel = 0) {
 		fadeOut = 0;
 		if (!BGM_ON) {
 			return;
 		}
-		Aus = transform.Find("BGM").gameObject.GetComponent<AudioSource>();
+        Aus = transform.Find("BGM"+ channel).gameObject.GetComponent<AudioSource>();
 		AusIntro = transform.Find("BGMIntro").gameObject.GetComponent<AudioSource>();
 		Aus.timeSamples = 0;
 		bool isIntro = false;
@@ -159,13 +159,18 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
             Debug.LogAssertion(soundName + " is null.");
         }
 	}
+     
+    public AudioSource GetAudioSource(int channel = 0)
+    {
+        return transform.Find("BGM" + channel).gameObject.GetComponent<AudioSource>();
+    }
 
-	public void PlayBGM(string soundName, bool isLoop) {
+	public AudioSource PlayBGM(string soundName, bool isLoop, int channel = 0) {
 		fadeOut = 0;
 		if (!BGM_ON) {
-			return;
+			return null;
 		}
-		Aus = transform.Find("BGM").gameObject.GetComponent<AudioSource>();
+		Aus = transform.Find("BGM" + channel).gameObject.GetComponent<AudioSource>();
 		AusIntro = transform.Find("BGMIntro").gameObject.GetComponent<AudioSource>();
 		bool isIntro = false;
 		float introTime = 0f;
@@ -183,7 +188,6 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 						//	Debug.Log (soundName + "Intro");
 						if (siIntro.soundName == soundName + "Intro") {
 							AusIntro.clip = siIntro.clip;
-
 							break;
 						}
 					}
@@ -197,6 +201,7 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		} else	if(Aus) {
 			Play (Aus, isLoop);
 		}
+        return Aus;
 	}
 
 
@@ -302,14 +307,15 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 	}
 
     int stopSample = 0;
-    public void StopBGM()
+    public void StopBGM(int channel = 0)
     {
-        if(Aus == null)
+        AudioSource aus = transform.Find("BGM" + channel).gameObject.GetComponent<AudioSource>();
+        if(aus == null)
         {
             return;
         }
-        stopSample = Aus.timeSamples;
-        Aus.Stop();
+        stopSample = aus.timeSamples;
+        aus.Stop();
     }
 
     public void PlayBGM()

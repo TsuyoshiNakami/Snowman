@@ -208,6 +208,11 @@ public class OpeningManager : MonoBehaviour
         GameObject taubeObj = GameObject.FindGameObjectWithTag("Player");
         taubeObj.GetComponent<PlayerController>().activeSts = true;
         yield return new WaitForSeconds(0.5f);
+        SoundManager soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        AudioSource bgm = soundManager.PlayBGM("Tutorial", true, 0);
+        bgm.volume = 0;
+        soundManager.PlayBGM("PreTutorial", true, 1);
+
         NextAction();
     }
 
