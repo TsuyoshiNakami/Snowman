@@ -7,7 +7,9 @@ using UnityEngine.EventSystems;
 using Zenject;
 using naichilab;
 using UniRx;
+#if engineer
 using Rewired;
+#endif
 
 public class ResultManager : MonoBehaviour
 {
@@ -19,14 +21,18 @@ public class ResultManager : MonoBehaviour
     PresentManager presentManager;
     SoundManager soundManager;
 
+#if engineer
     Player player;
+#endif
     bool isRankingOpen;
 
     // Use this for initialization
     void Start()
     {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+#if engineer
         player = ReInput.players.GetPlayer(0);
+#endif
         buttonPanel.SetActive(false);
         ShowResult();
     }

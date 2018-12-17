@@ -7,7 +7,10 @@ using UnityEngine.UI;
 using Tsuyomi.Yukihuru.Scripts.Utilities;
 using naichilab;
 using UniRx;
+#if engineer
 using Rewired;
+#endif
+
 
 public enum TitleState
 {
@@ -30,13 +33,18 @@ public class TitleManager : MonoBehaviour
 
     bool isRankingOpen;
     SoundManager soundManager;
+#if engineer
     Player player;
+#endif
 
     // Use this for initialization
     void Start()
     {
+
+#if engineer
         player = ReInput.players.GetPlayer(0);
 
+#endif
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking.Subscribe(_ => {
             OnCloseRanking();

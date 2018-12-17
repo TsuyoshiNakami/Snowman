@@ -5,7 +5,9 @@ using System.Linq;
 using NCMB;
 using NCMB.Extensions;
 using UniRx;
+#if engineer
 using Rewired;
+#endif
 
 namespace naichilab
 {
@@ -58,11 +60,15 @@ namespace naichilab
 			}
 		}
 
+#if engineer
         Player player;
+#endif
 
 		void Start ()
 		{
+#if engineer
             player = ReInput.players.GetPlayer(0);
+#endif
 			this.sendScoreButton.interactable = false;
 
 			StartCoroutine (GetHighScoreAndRankingBoard ());

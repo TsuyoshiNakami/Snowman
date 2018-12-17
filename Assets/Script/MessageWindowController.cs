@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+#if engineer
 using Rewired;
+#endif
+
 
 [System.Serializable]
 public class MessageWindowImage
@@ -24,7 +27,9 @@ public class MessageWindowController : MonoBehaviour
     List<string> messages;
     int messageNum = 0;
     bool allMessageShown = false;
+#if engineer
     Player player;
+#endif
 
     public bool isShowing = false;
     public bool autoScroll = false;
@@ -49,7 +54,9 @@ public class MessageWindowController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+#if engineer
         player = ReInput.players.GetPlayer(0);
+#endif
         messageWindow = GetComponent<MessageWindow>();
         messages = new List<string>();
         hideWindow();
