@@ -33,7 +33,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: d9d88d72d65d92d409606deefe2646d6, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
-  maskTexture: {fileID: 2800000, guid: 16edaedb423c1ee43a21225623e7c829, type: 3}
+  maskTexture: {fileID: 2800000, guid: 1bc5373eb415f8540964922965b64392, type: 3}
   cutoutRange: 0
 --- !u!114 &11491604
 MonoBehaviour:
