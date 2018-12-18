@@ -301,7 +301,7 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		if (Aus.volume != 0) {
 			fadeOutConst = Aus.volume / time / time;
 		} else {
-			fadeOutConst = Aus2.volume / time / time;
+		///	fadeOutConst = Aus2.volume / time / time;
 		}
 		fadeOut = time;
 	}
