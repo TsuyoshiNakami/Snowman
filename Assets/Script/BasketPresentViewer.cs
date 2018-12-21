@@ -106,9 +106,9 @@ public class BasketPresentViewer : MonoBehaviour {
     }
     void OnEnterPresent()
     {
+        GetComponent<Animator>().SetTrigger("Finish");
         YakuList yakuList = GameObject.Find("YakuList").GetComponent<YakuList>();
         Yaku maxYaku = PresentUtility.DistinguishYaku(presents, yakuList);
-
 
         if (maxYaku != null)
         {
@@ -124,8 +124,7 @@ public class BasketPresentViewer : MonoBehaviour {
         makeYakuSubject.OnNext(maxYaku.yakuName);
         PlaySeByScore(maxYaku.score);
 
-        Invoke("ClearPresents", 0f);
-        
+        Invoke("ClearPresents", 2f);
     }
 
     void PlaySeByScore(int score)

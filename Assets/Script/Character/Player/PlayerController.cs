@@ -377,6 +377,7 @@ public class PlayerController : BaseCharacterController
     private void UpdateIdleAnimation()
     {
         idleTime += Time.deltaTime;
+        return;
         if(idleTime > 3)
         {
             anime.SetFloat("IdleParam", 1);

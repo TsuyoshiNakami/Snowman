@@ -11,7 +11,10 @@ enum TutorialCommandType
     Message,
     Timeline,
     Input,
-    ToGame
+    ToGame,
+    Wait,
+    Pause,
+    Resume
 }
 
 struct TutorialCommand
@@ -42,34 +45,59 @@ struct TutorialCommand
 
 public class TutorialManager : MonoBehaviour
 {
+    Animator timAnim;
     [SerializeField] MessageWindowController messageWindowController;
     int actionCount = -1;
     List<TutorialCommand> commands = new List<TutorialCommand>();
 
     private void Start()
     {
+        timAnim = GameObject.Find("Tim").GetComponent<Animator>();
+
+        messageWindowController.OnReceiveCommand.Subscribe(cmd =>
+        {
+            if (cmd[0] == "Anim")
+            {
+                switch (cmd[1])
+                {
+                    case "Tim":
+                        if (cmd[2] == "Force")
+                        {
+                            timAnim.Play(cmd[3]);
+                        }
+                        else
+                        {
+                            timAnim.SetTrigger(cmd[2]);
+                        }
+                        break;
+                }
+            }
+        });
+
         StartTutorial();
     }
     public void StartTutorial()
     {
         List<string> messages = new List<string>();
+        List<string> messages2 = new List<string>();
+        List<string> messages3 = new List<string>();
+        List<string> messages4 = new List<string>();
+
         messages.Add("@Face Tim");
         messages.Add("ひえええ…あまり近づかないでよ…");
 
-        //messages.Add("あれー、ほんとどこいっちゃったんだろう…");
-        //messages.Add("クリスマスは明日だっていうのに…プレゼントどうしよう？？" +
-        //            "こんな不器用なボクがプレゼントなんて作れるわけないよ…！");
-        //messages.Add("雪だるまだって作るのこんな下手くそなのに！");
-        List<string> messages2 = new List<string>();
-        messages2.Add("@Face Tim");
-        messages2.Add("あれ？キミ、プレゼントを投げられるのかい？");
-        messages2.Add("じゃあもしかして…プレゼントを箱に3つ入れて完成させることもできるのかい？");
-        List<string> messages3 = new List<string>();
-        messages3.Add("@Face Tim");
-        messages3.Add("キミ、すごいよ！プレゼントが完成した！");
-        messages3.Add("じゃあ、ボクがお菓子を頑張って作るから、キミはそのお菓子を箱に入れてくれるかな？" +
+        messages2.Add("@Anim Tim Force Tim_Tutorial_Turn");
+
+        messages3.Add("@Anim Tim Force Tim_Talk_Worried");
+        messages3.Add("・・・あれ？キミ、プレゼントを投げられるのかい？");
+        messages3.Add("じゃあもしかして…プレゼントを箱に3つ入れて完成させることもできるのかい？");
+
+        messages4.Add("@Anim Tim Force Tim_Talk_Fine");
+        messages4.Add("キミ、すごいよ！プレゼントが完成した！");
+        messages4.Add("じゃあ、ボクがお菓子を頑張って作るから、キミはそのお菓子を箱に入れてくれるかな？" +
             "さっきの調子でやれば大丈夫だから！");
-        messages3.Add("二人で協力して、クリスマスまでにたくさんのプレゼントを作ろう！");
+        messages4.Add("@Anim Tim Force Tim_Talk_Smile");
+        messages4.Add("二人で協力して、クリスマスまでにたくさんのプレゼントを作ろう！");
 
         StartCoroutine(ChangeBGM());
 
@@ -79,10 +107,14 @@ public class TutorialManager : MonoBehaviour
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages));
         commands.Add(new TutorialCommand(TutorialCommandType.Input, "EnterPresent"));
 
+        commands.Add(new TutorialCommand(TutorialCommandType.Pause));
+        commands.Add(new TutorialCommand(TutorialCommandType.Wait, "1.5"));
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages2));
+        commands.Add(new TutorialCommand(TutorialCommandType.Wait, "1.5"));
+        commands.Add(new TutorialCommand(TutorialCommandType.Message, messages3));
         commands.Add(new TutorialCommand(TutorialCommandType.Input, "MakePresent"));
 
-        commands.Add(new TutorialCommand(TutorialCommandType.Message, messages3));
+        commands.Add(new TutorialCommand(TutorialCommandType.Message, messages4));
         commands.Add(new TutorialCommand(TutorialCommandType.ToGame));
         NextAction();
     }
@@ -125,11 +157,11 @@ public class TutorialManager : MonoBehaviour
                 DetectInputCommand(command.msg);
                 break;
             case TutorialCommandType.Message:
-                messageWindowController.StartMessage(command.msg);
                 messageWindowController.OnMessageFinished.First().Subscribe(_ =>
                 {
                     NextAction();
                 });
+                messageWindowController.StartMessage(command.msg);
                 break;
             case TutorialCommandType.Timeline:
                 PlayableDirector playableDirector = GameObject.Find("Timeline").GetComponent<PlayableDirector>();
@@ -142,6 +174,17 @@ public class TutorialManager : MonoBehaviour
                 soundManager.FadeOut(2);
                 SceneLoader.LoadScene(GameScenes.GameEasy);
 
+                break;
+            case TutorialCommandType.Wait:
+                Invoke("NextAction", float.Parse(command.msg[0]));
+                break;
+            case TutorialCommandType.Pause:
+                Pauser.Pause();
+                NextAction();
+                break;
+            case TutorialCommandType.Resume:
+                Pauser.Resume();
+                NextAction();
                 break;
         }
     }
