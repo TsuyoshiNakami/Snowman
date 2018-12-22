@@ -4,10 +4,11 @@ using UnityEngine;
 using UniRx;
 using Zenject;
 
-public class BasketManager : MonoBehaviour {
+public class BasketManager : MonoBehaviour
+{
 
     [SerializeField] int basketX2AppearanceDivider = 3;
-    [SerializeField] GameObject basket;
+    [SerializeField] GameObject[] baskets;
     [SerializeField] GameObject basketX2;
     List<Transform> generatePositions = new List<Transform>();
     List<bool> basketExistence = new List<bool>();
@@ -16,11 +17,12 @@ public class BasketManager : MonoBehaviour {
     private DiContainer container;
     int generateCount = 0;
     int x2appearTiming = 0;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         //バスケット出現位置
-        foreach(Transform child in GameObject.Find("BasketGeneratePoints").transform)
+        foreach (Transform child in GameObject.Find("BasketGeneratePoints").transform)
         {
             generatePositions.Add(child);
             basketExistence.Add(false);
@@ -29,6 +31,8 @@ public class BasketManager : MonoBehaviour {
 
         // 何回目に2倍カゴが現れるか    初回は出さない
         x2appearTiming = Random.Range(1, basketX2AppearanceDivider);
+        GameObject basket = GetRandomBasket();
+
         // X2カゴのタイミングならX2、それ以外なら普通のカゴを生成
         if (generateCount == x2appearTiming)
         {
@@ -38,26 +42,36 @@ public class BasketManager : MonoBehaviour {
         {
             GenerateBasket(basket);
         }
-           GenerateBasket(basket);        OnPresentCompleted();
+        GenerateBasket(basket);
+        OnPresentCompleted();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    GameObject GetRandomBasket()
+    {
+        int i = Random.Range(0, baskets.Length);
+        return baskets[i];
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnPresentCompleted()
     {
         generateCount++;
         //Debug.Log(generateCount);
         // 設定回数に達したら
-        if(generateCount >= basketX2AppearanceDivider)
+        if (generateCount >= basketX2AppearanceDivider)
         {
 
             generateCount = 0;
             x2appearTiming = Random.Range(0, basketX2AppearanceDivider);
             //Debug.Log("カウント初期化　次の2倍カゴは：" + x2appearTiming);
         }
+
+        GameObject basket = GetRandomBasket();
 
         // X2カゴのタイミングならX2、それ以外なら普通のカゴを生成
         if (generateCount == x2appearTiming)
@@ -74,10 +88,10 @@ public class BasketManager : MonoBehaviour {
     {
         //int i = Random.Range(0, generatePositions.Count);
         int i = 0;
-        while(basketExistence[i])
+        while (basketExistence[i])
         {
             i++;
-            if(basketExistence.Count <= i)
+            if (basketExistence.Count <= i)
             {
                 return;
             }
@@ -85,7 +99,8 @@ public class BasketManager : MonoBehaviour {
         basketExistence[i] = true;
         GameObject newObj = container.InstantiatePrefab(basket, generatePositions[i].position, generatePositions[i].rotation, null);
         //GameObject newObj = Instantiate(basket, generatePositions[i].position, generatePositions[i].rotation);
-        newObj.GetComponentInChildren<BasketPresentViewer>().OnMakeYaku.Subscribe(yaku => {
+        newObj.GetComponentInChildren<BasketPresentViewer>().OnMadePresent.Subscribe(yaku =>
+        {
             basketExistence[i] = false;
             OnPresentCompleted();
         });

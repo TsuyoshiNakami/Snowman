@@ -28,7 +28,6 @@ public class TitleManager : MonoBehaviour
 
     [SerializeField] GameObject startButton;
     [SerializeField] GameObject titleImage;
-    [SerializeField] GameObject logoImage;
     [SerializeField] GameObject openingButton;
 
     bool isRankingOpen;
@@ -59,7 +58,6 @@ public class TitleManager : MonoBehaviour
         {
             openingButton.SetActive(true);
             titleImage.SetActive(true);
-            logoImage.SetActive(true);
         }
     }
 

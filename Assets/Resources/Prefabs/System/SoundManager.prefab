@@ -615,6 +615,13 @@ MonoBehaviour:
     introLength: 0
     canBeInterrupted: 0
     loop: 1
+  - soundName: AfterResult
+    clip: {fileID: 8300000, guid: 62e83059ddb0ea3458b62975e4d2038f, type: 3}
+    volume: 0.651
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 1
   BGM_ON: 1
   SE:
   - soundName: ThrowSnowBall

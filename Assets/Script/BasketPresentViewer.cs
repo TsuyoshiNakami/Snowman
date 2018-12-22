@@ -10,7 +10,8 @@ public enum BasketType
     Normal,
     X2
 }
-public class BasketPresentViewer : MonoBehaviour {
+public class BasketPresentViewer : MonoBehaviour
+{
     [SerializeField]
     GameObject viewStart;
     [SerializeField]
@@ -27,6 +28,9 @@ public class BasketPresentViewer : MonoBehaviour {
 
     [SerializeField] float viewPresentSizeDivider = 3;
     Subject<string> makeYakuSubject = new Subject<string>();
+
+    bool blockPresent = false;
+
     public IObservable<string> OnMakeYaku
     {
         get
@@ -42,18 +46,34 @@ public class BasketPresentViewer : MonoBehaviour {
             return presentEnterSubject;
         }
     }
-    
+
+
+    Subject<Unit> madePresentSubject = new Subject<Unit>();
+    public IObservable<Unit> OnMadePresent
+    {
+        get
+        {
+            return madePresentSubject;
+        }
+    }
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         presentObjs = new List<GameObject>();
         basketCollider = GetComponent<BasketCollider>();
-        basketCollider.OnItemEnter.Subscribe(item => {
-            ViewPresent(item);
+        basketCollider.OnItemEnter.Subscribe(item =>
+        {
+            if (!blockPresent)
+            {
+                Destroy(item);
+                ViewPresent(item);
+            }
         });
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-	
+
 
     public void ViewPresent(GameObject item)
     {
@@ -73,21 +93,22 @@ public class BasketPresentViewer : MonoBehaviour {
         presentObjs.Add(newObj);
 
         Vector2 viewLine = viewEnd.transform.position - viewStart.transform.position;
-        for(int i = 0; i < presentObjs.Count; i++)
+        for (int i = 0; i < presentObjs.Count; i++)
         {
             presentObjs[i].transform.position = (Vector2)viewStart.transform.position + viewLine / (presentObjs.Count + 1) * (i + 1);
             //presentObjs[i].transform.localScale = Vector3.one / viewPresentSizeDivider;
         }
-        if(presentObjs.Count == 1)
+        if (presentObjs.Count == 1)
         {
             gameManager.PlaySE("PresentEnter1");
-        } else if (presentObjs.Count == 2)
+        }
+        else if (presentObjs.Count == 2)
         {
 
             gameManager.PlaySE("PresentEnter2");
         }
 
-        if(presentObjs.Count >= 3)
+        if (presentObjs.Count >= 3)
         {
             OnEnterPresent();
         }
@@ -95,7 +116,7 @@ public class BasketPresentViewer : MonoBehaviour {
 
     void ClearPresents()
     {
-        foreach(GameObject obj in presentObjs)
+        foreach (GameObject obj in presentObjs)
         {
             Destroy(obj);
         }
@@ -106,7 +127,8 @@ public class BasketPresentViewer : MonoBehaviour {
     }
     void OnEnterPresent()
     {
-        GetComponent<Animator>().SetTrigger("Finish");
+        blockPresent = true;
+        GetComponent<Animator>().SetBool("IsFinished", true);
         YakuList yakuList = GameObject.Find("YakuList").GetComponent<YakuList>();
         Yaku maxYaku = PresentUtility.DistinguishYaku(presents, yakuList);
 
@@ -123,8 +145,12 @@ public class BasketPresentViewer : MonoBehaviour {
         presentManager.OnMakeYakuEvent(presents, maxYaku, basketType);
         makeYakuSubject.OnNext(maxYaku.yakuName);
         PlaySeByScore(maxYaku.score);
+    }
 
-        Invoke("ClearPresents", 2f);
+    public void OnMadePresentBox()
+    {
+        madePresentSubject.OnNext(Unit.Default);
+        ClearPresents();
     }
 
     void PlaySeByScore(int score)

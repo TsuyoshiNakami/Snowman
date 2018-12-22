@@ -65,7 +65,7 @@ public class ResultManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         WaitForSeconds wait = new WaitForSeconds(0.02f);
 
-        soundManager.PlayBGM("Result");
+        soundManager.PlayBGMOneShot("Result");
 
         float t = Time.time;
         while (true)
@@ -87,10 +87,31 @@ public class ResultManager : MonoBehaviour
             }
             yield return wait;
         }
-
+        yield return new WaitForSeconds(2);
         buttonPanel.SetActive(true);
         SetButtonsInteractive(true);
         InitButtonFocus();
+        yield return new WaitForSeconds(2.5f);
+        soundManager.PlayBGM("AfterResult");
+        AudioSource bgm0 = soundManager.GetAudioSource();
+        float destVolume = bgm0.volume;
+        bgm0.volume = 0;
+        float time = 0;
+        while (true)
+        {
+            time += Time.deltaTime;
+            if (time >= 0.05f)
+            {
+                time -= 0.05f;
+                bgm0.volume += 0.01f;
+            }
+            if (bgm0.volume >= destVolume)
+            {
+                break;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
     }
 
     public void SetButtonsInteractive(bool f)

@@ -59,7 +59,6 @@ public class BasketCollider : MonoBehaviour
             if (exitCollider.Contains(c))
             {
                 ItemEnter(c.gameObject);
-
             }
         }
 
@@ -69,7 +68,6 @@ public class BasketCollider : MonoBehaviour
 
     void ItemEnter(GameObject item)
     {
-        Destroy(item);
         ItemEnterSubject.OnNext(item);
 
         ballCount++;

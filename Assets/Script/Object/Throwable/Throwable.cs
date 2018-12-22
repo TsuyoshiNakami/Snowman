@@ -23,6 +23,7 @@ public class Throwable : MonoBehaviour
     public bool hasBeThrew = false;
     GameObject outlineObj;
 
+    [SerializeField] GameObject brokenObj;
     [Inject]
     PresentManager presentManager;
 
@@ -213,6 +214,7 @@ public class Throwable : MonoBehaviour
             if (c.transform.CompareTag("Road") && hasBeThrew && !IsTaken)
             {
                 Debug.Log("Fragile Destroy");
+                Instantiate(brokenObj, transform.position, transform.rotation);
                 presentManager.HidePresentFromView(gameObject);
                 Destroy(gameObject);
             }

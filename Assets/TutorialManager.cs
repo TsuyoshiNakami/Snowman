@@ -61,6 +61,8 @@ public class TutorialManager : MonoBehaviour
                 switch (cmd[1])
                 {
                     case "Tim":
+                        timAnim.enabled = true;
+
                         if (cmd[2] == "Force")
                         {
                             timAnim.Play(cmd[3]);
@@ -68,6 +70,18 @@ public class TutorialManager : MonoBehaviour
                         else
                         {
                             timAnim.SetTrigger(cmd[2]);
+                        }
+
+                        if (cmd[2] == "Dir")
+                        {
+                            float dir = cmd[3] == "1" ? 1 : -1;
+                            timAnim.gameObject.transform.localScale = new Vector3(dir, 1, 1);
+                        }
+
+                        if (cmd[2] == "Stop")
+                        {
+                            timAnim.enabled = false;
+                            
                         }
                         break;
                 }
@@ -91,6 +105,7 @@ public class TutorialManager : MonoBehaviour
         messages3.Add("@Anim Tim Force Tim_Talk_Worried");
         messages3.Add("・・・あれ？キミ、プレゼントを投げられるのかい？");
         messages3.Add("じゃあもしかして…プレゼントを箱に3つ入れて完成させることもできるのかい？");
+        messages3.Add("@Anim Tim Stop");
 
         messages4.Add("@Anim Tim Force Tim_Talk_Fine");
         messages4.Add("キミ、すごいよ！プレゼントが完成した！");
@@ -99,6 +114,7 @@ public class TutorialManager : MonoBehaviour
         messages4.Add("@Anim Tim Force Tim_Talk_Smile");
         messages4.Add("二人で協力して、クリスマスまでにたくさんのプレゼントを作ろう！");
 
+        messages3.Add("@Anim Tim Stop");
         StartCoroutine(ChangeBGM());
 
         Pauser.Pause();
@@ -108,12 +124,14 @@ public class TutorialManager : MonoBehaviour
         commands.Add(new TutorialCommand(TutorialCommandType.Input, "EnterPresent"));
 
         commands.Add(new TutorialCommand(TutorialCommandType.Pause));
-        commands.Add(new TutorialCommand(TutorialCommandType.Wait, "1.5"));
+        commands.Add(new TutorialCommand(TutorialCommandType.Wait, "0.5"));
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages2));
-        commands.Add(new TutorialCommand(TutorialCommandType.Wait, "1.5"));
+        commands.Add(new TutorialCommand(TutorialCommandType.Wait, "0.8"));
+        commands.Add(new TutorialCommand(TutorialCommandType.Message, "@Anim Tim Dir -1"));
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages3));
         commands.Add(new TutorialCommand(TutorialCommandType.Input, "MakePresent"));
 
+        commands.Add(new TutorialCommand(TutorialCommandType.Wait, "1"));
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages4));
         commands.Add(new TutorialCommand(TutorialCommandType.ToGame));
         NextAction();
@@ -138,7 +156,7 @@ public class TutorialManager : MonoBehaviour
                 bgm0.volume += 0.01f;
                 bgm1.volume -= 0.01f;
             }
-            if(bgm0.volume >= 0.5f)
+            if (bgm0.volume >= 0.5f)
             {
                 bgm1.volume = 0;
                 break;
@@ -170,7 +188,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case TutorialCommandType.ToGame:
                 ES3.Save<bool>("Tutorial", true, PresentGameConsts.saveSetting);
-        SoundManager soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+                SoundManager soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
                 soundManager.FadeOut(2);
                 SceneLoader.LoadScene(GameScenes.GameEasy);
 

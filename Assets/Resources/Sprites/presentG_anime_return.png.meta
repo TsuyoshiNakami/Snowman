@@ -1,14 +1,12 @@
 fileFormatVersion: 2
-guid: 104c26b3eab5d31468e83e725311ef92
+guid: 9263ca26d472234429407472d4c0ef01
 TextureImporter:
   fileIDToRecycleName:
-    21300000: presentY_anime_finish (1)_0
-    21300002: presentY_anime_finish (1)_1
-    21300004: presentY_anime_finish (1)_2
-    21300006: presentY_anime_finish (1)_3
-    21300008: presentY_anime_finish (1)_4
-    21300010: presentY_anime_finish (1)_5
-    21300012: presentY_anime_finish (1)_6
+    21300000: presentG_anime_return_0
+    21300002: presentG_anime_return_1
+    21300004: presentG_anime_return_2
+    21300006: presentG_anime_return_3
+    21300008: presentG_anime_return_4
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -52,7 +50,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -102,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: presentY_anime_finish (1)_0
+      name: presentG_anime_return_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
-        width: 288
-        height: 288
+        y: 384
+        width: 384
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,19 +114,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39af0e5429747304280fdbff1c18b533
+      spriteID: 09d1671b6b9e1af49a584cee7565c7e3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: presentY_anime_finish (1)_1
+      name: presentG_anime_return_1
       rect:
         serializedVersion: 2
-        x: 288
-        y: 288
-        width: 288
-        height: 288
+        x: 384
+        y: 384
+        width: 384
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,19 +134,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d18a079a3874dc447be7a7e199d93076
+      spriteID: a31db8e5ee395d147940d0959b58081b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: presentY_anime_finish (1)_2
+      name: presentG_anime_return_2
       rect:
         serializedVersion: 2
-        x: 576
-        y: 288
-        width: 288
-        height: 288
+        x: 768
+        y: 384
+        width: 384
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,39 +154,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a3d874e98f703f43ad95dc54e4fe3ee
+      spriteID: 96fe44f53fbdf1342b0004d603993c15
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: presentY_anime_finish (1)_3
-      rect:
-        serializedVersion: 2
-        x: 864
-        y: 288
-        width: 288
-        height: 288
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a94d65322d2a8241ab77f5e89bc994d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: presentY_anime_finish (1)_4
+      name: presentG_anime_return_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 288
-        height: 288
+        width: 384
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,19 +174,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ed3612db41d78c4f8977e661568e2ad
+      spriteID: c49370766ae493144badfc2beaa79e8b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: presentY_anime_finish (1)_5
+      name: presentG_anime_return_4
       rect:
         serializedVersion: 2
-        x: 288
+        x: 384
         y: 0
-        width: 288
-        height: 288
+        width: 384
+        height: 384
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,27 +194,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a51e32eb93c02b4ba8bee27ef4327b6
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: presentY_anime_finish (1)_6
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 288
-        height: 288
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 87a93acd4c889e7468e2ed6e0948f7a1
+      spriteID: 57ad1cea9413eb549818b8181dff593a
       vertices: []
       indices: 
       edges: []
@@ -244,7 +202,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 9c9546448f8c11342a07ad64f13785e2
+    spriteID: a247d6b5992d92f4c9c56e3b96315da9
     vertices: []
     indices: 
     edges: []
