@@ -14,7 +14,8 @@ enum TutorialCommandType
     ToGame,
     Wait,
     Pause,
-    Resume
+    Resume,
+    Method
 }
 
 struct TutorialCommand
@@ -47,6 +48,8 @@ public class TutorialManager : MonoBehaviour
 {
     Animator timAnim;
     [SerializeField] MessageWindowController messageWindowController;
+    [SerializeField] GameObject tutorialImage;
+
     int actionCount = -1;
     List<TutorialCommand> commands = new List<TutorialCommand>();
 
@@ -121,9 +124,11 @@ public class TutorialManager : MonoBehaviour
         //commands.Add(new TutorialCommand(TutorialCommandType.Timeline, messages));
 
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages));
+        commands.Add(new TutorialCommand(TutorialCommandType.Method, "SetTutorialImagesActive"));
         commands.Add(new TutorialCommand(TutorialCommandType.Input, "EnterPresent"));
 
         commands.Add(new TutorialCommand(TutorialCommandType.Pause));
+        commands.Add(new TutorialCommand(TutorialCommandType.Method, "SetTutorialImagesNotActive"));
         commands.Add(new TutorialCommand(TutorialCommandType.Wait, "0.5"));
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages2));
         commands.Add(new TutorialCommand(TutorialCommandType.Wait, "0.8"));
@@ -134,6 +139,17 @@ public class TutorialManager : MonoBehaviour
         commands.Add(new TutorialCommand(TutorialCommandType.Wait, "1"));
         commands.Add(new TutorialCommand(TutorialCommandType.Message, messages4));
         commands.Add(new TutorialCommand(TutorialCommandType.ToGame));
+        NextAction();
+    }
+
+    void SetTutorialImagesActive()
+    {
+        tutorialImage.SetActive(true);
+        NextAction();
+    }
+    void SetTutorialImagesNotActive()
+    {
+        tutorialImage.SetActive(false);
         NextAction();
     }
 
@@ -203,6 +219,9 @@ public class TutorialManager : MonoBehaviour
             case TutorialCommandType.Resume:
                 Pauser.Resume();
                 NextAction();
+                break;
+            case TutorialCommandType.Method:
+                Invoke(command.msg[0], 0);
                 break;
         }
     }

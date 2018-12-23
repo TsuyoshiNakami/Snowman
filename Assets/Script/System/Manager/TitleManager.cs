@@ -16,7 +16,7 @@ public enum TitleState
 {
     PressStart,
     Menu,
-    StageSelect
+    Opening
 }
 public class TitleManager : MonoBehaviour
 {
@@ -29,6 +29,7 @@ public class TitleManager : MonoBehaviour
     [SerializeField] GameObject startButton;
     [SerializeField] GameObject titleImage;
     [SerializeField] GameObject openingButton;
+    [SerializeField] GameObject snowParticle;
 
     bool isRankingOpen;
     SoundManager soundManager;
@@ -45,17 +46,19 @@ public class TitleManager : MonoBehaviour
 
 #endif
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking.Subscribe(_ => {
-            OnCloseRanking();
-        });
+
         if (!ES3.KeyExists("Tutorial"))
         {
+            snowParticle.SetActive(false);
             Destroy(GameObject.Find("Main Camera"));
             SceneManager.LoadScene("Opening", LoadSceneMode.Additive);
             openingButton.SetActive(false);
         }
         else
         {
+            snowParticle.SetActive(true);
+            soundManager.PlayIntroLoop();
+            soundManager.GetAudioSource(0).Stop();
             openingButton.SetActive(true);
             titleImage.SetActive(true);
         }
@@ -66,18 +69,21 @@ public class TitleManager : MonoBehaviour
     {
         if (isRankingOpen)
             return;
+
+        if (state == TitleState.PressStart) {
 #if engineer
-        if (player.GetButtonDown("Home") && state == TitleState.PressStart)
+        if (player.GetButtonDown("Home") || player.GetButtonDown("Fire"))
 #else
-        if (Input.GetButtonDown(KeyConfig.Home) && state == TitleState.PressStart)
+            if (Input.GetButtonDown(KeyConfig.Home)  )
 #endif
-        {
-            state = TitleState.Menu;
-            pressStartText.SetActive(false);
-            buttons.SetActive(true);
-            soundManager.PlaySEOneShot("Decide");
-            EventSystem.current.SetSelectedGameObject(startButton);
-            startButton.GetComponent<Button>().OnSelect(null);
+            {
+                state = TitleState.Menu;
+                pressStartText.SetActive(false);
+                buttons.SetActive(true);
+                soundManager.PlaySEOneShot("Decide");
+                EventSystem.current.SetSelectedGameObject(startButton);
+                startButton.GetComponent<Button>().OnSelect(null);
+            }
         }
 
 #if engineer
@@ -94,14 +100,14 @@ public class TitleManager : MonoBehaviour
 
             }
 
-            if (state == TitleState.StageSelect)
-            {
-                state = TitleState.Menu;
-                buttons.SetActive(true);
-                EventSystem.current.SetSelectedGameObject(startButton);
-                startButton.GetComponent<Button>().OnSelect(null);
-                SceneManager.UnloadSceneAsync("StageSelect");
-            }
+            //if (state == TitleState.StageSelect)
+            //{
+            //    state = TitleState.Menu;
+            //    buttons.SetActive(true);
+            //    EventSystem.current.SetSelectedGameObject(startButton);
+            //    startButton.GetComponent<Button>().OnSelect(null);
+            //    SceneManager.UnloadSceneAsync("StageSelect");
+            //}
         }
     }
 
@@ -109,13 +115,14 @@ public class TitleManager : MonoBehaviour
     {
         if (ES3.KeyExists("Tutorial"))
         {
+            soundManager.StopIntroLoop();
             buttons.SetActive(false);
-            state = TitleState.StageSelect;
             SceneLoader.LoadScene(GameScenes.GameEasy);
             //SceneManager.LoadScene("StageSelect", LoadSceneMode.Additive);
         }
         else
         {
+            state = TitleState.Opening;
             titleUI.SetActive(false);
             GameObject.Find("OpeningManager").GetComponent<OpeningManager>().StartOpening();
         }
@@ -123,6 +130,12 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickRankingButton()
     {
+        GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking
+       .First()
+       .Subscribe(_ =>
+           {
+               OnCloseRanking();
+           });
         isRankingOpen = true;
         buttons.SetActive(false);
         naichilab.RankingLoader.Instance.SendScoreAndShowRanking(0);
@@ -132,12 +145,13 @@ public class TitleManager : MonoBehaviour
     {
         buttons.SetActive(true);
         EventSystem.current.SetSelectedGameObject(startButton);
-                startButton.GetComponent<Button>().OnSelect(null);
+        startButton.GetComponent<Button>().OnSelect(null);
         isRankingOpen = false;
     }
 
     public void OnOpeningButtonClicked()
     {
+        soundManager.StopIntroLoop();
         titleUI.SetActive(false);
         SceneLoader.LoadScene(GameScenes.OpeningBase, additiveLoadScenes: new GameScenes[] { GameScenes.Opening });
 

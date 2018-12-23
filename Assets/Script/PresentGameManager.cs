@@ -79,6 +79,8 @@ public class PresentGameManager : MonoBehaviour
         startText.gameObject.SetActive(false);
         score = initScore;
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        soundManager.GetAudioSource(1).volume = 0;
+
         soundManager.PlayBGM("Main");
 #if Engineer
         player = ReInput.players.GetPlayer(0);
@@ -148,6 +150,11 @@ public class PresentGameManager : MonoBehaviour
         {
             pauseWindow.OnHomeButtonPressed();
         }
+        if(player.GetButtonDown("Fire"))
+        {
+            pauseWindow.OnFireButtonPressed();
+        }
+        
 #else
         if (Input.GetButtonDown(KeyConfig.Decide))
         {

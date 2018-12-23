@@ -551,10 +551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e6b08f6f970e34ebf7b2d0ccadb4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleAudio: {fileID: 11400000, guid: c10701290b5757846bc9eda781fae562, type: 2}
   BGM:
   - soundName: Main
     clip: {fileID: 8300000, guid: 0f1ebff4631e70a4e9ed4d562837c985, type: 3}
-    volume: 0.18
+    volume: 0.38
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -568,14 +569,14 @@ MonoBehaviour:
     loop: 0
   - soundName: Op2
     clip: {fileID: 8300000, guid: 5d831c8e273d784409cee3f011892037, type: 3}
-    volume: 0.585
+    volume: 0.57
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
   - soundName: Op3
     clip: {fileID: 8300000, guid: ec87bd043fd99014c9f7abdfcaa653fe, type: 3}
-    volume: 0.579
+    volume: 0.5
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -589,14 +590,14 @@ MonoBehaviour:
     loop: 0
   - soundName: HurryUp
     clip: {fileID: 8300000, guid: 2ebb5b2b6bf15ff4a87df37621d76a81, type: 3}
-    volume: 0.237
+    volume: 0.42
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
   - soundName: Result
     clip: {fileID: 8300000, guid: 9945374f9a18d694795f60dda7f3e6a6, type: 3}
-    volume: 0.651
+    volume: 0.62
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -617,6 +618,13 @@ MonoBehaviour:
     loop: 1
   - soundName: AfterResult
     clip: {fileID: 8300000, guid: 62e83059ddb0ea3458b62975e4d2038f, type: 3}
+    volume: 0.651
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 1
+  - soundName: Title
+    clip: {fileID: 8300000, guid: 60353c53368c7d04c9629f24a499996e, type: 3}
     volume: 0.651
     intro: 0
     introLength: 0

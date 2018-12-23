@@ -39,6 +39,11 @@ public class OpeningManager : MonoBehaviour
                         {
                             timAnim.SetTrigger(cmd[2]);
                         }
+                        if (cmd[2] == "Dir")
+                        {
+                            float dir = cmd[3] == "1" ? 1 : -1;
+                            timAnim.gameObject.transform.localScale = new Vector3(dir, 1, 1);
+                        }
                         break;
                     case "SnowmanOp":
                         Debug.Log("Anime SnowmanOP ");
@@ -105,7 +110,7 @@ public class OpeningManager : MonoBehaviour
         commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages));
         commands.Add(new OpeningCommand(OpeningCommandType.PlaySound, "Op2"));
-        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "2"));
+        commands.Add(new OpeningCommand(OpeningCommandType.Wait, "3"));
         commands.Add(new OpeningCommand(OpeningCommandType.Message, messages2));
 
 
@@ -173,10 +178,11 @@ public class OpeningManager : MonoBehaviour
         for (int i = 0; i < 1 / interval; i++)
         {
             taubeObj.transform.position =
-                initPos + new Vector3(UnityEngine.Random.Range(-shakeRange, shakeRange),
-                                        UnityEngine.Random.Range(-shakeRange, shakeRange));
+                initPos + new Vector3(UnityEngine.Random.Range(-shakeRange, 0),
+                                        UnityEngine.Random.Range(-shakeRange, 0));
             yield return new WaitForSeconds(interval);
         }
+        taubeObj.transform.position = initPos;
         NextAction();
     }
 

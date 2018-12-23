@@ -16,8 +16,6 @@ public class PauseWindow : MonoBehaviour {
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 	
-
-
     public void OnHomeButtonPressed()
     {
         if (pauseWindowObj.activeInHierarchy)
@@ -42,5 +40,14 @@ public class PauseWindow : MonoBehaviour {
             {
                 SceneLoader.LoadScene(GameScenes.Title);
             }
+    }
+
+    public void OnFireButtonPressed()
+    {
+    if (pauseWindowObj.activeInHierarchy)
+            {
+                SceneLoader.LoadScene(GameScenes.Title);
+            }
+
     }
 }
