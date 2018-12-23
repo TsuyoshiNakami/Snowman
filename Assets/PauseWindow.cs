@@ -23,6 +23,7 @@ public class PauseWindow : MonoBehaviour {
                 Pauser.Resume();
                 soundManager.PlayBGM();
                 pauseWindowObj.SetActive(false);
+                soundManager.PlaySEOneShot("Cancel");
             } else
             {
                 if (!Pauser.isPausing)
@@ -30,6 +31,7 @@ public class PauseWindow : MonoBehaviour {
                     Pauser.Pause(PauseMode.Force);
                     soundManager.StopBGM();
                     pauseWindowObj.SetActive(true);
+                soundManager.PlaySEOneShot("Decide");
                 }
             }
     }
@@ -38,6 +40,7 @@ public class PauseWindow : MonoBehaviour {
     {
             if (pauseWindowObj.activeInHierarchy)
             {
+                soundManager.PlaySEOneShot("Decide");
                 SceneLoader.LoadScene(GameScenes.Title);
             }
     }
@@ -46,6 +49,7 @@ public class PauseWindow : MonoBehaviour {
     {
     if (pauseWindowObj.activeInHierarchy)
             {
+                soundManager.PlaySEOneShot("Decide");
                 SceneLoader.LoadScene(GameScenes.Title);
             }
 

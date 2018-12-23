@@ -48,6 +48,7 @@ public class ResultManager : MonoBehaviour
             if (Input.GetButtonDown(KeyConfig.Jump))
 #endif
             {
+                soundManager.PlaySEOneShot("Cancel");
                 OnCloseRanking();
             }
         }
@@ -129,7 +130,7 @@ public class ResultManager : MonoBehaviour
 
     public void OnOpenRanking()
     {
-
+        soundManager.PlaySEOneShot("Decide");
         GameObject.Find("RankingLoader").GetComponent<RankingLoader>()
             .OnCloseRanking
             .First()

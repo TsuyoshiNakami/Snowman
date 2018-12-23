@@ -9,6 +9,7 @@ public class ToTutorialCollider : MonoBehaviour {
     {
         if(collision.transform.tag == "Player")
         {
+            Pauser.Pause();
             SceneLoader.LoadScene(GameScenes.Tutorial);
         }
     }

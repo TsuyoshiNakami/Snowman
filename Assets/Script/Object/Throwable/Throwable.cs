@@ -213,7 +213,7 @@ public class Throwable : MonoBehaviour
         {
             if (c.transform.CompareTag("Road") && hasBeThrew && !IsTaken)
             {
-                Debug.Log("Fragile Destroy");
+                GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySEOneShot("CakeBreak");
                 Instantiate(brokenObj, transform.position, transform.rotation);
                 presentManager.HidePresentFromView(gameObject);
                 Destroy(gameObject);

@@ -94,6 +94,7 @@ public class TitleManager : MonoBehaviour
         {
             if (state == TitleState.Menu)
             {
+                soundManager.PlaySEOneShot("Cancel");
                 state = TitleState.PressStart;
                 pressStartText.SetActive(true);
                 buttons.SetActive(false);
@@ -111,10 +112,18 @@ public class TitleManager : MonoBehaviour
         }
     }
 
+
+    bool gameStarted;
     public void OnGameStartButtonClicked()
     {
+        if(gameStarted)
+        {
+            return;
+        }
+        gameStarted = true;
         if (ES3.KeyExists("Tutorial"))
         {
+        soundManager.PlaySEOneShot("DecideBig");
             soundManager.StopIntroLoop();
             buttons.SetActive(false);
             SceneLoader.LoadScene(GameScenes.GameEasy);
@@ -122,6 +131,7 @@ public class TitleManager : MonoBehaviour
         }
         else
         {
+        soundManager.PlaySEOneShot("Decide");
             state = TitleState.Opening;
             titleUI.SetActive(false);
             GameObject.Find("OpeningManager").GetComponent<OpeningManager>().StartOpening();
@@ -130,6 +140,7 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickRankingButton()
     {
+                soundManager.PlaySEOneShot("Decide");
         GameObject.Find("RankingLoader").GetComponent<RankingLoader>().OnCloseRanking
        .First()
        .Subscribe(_ =>
@@ -143,6 +154,7 @@ public class TitleManager : MonoBehaviour
 
     void OnCloseRanking()
     {
+                soundManager.PlaySEOneShot("Cancel");
         buttons.SetActive(true);
         EventSystem.current.SetSelectedGameObject(startButton);
         startButton.GetComponent<Button>().OnSelect(null);
@@ -151,6 +163,7 @@ public class TitleManager : MonoBehaviour
 
     public void OnOpeningButtonClicked()
     {
+        soundManager.PlaySEOneShot("DecideBig");
         soundManager.StopIntroLoop();
         titleUI.SetActive(false);
         SceneLoader.LoadScene(GameScenes.OpeningBase, additiveLoadScenes: new GameScenes[] { GameScenes.Opening });

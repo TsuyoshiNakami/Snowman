@@ -625,7 +625,7 @@ MonoBehaviour:
     loop: 1
   - soundName: Title
     clip: {fileID: 8300000, guid: 60353c53368c7d04c9629f24a499996e, type: 3}
-    volume: 0.651
+    volume: 0.52
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -691,6 +691,20 @@ MonoBehaviour:
   - soundName: TimPat
     clip: {fileID: 8300000, guid: 7f5038fa8d40f8a4ab0a1f3f2835c9eb, type: 3}
     volume: 0.68
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 0
+  - soundName: CakeBreak
+    clip: {fileID: 8300000, guid: 64e07f13926273841900d966cc98cd76, type: 3}
+    volume: 0.83
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 0
+  - soundName: DecideBig
+    clip: {fileID: 8300000, guid: 922e01daff7d1304da7854c79601e309, type: 3}
+    volume: 1
     intro: 0
     introLength: 0
     canBeInterrupted: 0

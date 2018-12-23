@@ -10,6 +10,7 @@ public class TransitionButton : MonoBehaviour {
     [SerializeField] GameScenes scene;
     [SerializeField] bool focused = false;
     SoundManager soundManager;
+    bool clicked;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +31,11 @@ public class TransitionButton : MonoBehaviour {
 
     public void OnClick()
     {
+        if(clicked)
+        {
+            return;
+        }
+        clicked = true;
         soundManager.PlaySEOneShot("Decide");
         switch (scene)
         {
