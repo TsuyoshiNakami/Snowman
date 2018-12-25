@@ -1,8 +1,8 @@
-[{"yakuName":"カロリーの里","yakuEnum":0,"presents":[{"instanceID":14954},{"instanceID":14998},{"instanceID":14970}],"score":400,"presentNames":["Donut","Cake","Parfait"]}
-{"yakuName":"お祝いセット","yakuEnum":0,"presents":[{"instanceID":14998},{"instanceID":14828},{"instanceID":14828}],"score":300,"presentNames":["Cake","Brandy","Brandy"]}
-{"yakuName":"スイーツセット","yakuEnum":0,"presents":[{"instanceID":15488},{"instanceID":15488},{"instanceID":15488}],"score":180,"presentNames":["Sweet","Sweet","Sweet"]}
-{"yakuName":"スポーツの冬","yakuEnum":0,"presents":[{"instanceID":15490},{"instanceID":15490},{"instanceID":15490}],"score":150,"presentNames":["Sports","Sports","Sports"]}
-{"yakuName":"ミニ動物園","yakuEnum":0,"presents":[{"instanceID":15492},{"instanceID":15492},{"instanceID":15492}],"score":280,"presentNames":["Animal","Animal","Animal"]}
-{"yakuName":"フルコース","yakuEnum":0,"presents":[{"instanceID":15494},{"instanceID":15494},{"instanceID":15494}],"score":130,"presentNames":["Food","Food","Food"]}
-{"yakuName":"おもちゃ箱","yakuEnum":0,"presents":[{"instanceID":15496},{"instanceID":15496},{"instanceID":15496}],"score":250,"presentNames":["Toy","Toy","Toy"]}
+[{"yakuName":"カロリーの里","yakuEnum":0,"presents":[{"instanceID":26360},{"instanceID":26964},{"instanceID":26368}],"score":400,"presentNames":["Donut","Cake","Parfait"]}
+{"yakuName":"お祝いセット","yakuEnum":0,"presents":[{"instanceID":26964},{"instanceID":26830},{"instanceID":26830}],"score":300,"presentNames":["Cake","Brandy","Brandy"]}
+{"yakuName":"スイーツセット","yakuEnum":0,"presents":[{"instanceID":27086},{"instanceID":27086},{"instanceID":27086}],"score":180,"presentNames":["Sweet","Sweet","Sweet"]}
+{"yakuName":"スポーツの冬","yakuEnum":0,"presents":[{"instanceID":27088},{"instanceID":27088},{"instanceID":27088}],"score":150,"presentNames":["Sports","Sports","Sports"]}
+{"yakuName":"ミニ動物園","yakuEnum":0,"presents":[{"instanceID":27090},{"instanceID":27090},{"instanceID":27090}],"score":280,"presentNames":["Animal","Animal","Animal"]}
+{"yakuName":"フルコース","yakuEnum":0,"presents":[{"instanceID":27092},{"instanceID":27092},{"instanceID":27092}],"score":130,"presentNames":["Food","Food","Food"]}
+{"yakuName":"おもちゃ箱","yakuEnum":0,"presents":[{"instanceID":27094},{"instanceID":27094},{"instanceID":27094}],"score":250,"presentNames":["Toy","Toy","Toy"]}
 ]

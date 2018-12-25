@@ -555,7 +555,7 @@ MonoBehaviour:
   BGM:
   - soundName: Main
     clip: {fileID: 8300000, guid: 0f1ebff4631e70a4e9ed4d562837c985, type: 3}
-    volume: 0.38
+    volume: 0.4
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -576,28 +576,28 @@ MonoBehaviour:
     loop: 0
   - soundName: Op3
     clip: {fileID: 8300000, guid: ec87bd043fd99014c9f7abdfcaa653fe, type: 3}
-    volume: 0.5
+    volume: 0.2
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
   - soundName: Op4
     clip: {fileID: 8300000, guid: b575ebe53c3963945a471c6f59a94ae3, type: 3}
-    volume: 0.592
+    volume: 0.53
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
   - soundName: HurryUp
     clip: {fileID: 8300000, guid: 2ebb5b2b6bf15ff4a87df37621d76a81, type: 3}
-    volume: 0.42
+    volume: 0.3
     intro: 0
     introLength: 0
     canBeInterrupted: 0
     loop: 0
   - soundName: Result
     clip: {fileID: 8300000, guid: 9945374f9a18d694795f60dda7f3e6a6, type: 3}
-    volume: 0.62
+    volume: 0.49
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -618,7 +618,7 @@ MonoBehaviour:
     loop: 1
   - soundName: AfterResult
     clip: {fileID: 8300000, guid: 62e83059ddb0ea3458b62975e4d2038f, type: 3}
-    volume: 0.651
+    volume: 0.4
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -655,7 +655,7 @@ MonoBehaviour:
     loop: 0
   - soundName: PresentEnter3
     clip: {fileID: 8300000, guid: c03b343b0b039a64cab9d02bd8a4b53c, type: 3}
-    volume: 0.8
+    volume: 0.97
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -669,7 +669,7 @@ MonoBehaviour:
     loop: 0
   - soundName: GoodPresent1
     clip: {fileID: 8300000, guid: fc79923dddaedf642bfdc2b97b1e4dee, type: 3}
-    volume: 0.8
+    volume: 0.98
     intro: 0
     introLength: 0
     canBeInterrupted: 0
@@ -689,7 +689,7 @@ MonoBehaviour:
     canBeInterrupted: 0
     loop: 0
   - soundName: TimPat
-    clip: {fileID: 8300000, guid: 7f5038fa8d40f8a4ab0a1f3f2835c9eb, type: 3}
+    clip: {fileID: 8300000, guid: 461000e560ea92b4da7a5de36a01e299, type: 3}
     volume: 0.68
     intro: 0
     introLength: 0
@@ -702,9 +702,37 @@ MonoBehaviour:
     introLength: 0
     canBeInterrupted: 0
     loop: 0
+  - soundName: LidFall
+    clip: {fileID: 8300000, guid: bb7ca71351733de4a87aad3157ef0bee, type: 3}
+    volume: 0.72
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 0
   - soundName: DecideBig
-    clip: {fileID: 8300000, guid: 922e01daff7d1304da7854c79601e309, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 01f101260043fd945a8a1b3b806451e4, type: 3}
+    volume: 0.68
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 0
+  - soundName: Cancel
+    clip: {fileID: 8300000, guid: 0b72b793ce92f7a419967541037de6c5, type: 3}
+    volume: 0.68
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 0
+  - soundName: PresentFinish
+    clip: {fileID: 8300000, guid: 37445e735f953674f8c34a2c962f1442, type: 3}
+    volume: 0.68
+    intro: 0
+    introLength: 0
+    canBeInterrupted: 0
+    loop: 0
+  - soundName: PresentFinishG
+    clip: {fileID: 8300000, guid: 191537141ed323442b342f06d742e138, type: 3}
+    volume: 0.81
     intro: 0
     introLength: 0
     canBeInterrupted: 0

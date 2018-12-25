@@ -740,6 +740,31 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224158919385266782, guid: 79688446755c3864fb8b61e647fbe49d,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224158919385266782, guid: 79688446755c3864fb8b61e647fbe49d,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224158919385266782, guid: 79688446755c3864fb8b61e647fbe49d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224158919385266782, guid: 79688446755c3864fb8b61e647fbe49d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224158919385266782, guid: 79688446755c3864fb8b61e647fbe49d,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79688446755c3864fb8b61e647fbe49d, type: 2}
   m_IsPrefabAsset: 0
@@ -835,6 +860,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: SE.Array.size
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4650601904414684, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.87
@@ -866,6 +896,21 @@ Prefab:
     - target: {fileID: 4650601904414684, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: SE.Array.data[14].soundName
+      value: PresentFinishG
+      objectReference: {fileID: 0}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: SE.Array.data[14].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 191537141ed323442b342f06d742e138, type: 3}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: SE.Array.data[14].volume
+      value: 0.68
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
@@ -2032,7 +2077,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "\u62BC\u3057\u7D9A\u3051\u3066\u96E2\u3059"
+  m_text: "\u307E\u305F\u306F[Z]\u30AD\u30FC\u3092\u62BC\u3057\u7D9A\u3051\u3066\u96E2\u3059"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cb789f353bfabf408ba84d59dc50b65, type: 2}
   m_sharedMaterial: {fileID: 21243049576244896, guid: 0cb789f353bfabf408ba84d59dc50b65,
@@ -2098,13 +2143,13 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -344.01178, w: 0}
   m_textInfo:
     textComponent: {fileID: 1284122335}
-    characterCount: 7
+    characterCount: 16
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 3
     linkCount: 0
     lineCount: 1
     pageCount: 1

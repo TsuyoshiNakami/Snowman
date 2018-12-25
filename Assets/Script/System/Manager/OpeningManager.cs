@@ -79,7 +79,7 @@ public class OpeningManager : MonoBehaviour
 
         List<string> messages2 = new List<string>();
         messages2.Add("@Anim Tim LookUpSpeak");
-        messages2.Add("クリスマスは明日だっていうのに、僕だけじゃプレゼントなんて作れないよ…！");
+        messages2.Add("クリスマスは明日だっていうのに、ボクだけじゃプレゼントなんて作れないよ…！");
 
 
         List<string> messages3 = new List<string>();

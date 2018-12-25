@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasketSpriteChanger : MonoBehaviour {
     [System.Serializable]
-    enum Color
+    public enum Color
     {
         B,
         Y,
@@ -15,7 +15,7 @@ public class BasketSpriteChanger : MonoBehaviour {
     [SerializeField] string spriteFolderPath;
     Sprite[] sprites;
     SpriteRenderer spriteRenderer;
-    [SerializeField] Color color;
+    [SerializeField] public Color color;
 
 	// Use this for initialization
 	void Start () {

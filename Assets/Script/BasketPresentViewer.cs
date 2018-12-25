@@ -144,7 +144,18 @@ public class BasketPresentViewer : MonoBehaviour
         //役完成時のイベント
         presentManager.OnMakeYakuEvent(presents, maxYaku, basketType);
         makeYakuSubject.OnNext(maxYaku.yakuName);
-        PlaySeByScore(maxYaku.score);
+        int mul = basketType == BasketType.Normal ? 1 : 2;
+        PlaySeByScore(maxYaku.score * mul);
+    }
+
+    public void PlaySE(string name)
+    {
+        if(name == "PresentFinish" && GetComponent<BasketSpriteChanger>().color == BasketSpriteChanger.Color.G)
+        {
+            gameManager.PlaySE("PresentFinishG");
+            return;
+        }
+            gameManager.PlaySE(name);
     }
 
     public void OnMadePresentBox()
@@ -155,7 +166,7 @@ public class BasketPresentViewer : MonoBehaviour
 
     void PlaySeByScore(int score)
     {
-        if (score < 100)
+        if (score < 400)
         {
             gameManager.PlaySE("PresentEnter3");
         }

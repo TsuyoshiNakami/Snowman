@@ -42,12 +42,10 @@ public class GameManager : SingletonMonoBehaviourFast<GameManager> {
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M) && !messageWindowController.isShowing)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ShowTestMsg();
-
+            Application.Quit();
         }
-
         if(Input.GetKeyDown(KeyCode.C)) {
             float max = Mathf.Max(Screen.width, Screen.height);
             //int scale = Mathf.RoundToInt(2048 / max);

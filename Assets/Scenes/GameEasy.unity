@@ -2745,7 +2745,7 @@ MonoBehaviour:
   hurryUpTime: 30
   enablePresentEmit: 0
   gameFinished: 0
-  initialTimeLimit: 40
+  initialTimeLimit: 90
 --- !u!114 &948654915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3534,16 +3534,6 @@ Prefab:
     - target: {fileID: 4650601904414684, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
       propertyPath: m_RootOrder
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[0].volume
-      value: 0.271
-      objectReference: {fileID: 0}
-    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
-        type: 2}
-      propertyPath: BGM.Array.data[5].volume
-      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
