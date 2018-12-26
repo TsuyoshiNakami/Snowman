@@ -5,6 +5,7 @@ using UnityEngine.Playables;
 using UniRx;
 using System;
 using Tsuyomi.Yukihuru.Scripts.Utilities;
+using Rewired;
 
 
 
@@ -14,12 +15,16 @@ public class OpeningManager : MonoBehaviour
     [SerializeField] List<Playable> playables;
     [SerializeField] bool skipOpening;
     [SerializeField] bool autoStart;
+    bool onTransition;
+    bool canSkipOpening;
     Animator timAnim;
     int actionCount = -1;
     List<OpeningCommand> commands = new List<OpeningCommand>();
+    Player player;
 
     private void Start()
     {
+        player = ReInput.players.GetPlayer(0);
         timAnim = GameObject.Find("Tim").GetComponent<Animator>();
         timAnim.SetTrigger("Pat");
         messageWindowController.autoScroll = true;
@@ -142,7 +147,8 @@ public class OpeningManager : MonoBehaviour
         tim.patSound = false;
         tim.OnHitSnowman.First().Subscribe(_ =>
         {
-            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayBGMOneShot("Op1");
+               canSkipOpening = true;
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayBGMOneShot("Op1", 2);
             tim.OnHitSnowman.First().Subscribe(_2 =>
            {
                NextAction();
@@ -224,6 +230,10 @@ public class OpeningManager : MonoBehaviour
 
     void PlayCommand(OpeningCommand command)
     {
+        if(onTransition)
+        {
+            return;
+        }
         switch (command.type)
         {
             case OpeningCommandType.Input:
@@ -334,9 +344,18 @@ public class OpeningManager : MonoBehaviour
             PlayCommand(commands[actionCount]);
         }
     }
+
     // Update is called once per frame
     void Update()
     {
+        if(canSkipOpening && player.GetButtonDown("Home") && !onTransition)
+        {
 
+        SoundManager soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+            soundManager.FadeOut(1f, 2);
+            CancelInvoke();
+            onTransition = true;
+            SceneLoader.LoadScene(GameScenes.Tutorial);
+        } 
     }
 }

@@ -1961,6 +1961,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114368320672252712, guid: 790f2379a4df50b4bb496a8d807b81be,
+        type: 2}
+      propertyPath: BGM.Array.data[10].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3aa46c06026657148a837cb37e475d64, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 790f2379a4df50b4bb496a8d807b81be, type: 2}
   m_IsPrefabAsset: 0
