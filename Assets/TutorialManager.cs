@@ -5,6 +5,7 @@ using UnityEngine.Playables;
 using UniRx;
 using System;
 using Tsuyomi.Yukihuru.Scripts.Utilities;
+using Rewired;
 
 enum TutorialCommandType
 {
@@ -22,7 +23,6 @@ struct TutorialCommand
 {
     public TutorialCommandType type;
     public List<string> msg;
-
     public TutorialCommand(TutorialCommandType _type, List<string> _msg)
     {
         type = _type;
@@ -46,15 +46,20 @@ struct TutorialCommand
 
 public class TutorialManager : MonoBehaviour
 {
+    bool canSkipTutorial;
     Animator timAnim;
     [SerializeField] MessageWindowController messageWindowController;
     [SerializeField] GameObject tutorialImage;
+
+    bool onTransition;
+    Player player;
 
     int actionCount = -1;
     List<TutorialCommand> commands = new List<TutorialCommand>();
 
     private void Start()
     {
+        player = ReInput.players.GetPlayer(0);
         timAnim = GameObject.Find("Tim").GetComponent<Animator>();
 
         messageWindowController.OnReceiveCommand.Subscribe(cmd =>
@@ -84,7 +89,7 @@ public class TutorialManager : MonoBehaviour
                         if (cmd[2] == "Stop")
                         {
                             timAnim.enabled = false;
-                            
+
                         }
                         break;
                 }
@@ -155,9 +160,15 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator ChangeBGM()
     {
-
         SoundManager soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        
         AudioSource bgm0 = soundManager.GetAudioSource();
+        
+        if(bgm0.clip == null || bgm0.clip.name != "tutorial")
+        {
+            soundManager.PlayBGM("Tutorial");
+        }
+        
         AudioSource bgm1 = soundManager.GetAudioSource(1);
 
         bgm0.timeSamples = bgm1.timeSamples;
@@ -185,6 +196,10 @@ public class TutorialManager : MonoBehaviour
 
     void PlayCommand(TutorialCommand command)
     {
+        if(onTransition)
+        {
+            return;
+        }
         switch (command.type)
         {
             case TutorialCommandType.Input:
@@ -238,6 +253,7 @@ public class TutorialManager : MonoBehaviour
         switch (msg[0])
         {
             case "EnterPresent":
+                canSkipTutorial = true;
                 GameObject.Find("Basket").GetComponent<BasketPresentViewer>().OnPresentEnter
             .First()
            .Subscribe(_ =>
@@ -278,6 +294,12 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (canSkipTutorial && player.GetButtonDown("Home") && !onTransition)
+        {
+            onTransition = true;
+                ES3.Save<bool>("Tutorial", true, PresentGameConsts.saveSetting);
+            CancelInvoke();
+            SceneLoader.LoadScene(GameScenes.GameEasy);
+        }
     }
 }

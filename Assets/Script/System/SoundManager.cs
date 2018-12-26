@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using E7.Introloop;
 
 [System.Serializable]
 class SoundInfo {
@@ -19,7 +18,6 @@ class SoundInfo {
 
 public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 
-    [SerializeField] IntroloopAudio titleAudio;
 	// 楽曲情報
 	[SerializeField] SoundInfo[] BGM;
 	[SerializeField] bool BGM_ON = true;
@@ -311,15 +309,43 @@ public class SoundManager : SingletonMonoBehaviourFast<SoundManager> {
 		}
 		fadeOut = time;
 	}
-    
+    	public void FadeOut(float time, int channel) {
+		if (!BGM_ON) {
+			return;
+		}
+        AudioSource source = GetAudioSource(channel);
+        if(source == null)
+        {
+            return;
+        }
+        StartCoroutine(Fade(source, source.volume, 0, time));
+	}
+
+    IEnumerator Fade(AudioSource audio, float from, float to, float time)
+    {
+        float timer = 0;
+        float value = to - from;
+        WaitForEndOfFrame wait = new WaitForEndOfFrame();
+
+        while(true)
+        {
+            timer += Time.deltaTime;
+            audio.volume = (timer * value) / time + from;
+            if(timer >= time)
+            {
+                audio.volume = to;
+                break;
+            }
+            yield return wait;
+        }
+    }
+
     public void PlayIntroLoop()
     {
         
-        IntroloopPlayer.Instance.Play(titleAudio);
     }
     public void StopIntroLoop()
     {
-        IntroloopPlayer.Instance.StopFade(1f);
     }
 
     int stopSample = 0;

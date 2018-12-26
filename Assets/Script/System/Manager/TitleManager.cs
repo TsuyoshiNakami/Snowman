@@ -56,9 +56,8 @@ public class TitleManager : MonoBehaviour
         }
         else
         {
+            soundManager.PlayBGM("Title");
             snowParticle.SetActive(true);
-            soundManager.PlayIntroLoop();
-            soundManager.GetAudioSource(0).Stop();
             openingButton.SetActive(true);
             titleImage.SetActive(true);
         }
@@ -124,7 +123,7 @@ public class TitleManager : MonoBehaviour
         if (ES3.KeyExists("Tutorial"))
         {
         soundManager.PlaySEOneShot("DecideBig");
-            soundManager.StopIntroLoop();
+            soundManager.FadeOut(1);
             buttons.SetActive(false);
             SceneLoader.LoadScene(GameScenes.GameEasy);
             //SceneManager.LoadScene("StageSelect", LoadSceneMode.Additive);
@@ -163,8 +162,8 @@ public class TitleManager : MonoBehaviour
 
     public void OnOpeningButtonClicked()
     {
+            soundManager.FadeOut(1);
         soundManager.PlaySEOneShot("DecideBig");
-        soundManager.StopIntroLoop();
         titleUI.SetActive(false);
         SceneLoader.LoadScene(GameScenes.OpeningBase, additiveLoadScenes: new GameScenes[] { GameScenes.Opening });
 
