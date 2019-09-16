@@ -1,7 +1,9 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using Random = UnityEngine.Random;
 
 public class TimPresentGame : MonoBehaviour {
     

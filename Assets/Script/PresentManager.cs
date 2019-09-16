@@ -1,9 +1,11 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System.Linq;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class MadeYaku
 {

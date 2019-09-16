@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace Tsuyomi.Yukihuru.Scripts.Utilities
             if(TransitionManager.Instance == null)
             {
                 var resource = Resources.Load("Utilities/TransitionCanvas");
-                Object.Instantiate(resource);
+                UnityEngine.Object.Instantiate(resource);
             }
             _transitionManager = TransitionManager.Instance;
         }

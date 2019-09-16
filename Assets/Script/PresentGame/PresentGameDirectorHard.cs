@@ -1,8 +1,10 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class PresentGameDirectorHard : MonoBehaviour, IPresentGameDirector
 {
